@@ -4,6 +4,8 @@ import { StyleSheet } from 'react-native';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
+import { registration } from '../../api/firebase/FirebaseAuth'
+
 
 export default function MediaLinksSignUp({ navigation, route }) {
 
@@ -14,6 +16,8 @@ export default function MediaLinksSignUp({ navigation, route }) {
     const onSignUp = () => {
 
         // TODO: validation
+        registration(authData)
+        
     }
 
 
@@ -91,7 +95,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                             label="Sign me up!"
                             labelStyle={{ fontWeight: '600', fontSize: 20 }}
                             style={{ width: 170, marginTop: 30 }}
-                            onPress={() => navigation.navigate("MediaLinks")}
+                            onPress={() => onSignUp()}
                             enableShadow
                         />
                         <Button

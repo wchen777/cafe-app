@@ -6,6 +6,15 @@ export default function SignUpInitial({ navigation }) {
 
     const [initialAuth, setInitialAuth] = useState({})
 
+    const initialValidation = () => {
+        // TODO: initial validation for inputs
+
+        // correct email form
+        // password > 6 charactesr
+
+        // also add red stars for required fields
+    }
+
     console.log(initialAuth)
 
     return (

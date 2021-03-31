@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 
 // Optionally import the services that you want to use
 //import "firebase/auth";
@@ -8,7 +8,7 @@ import * as firebase from 'firebase';
 //import "firebase/storage";
 
 // Initialize Firebase config file
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAYNbgLKZlupLeBP50vcPb7JbFqmbyMfsY",
   authDomain: "cafe-social-network.firebaseapp.com",
   databaseURL: "https://cafe-social-network-default-rtdb.firebaseio.com",
@@ -19,4 +19,3 @@ const firebaseConfig = {
   measurementId: "G-6T3JW9H3Z2"
 };
 
-firebase.initializeApp(firebaseConfig);
