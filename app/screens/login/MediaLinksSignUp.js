@@ -5,11 +5,16 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
 
-export default function MediaLinks({ navigation, route }) {
+export default function MediaLinksSignUp({ navigation, route }) {
 
     const [authData, setAuthData] = useState(route.params)
 
     console.log(authData)
+
+    const onSignUp = () => {
+
+        // TODO: validation
+    }
 
 
     return (
@@ -24,7 +29,9 @@ export default function MediaLinks({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="ig-username" autoCorrect={false} />
+                        <TextArea placeholder="ig-username" 
+                            autoCorrect={false}
+                            onChangeText={ig => setAuthData({ ...authData, ig: ig })}/>
                     </View>
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
                         Twitter
@@ -34,7 +41,9 @@ export default function MediaLinks({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="twitter-handle" autoCorrect={false} />
+                        <TextArea placeholder="twitter-handle" 
+                            autoCorrect={false}
+                            onChangeText={twitter => setAuthData({ ...authData, twitter: twitter })} />
                     </View>
 
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
@@ -44,7 +53,9 @@ export default function MediaLinks({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="my-portfolio.com" autoCorrect={false} />
+                        <TextArea placeholder="my-portfolio.com" 
+                            autoCorrect={false} 
+                            onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })}/>
                     </View>
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
                         Extra Links
@@ -53,19 +64,25 @@ export default function MediaLinks({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="extra-link.com" autoCorrect={false} />
+                        <TextArea placeholder="extra-link.com" 
+                            autoCorrect={false} 
+                            onChangeText={extra1 => setAuthData({ ...authData, extra1: extra1 })}/>
                     </View>
 
                     <View
                         style={{ ...styles.input, marginTop: 20 }}
                     >
-                        <TextArea placeholder="extra-link.com" autoCorrect={false} />
+                        <TextArea placeholder="extra-link.com" 
+                            autoCorrect={false} 
+                            onChangeText={extra2 => setAuthData({ ...authData, extra2: extra2 })}/>
                     </View>
 
                     <View
                         style={{ ...styles.input, marginTop: 20 }}
                     >
-                        <TextArea placeholder="extra-link.com" autoCorrect={false} />
+                        <TextArea placeholder="extra-link.com" 
+                            autoCorrect={false} 
+                            onChangeText={extra3 => setAuthData({ ...authData, extra3: extra3 })}/>
                     </View>
 
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>

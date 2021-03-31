@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
-export default function SignUp({ navigation }) {
+export default function SignUpInitial({ navigation }) {
 
     const [initialAuth, setInitialAuth] = useState({})
 
@@ -26,7 +26,9 @@ export default function SignUp({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="First Name" onChangeText={first => setInitialAuth({ ...initialAuth, first: first })} />
+                        <TextArea placeholder="First Name" 
+                            autoCorrect={false}
+                            onChangeText={first => setInitialAuth({ ...initialAuth, first: first })} />
                     </View>
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
                         Last Name
@@ -41,7 +43,9 @@ export default function SignUp({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="Last Name" onChangeText={last => setInitialAuth({ ...initialAuth, last: last })} />
+                        <TextArea placeholder="Last Name" 
+                            autoCorrect={false}
+                            onChangeText={last => setInitialAuth({ ...initialAuth, last: last })} />
                     </View>
                     {/* <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
                     Date of Birth
@@ -72,7 +76,9 @@ export default function SignUp({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="Email" keyboardType='email-address' textContentType='emailAddress'
+                        <TextArea placeholder="Email"
+                            autoCorrect={false}
+                            keyboardType='email-address' textContentType='emailAddress'
                             onChangeText={(email) => setInitialAuth({ ...initialAuth, email: email })} />
                     </View>
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
@@ -88,7 +94,9 @@ export default function SignUp({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="********" textContentType='password'
+                        <TextArea placeholder="********" 
+                            autoCorrect={false}
+                            textContentType='password'
                             onChangeText={(password) => setInitialAuth({ ...initialAuth, password: password })} />
                     </View>
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
@@ -104,7 +112,9 @@ export default function SignUp({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="********" textContentType='password'
+                        <TextArea placeholder="********" 
+                            autoCorrect={false}
+                            textContentType='password'
                             onChangeText={(confirmPassword) => setInitialAuth({ ...initialAuth, confirmPassword: confirmPassword })} />
                     </View>
 
