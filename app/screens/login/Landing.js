@@ -3,6 +3,7 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
 export default function Landing({ navigation }) {
+
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
@@ -24,7 +25,7 @@ export default function Landing({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="example@cafe.com" autoCorrect={false}/>
+                        <TextArea placeholder="example@cafe.com" autoCorrect={false} />
                     </View>
 
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
@@ -40,7 +41,7 @@ export default function Landing({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="********" autoCorrect={false}/>
+                        <TextArea placeholder="********" autoCorrect={false} />
                     </View>
 
                     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
@@ -56,15 +57,16 @@ export default function Landing({ navigation }) {
 
                     <Text
                         style={{
-                            fontSize: 16, marginTop: 40, fontWeight: 'bold',
+                            fontSize: 16, marginTop: 40, fontWeight: 'bold', marginLeft: 28,
                             fontStyle: 'italic', textDecorationLine: 'underline', color: '#0669FC'
                         }}
                         onPress={() => navigation.navigate("SignUp")}
                     >
                         Create a new account
-                </Text>
+                    </Text>
 
                 </View>
+
             </View>
         </TouchableWithoutFeedback>
     )
