@@ -87,7 +87,7 @@ export default function SignUpInitial({ navigation }) {
                     >
                         <TextArea placeholder="Email"
                             autoCorrect={false}
-                            keyboardType='email-address' textContentType='emailAddress'
+                            keyboardType='email-address' textContentType='emailAddress' autoCapitalize={false}
                             onChangeText={(email) => setInitialAuth({ ...initialAuth, email: email })} />
                     </View>
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
@@ -103,7 +103,7 @@ export default function SignUpInitial({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="********" 
+                        <TextArea placeholder="********" autoCapitalize={false}
                             autoCorrect={false}
                             textContentType='password'
                             onChangeText={(password) => setInitialAuth({ ...initialAuth, password: password })} />
@@ -121,7 +121,7 @@ export default function SignUpInitial({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="********" 
+                        <TextArea placeholder="********" autoCapitalize={false}
                             autoCorrect={false}
                             textContentType='password'
                             onChangeText={(confirmPassword) => setInitialAuth({ ...initialAuth, confirmPassword: confirmPassword })} />

@@ -26,7 +26,7 @@ export async function registration({ email, password, last, first, ig, twitter, 
   }
 }
 
-export async function signIn(email, password) {
+export async function signIn({email, password}) {
   try {
    await firebase
       .auth()

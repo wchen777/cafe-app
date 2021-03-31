@@ -15,7 +15,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
 
     const onSignUp = () => {
 
-        // TODO: validation
+        // TODO: validation, password encryption, password hiding
         registration(authData)
         
     }
@@ -33,7 +33,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="ig-username" 
+                        <TextArea placeholder="ig-username" autoCapitalize={false}
                             autoCorrect={false}
                             onChangeText={ig => setAuthData({ ...authData, ig: ig })}/>
                     </View>
@@ -45,7 +45,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="twitter-handle" 
+                        <TextArea placeholder="twitter-handle" autoCapitalize={false}
                             autoCorrect={false}
                             onChangeText={twitter => setAuthData({ ...authData, twitter: twitter })} />
                     </View>
@@ -57,7 +57,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="my-portfolio.com" 
+                        <TextArea placeholder="my-portfolio.com" autoCapitalize={false}
                             autoCorrect={false} 
                             onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })}/>
                     </View>
@@ -68,7 +68,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="extra-link.com" 
+                        <TextArea placeholder="extra-link.com" autoCapitalize={false}
                             autoCorrect={false} 
                             onChangeText={extra1 => setAuthData({ ...authData, extra1: extra1 })}/>
                     </View>
@@ -76,7 +76,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={{ ...styles.input, marginTop: 20 }}
                     >
-                        <TextArea placeholder="extra-link.com" 
+                        <TextArea placeholder="extra-link.com" autoCapitalize={false}
                             autoCorrect={false} 
                             onChangeText={extra2 => setAuthData({ ...authData, extra2: extra2 })}/>
                     </View>
@@ -84,7 +84,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={{ ...styles.input, marginTop: 20 }}
                     >
-                        <TextArea placeholder="extra-link.com" 
+                        <TextArea placeholder="extra-link.com" autoCapitalize={false}
                             autoCorrect={false} 
                             onChangeText={extra3 => setAuthData({ ...authData, extra3: extra3 })}/>
                     </View>

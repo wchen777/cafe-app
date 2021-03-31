@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
+import { signIn } from '../../api/firebase/FirebaseAuth'
+
 export default function Landing({ navigation }) {
+
+    const [login, setLogin] = useState({ email: '', password: '' })
+
+    const onLogin = () => {
+
+        // TODO: validation for email stuff, can create a separate js file for validation functions
+
+        signIn(login)
+    }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -25,7 +36,9 @@ export default function Landing({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="example@cafe.com" autoCorrect={false} />
+                        <TextArea placeholder="example@cafe.com" autoCapitalize={false}
+                            autoCorrect={false}
+                            onChangeText={email => setLogin({ ...login, email: email })} />
                     </View>
 
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
@@ -41,7 +54,9 @@ export default function Landing({ navigation }) {
                             paddingLeft: 10
                         }}
                     >
-                        <TextArea placeholder="********" autoCorrect={false} />
+                        <TextArea placeholder="********" autoCapitalize={false}
+                            autoCorrect={false}
+                            onChangeText={password => setLogin({ ...login, password: password })} />
                     </View>
 
                     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
@@ -50,7 +65,7 @@ export default function Landing({ navigation }) {
                             label="Sign In"
                             labelStyle={{ fontWeight: '600', fontSize: 20 }}
                             style={{ width: 145, marginTop: 30 }}
-                            onPress={() => navigation.navigate("SignUp")}
+                            onPress={() => onLogin()}
                             enableShadow
                         />
                     </View>
