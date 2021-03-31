@@ -3,8 +3,9 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack';
-import LandingScreen from './components/Landing';
-import SignUpScreen from './components/SignUp';
+import LandingScreen from './screens/login/Landing';
+import SignUpScreen from './screens/login/SignUp';
+import MediaLinks from './screens/login/MediaLinks';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,11 @@ export default function App() {
         <Stack.Screen
           name='SignUp'
           component={SignUpScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='MediaLinks'
+          component={MediaLinks}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
