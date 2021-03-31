@@ -43,7 +43,8 @@ export default function Landing({ navigation }) {
 
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
                         Password
-                </Text>
+                    </Text>
+
                     <View
                         style={{
                             height: 40,
@@ -59,7 +60,7 @@ export default function Landing({ navigation }) {
                             onChangeText={password => setLogin({ ...login, password: password })} />
                     </View>
 
-                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                         <Button
                             backgroundColor="#FFB36C"
                             label="Sign In"
