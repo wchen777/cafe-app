@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { Keyboard, TouchableWithoutFeedback, TextInput, Alert } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
 export default function SignUpInitial({ navigation }) {
@@ -13,6 +13,16 @@ export default function SignUpInitial({ navigation }) {
         // password > 6 charactesr
 
         // also add red stars for required fields
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!re.test(initialAuth.email)) {
+            Alert.alert('Email is invalid');
+        } else if (initialAuth.password.length < 6) {
+            Alert.alert('Password needs to be longer than 6 characters.');
+        } else if (initialAuth.password !== initialAuth.confirmPassword) {
+            Alert.alert('Passwords do not match.');
+        } else {
+            navigation.navigate("MediaLinks", initialAuth);
+        }
     }
 
     console.log(initialAuth)
@@ -25,37 +35,38 @@ export default function SignUpInitial({ navigation }) {
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
                         First Name
                 </Text>
-                    <View
-                        style={{
-                            height: 40,
-                            width: 220,
-                            borderWidth: 1,
-                            borderColor: Colors.dark60,
-                            borderRadius: 20,
-                            paddingLeft: 10
-                        }}
-                    >
-                        <TextArea placeholder="First Name" 
-                            autoCorrect={false}
-                            onChangeText={first => setInitialAuth({ ...initialAuth, first: first })} />
-                    </View>
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+
+                <TextInput 
+                    placeholder="First Name" 
+                    autoCorrect={false}
+                    onChangeText={first => setInitialAuth({ ...initialAuth, first: first })}
+                    style={{
+                        height: 40,
+                        width: 220,
+                        borderWidth: 1,
+                        borderColor: Colors.dark60,
+                        borderRadius: 20,
+                        paddingLeft: 10
+                    }} 
+                />
+
+                <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
                         Last Name
                 </Text>
-                    <View
-                        style={{
-                            height: 40,
-                            width: 220,
-                            borderWidth: 1,
-                            borderColor: Colors.dark60,
-                            borderRadius: 20,
-                            paddingLeft: 10
-                        }}
-                    >
-                        <TextArea placeholder="Last Name" 
-                            autoCorrect={false}
-                            onChangeText={last => setInitialAuth({ ...initialAuth, last: last })} />
-                    </View>
+
+                <TextInput 
+                    placeholder="Last Name" 
+                    autoCorrect={false}
+                    onChangeText={last => setInitialAuth({ ...initialAuth, last: last })}
+                    style={{
+                        height: 40,
+                        width: 220,
+                        borderWidth: 1,
+                        borderColor: Colors.dark60,
+                        borderRadius: 20,
+                        paddingLeft: 10
+                    }}
+                />
                     {/* <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
                     Date of Birth
                 </Text>
@@ -72,60 +83,66 @@ export default function SignUpInitial({ navigation }) {
                     <TextArea placeholder="mm/dd/yy"
                     onChangeText={(email) => setInitialAuth({...initialAuth, email: email})}/>
                 </View> */}
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+                <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
                         Email
                 </Text>
-                    <View
-                        style={{
-                            height: 40,
-                            width: 220,
-                            borderWidth: 1,
-                            borderColor: Colors.dark60,
-                            borderRadius: 20,
-                            paddingLeft: 10
-                        }}
-                    >
-                        <TextArea placeholder="Email"
-                            autoCorrect={false}
-                            keyboardType='email-address' textContentType='emailAddress' autoCapitalize={false}
-                            onChangeText={(email) => setInitialAuth({ ...initialAuth, email: email })} />
-                    </View>
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+
+                <TextInput 
+                    placeholder="Email"
+                    autoCorrect={false}
+                    keyboardType='email-address' textContentType='emailAddress' autoCapitalize={false}
+                    onChangeText={(email) => setInitialAuth({ ...initialAuth, email: email })} 
+                    style={{
+                        height: 40,
+                        width: 220,
+                        borderWidth: 1,
+                        borderColor: Colors.dark60,
+                        borderRadius: 20,
+                        paddingLeft: 10
+                    }}
+                />
+                <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
                         Password
                 </Text>
-                    <View
-                        style={{
-                            height: 40,
-                            width: 220,
-                            borderWidth: 1,
-                            borderColor: Colors.dark60,
-                            borderRadius: 20,
-                            paddingLeft: 10
-                        }}
-                    >
-                        <TextArea placeholder="********" autoCapitalize={false}
-                            autoCorrect={false}
-                            textContentType='password'
-                            onChangeText={(password) => setInitialAuth({ ...initialAuth, password: password })} />
-                    </View>
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+
+                <TextInput 
+                    placeholder="********" 
+                    autoCapitalize={false}
+                    autoCorrect={false}
+                    textContentType='password'
+                    secureTextEntry={true}
+                    onChangeText={(password) => setInitialAuth({ ...initialAuth, password: password })}
+                    style={{
+                        height: 40,
+                        width: 220,
+                        borderWidth: 1,
+                        borderColor: Colors.dark60,
+                        borderRadius: 20,
+                        paddingLeft: 10
+                    }}
+                />
+
+                <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
                         Retype Password
                 </Text>
-                    <View
-                        style={{
-                            height: 40,
-                            width: 220,
-                            borderWidth: 1,
-                            borderColor: Colors.dark60,
-                            borderRadius: 20,
-                            paddingLeft: 10
-                        }}
-                    >
-                        <TextArea placeholder="********" autoCapitalize={false}
-                            autoCorrect={false}
-                            textContentType='password'
-                            onChangeText={(confirmPassword) => setInitialAuth({ ...initialAuth, confirmPassword: confirmPassword })} />
-                    </View>
+
+                <TextInput 
+                    placeholder="********"
+                    autoCapitalize={false}
+                    autoCorrect={false}
+                    textContentType='password'
+                    secureTextEntry={true}
+                    onChangeText={(confirmPassword) => setInitialAuth({ ...initialAuth, confirmPassword: confirmPassword })}
+                    style={{
+                        height: 40,
+                        width: 220,
+                        borderWidth: 1,
+                        borderColor: Colors.dark60,
+                        borderRadius: 20,
+                        paddingLeft: 10
+                    }}
+                />
+
 
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <Button
@@ -133,7 +150,7 @@ export default function SignUpInitial({ navigation }) {
                             label="Continue"
                             labelStyle={{ fontWeight: '600', fontSize: 20 }}
                             style={{ width: 145, marginTop: 30 }}
-                            onPress={() => navigation.navigate("MediaLinks", initialAuth)}
+                            onPress={() => initialValidation()}
                             enableShadow
                         />
                         <Button

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
-import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
+import { Keyboard, TouchableWithoutFeedback, TextInput } from 'react-native'
+import { View, Image, Text, Button, Colors } from 'react-native-ui-lib';
 
 import { signIn } from '../../api/firebase/FirebaseAuth'
 
@@ -26,39 +26,39 @@ export default function Landing({ navigation }) {
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-50>
                         Email
                 </Text>
-                    <View
-                        style={{
-                            height: 40,
-                            width: 220,
-                            borderWidth: 1,
-                            borderColor: Colors.dark60,
-                            borderRadius: 20,
-                            paddingLeft: 10
-                        }}
-                    >
-                        <TextArea placeholder="example@cafe.com" autoCapitalize={false}
-                            autoCorrect={false}
-                            onChangeText={email => setLogin({ ...login, email: email.trim() })} />
-                    </View>
+
+                <TextInput placeholder="example@cafe.com" autoCapitalize={false}
+                    autoCorrect={false}
+                    onChangeText={email => setLogin({ ...login, email: email.trim() })}
+                    style={{
+                        height: 40,
+                        width: 220,
+                        borderWidth: 1,
+                        borderColor: Colors.dark60,
+                        borderRadius: 20,
+                        paddingLeft: 10
+                    }} 
+                />
 
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
                         Password
                     </Text>
 
-                    <View
+                    <TextInput
+                        placeholder="********"
+                        autoCapitalize={false}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        onChangeText={password => setLogin({ ...login, password: password.trim() })}
                         style={{
                             height: 40,
                             width: 220,
                             borderWidth: 1,
                             borderColor: Colors.dark60,
                             borderRadius: 20,
-                            paddingLeft: 10
-                        }}
-                    >
-                        <TextArea placeholder="********" autoCapitalize={false}
-                            autoCorrect={false}
-                            onChangeText={password => setLogin({ ...login, password: password.trim() })} />
-                    </View>
+                            paddingLeft: 10,
+                        }} 
+                    />
 
                     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                         <Button
