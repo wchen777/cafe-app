@@ -8,6 +8,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@fortawesome/react-native-fontawesome": "^0.2.6",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
     "expo": "^40.0.1",
@@ -15,6 +19,7 @@
     "expo-status-bar": "~1.0.3",
     "expo-updates": "~0.4.0",
     "firebase": "7.9.0",
+    "font-awesome": "^4.7.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
@@ -25,6 +30,7 @@
     "react-native-screens": "~2.15.0",
     "react-native-ui-lib": "^5.21.0",
     "react-native-unimodules": "~0.12.0",
+    "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4"
