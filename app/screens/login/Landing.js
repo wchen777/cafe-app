@@ -38,7 +38,7 @@ export default function Landing({ navigation }) {
                     >
                         <TextArea placeholder="example@cafe.com" autoCapitalize={false}
                             autoCorrect={false}
-                            onChangeText={email => setLogin({ ...login, email: email })} />
+                            onChangeText={email => setLogin({ ...login, email: email.trim() })} />
                     </View>
 
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
@@ -57,7 +57,7 @@ export default function Landing({ navigation }) {
                     >
                         <TextArea placeholder="********" autoCapitalize={false}
                             autoCorrect={false}
-                            onChangeText={password => setLogin({ ...login, password: password })} />
+                            onChangeText={password => setLogin({ ...login, password: password.trim() })} />
                     </View>
 
                     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
