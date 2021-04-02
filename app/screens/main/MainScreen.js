@@ -42,11 +42,11 @@ export default function MainScreen({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0  }}>
+            <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0  }}>
                 
                 {selectedPage === "Home" && <HomeView navigation={navigation}/>}
 
-                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData}/>}
+                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current}/>}
 
                 {/* MAKE ICONS MORE EASILY CLICKABLE */}
                 <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage}/>

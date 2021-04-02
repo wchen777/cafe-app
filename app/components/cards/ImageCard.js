@@ -29,7 +29,7 @@ export default function ImageCard({ navigation }) {
                 <View row>
                     <Text text60 color={Colors.orange30} >
                         @claudemonet
-                </Text>
+                    </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
                     <Text text70 color={Colors.green50}>painting </Text>
                 </View>

@@ -9,12 +9,19 @@ import ImageCard from '../../components/cards/ImageCard';
 import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
-export default function HomeView( {navigation} ) {
+import HeaderBarLogo from '../../components/header/HeaderBarLogo'
 
-    // useEffect(() => {
-    //     console.log("asdf")
-    //     navigation.setOptions({headerShown: true});
-    // }, [navigation])
+export default function HomeView({ navigation }) {
+    useEffect(() => {
+        console.log("asdf")
+        navigation.setOptions({
+            headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
+            headerBackImage: () => <HeaderBack />
+        });
+    })
+
+
+
 
     return (
         <View style={{ flexDirection: 'column', marginBottom: 0, paddingBottom: 0 }}>
@@ -33,17 +40,6 @@ export default function HomeView( {navigation} ) {
                 <TextCard navigation={navigation} />
 
                 <ImageCard navigation={navigation} />
-
-                <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                    <Button
-                        backgroundColor="#FFB36C"
-                        label="Sign Out"
-                        labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                        style={{ width: 145, marginTop: 30, marginBottom: 40 }}
-                        onPress={() => signOut()}
-                        enableShadow
-                    />
-                </View>
 
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />
