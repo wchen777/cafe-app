@@ -29,7 +29,7 @@ export default function UsernameSignUp({ navigation, route }) {
                         <View
                             style={styles.input}
                         >
-                            <TextArea placeholder="cafe-user" autoCapitalize={false}
+                            <TextArea placeholder="cafe-user" autoCapitalize='none'
                                 autoCorrect={false}
                                 onChangeText={username => setAuthData({ ...authData, username: username })} />
                         </View>
