@@ -26,7 +26,7 @@ export default function MyProfileView({ navigation, userData }) {
     console.log(userData)
 
     const getInitials = () => {
-        return userData.first.toUpperCase().charAt(0) + userData.toUpperCase().charAt(0)
+        return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
     }
 
 
