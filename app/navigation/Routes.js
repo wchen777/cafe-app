@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-
 import { NavigationContainer } from '@react-navigation/native'
 
 import AuthStack from './AuthStack'
 import HomeStack from './HomeStack'
+
+import SplashScreen from '../screens/SplashScreen'
 
 import { AuthContext } from '../context/AuthContext'
 
@@ -35,13 +36,13 @@ export default function Routes() {
         return subscriber; // unsubscribe on unmount
     }, []);
 
+
     // splash/loading screen
-    // if (loading) {
-    //   return <Loading />;
-    // }
+    if (loading) {
+        return <SplashScreen />;
+    }
 
-
-
+    
     return (
         <NavigationContainer>
 

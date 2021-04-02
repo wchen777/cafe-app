@@ -19,7 +19,7 @@ export default function ImageCard() {
 
                 <View row>
                     <Text text60 color={Colors.orange30} >
-                        @fsfitzerald
+                        @fsfitzgerald
                 </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
                     <Text text70 color={Colors.red50}>writing </Text>
