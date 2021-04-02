@@ -6,11 +6,14 @@ import * as firebase from 'firebase';
 
 import { signOut } from '../../api/firebase/FirebaseAuth'
 import ActionBarHome from '../../components/ActionBarHome';
+import ImageCard from '../../components/cards/ImageCard';
+import AudioCard from '../../components/cards/AudioCard';
+import TextCard from '../../components/cards/TextCard';
+
 
 export default function Landing({ navigation }) {
 
 
-    const testImage = 'https://images.e-flux-systems.com/283237_588943ecc546db7cc5168e868a7848e7.jpg,2000x2000'
 
     let currentUserUID = firebase.auth().currentUser.uid;
     const [name, setName] = useState('');
@@ -35,8 +38,8 @@ export default function Landing({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
-                <View style={{ flexDirection: 'column', marginTop: 15 }}>
+            <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0  }}>
+                <View style={{ flexDirection: 'column', marginTop: 15, marginBottom: 0, paddingBottom: 0 }}>
                     {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 90 }}>
                         <Image style={{ width: 120, height: 100 }} source={require('../../img/logo.jpg')} />
                     </View> */}
@@ -46,71 +49,31 @@ export default function Landing({ navigation }) {
                     </Text> */}
 
 
-                    <ScrollView>
+                    <ScrollView style={{marginBottom: 80}}>
 
-                    
 
-                    <Card
-                        key={1}
-                        style={{ marginBottom: 15 }}
-                        onPress={() => console.log('press on a card')}
-                        borderRadius={20}
-                    >
-                        <Card.Image
-                            source={testImage}
-                            height={250}
-                        />
+                        <ImageCard />
 
-                        <View padding-20 bg-white borderRadius={20}>
-                            <Text text40 color={Colors.grey10} marginV-10>
-                                Monet: The Garden Paintings
-                            </Text>
+                        <AudioCard />
 
-                            <View row>
-                                <Text text60 color={Colors.orange30} >
-                                    @claudemonet
-                                </Text>
-                                <Text text60 color={Colors.grey10}> | </Text>
-                                <Text text70 color={Colors.green50}>painting </Text>
-                            </View>
+                        <ImageCard />
 
-                            <Text text70 color={Colors.grey10} marginT-10>
-                                description descripton descirption descriprion description
-                            </Text>
+                        <TextCard />
 
-                            <View>
-                                <Text text90 color={Colors.grey50} marginT-10>
-                                     100 Likes
-                                </Text>
+                        <ImageCard />
 
-                                <View row right>
-                                    {/* <Button
-                                        style={{ marginRight: 10 }}
-                                        text90
-                                        link
-                                        iconSource={featureIcon}
-                                        label="Feature"
-                                    /> */}
-                                    {/* <Button text90 link iconSource={shareIcon} label="Share" /> */}
-                                </View>
-                            </View>
+                        <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                            <Button
+                                backgroundColor="#FFB36C"
+                                label="Sign Out"
+                                labelStyle={{ fontWeight: '600', fontSize: 20 }}
+                                style={{ width: 145, marginTop: 30, marginBottom: 40 }}
+                                onPress={() => signOut()}
+                                enableShadow
+                            />
                         </View>
 
 
-                    </Card>
-
-
-
-                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                        <Button
-                            backgroundColor="#FFB36C"
-                            label="Sign Out"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 30 }}
-                            onPress={() => signOut()}
-                            enableShadow
-                        />
-                    </View>
                     </ScrollView>
                 </View>
 

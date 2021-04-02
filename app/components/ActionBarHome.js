@@ -4,7 +4,7 @@ import { ActionBar } from 'react-native-ui-lib';
 
 export default function ActionBarHome() {
   return (
-    <ActionBar  actions={[{}]} centered> 
+    <ActionBar actions={[{}]} centered style={{paddingTop: 0}}> 
         
     </ActionBar>
   )
