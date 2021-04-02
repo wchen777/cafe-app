@@ -52,7 +52,7 @@ export default function MyProfileView({ navigation, userData }) {
                     style={{ marginBottom: 20, width: 350 }}
                     onPress={() => console.log("edit bio")}
                     enableShadow={false}
-                    marginT-12
+                    marginT-15
                 >
                     <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
@@ -66,28 +66,29 @@ export default function MyProfileView({ navigation, userData }) {
                     </View>
                 </Card>
 
+                {/* NEED TO FIX OVERFLOW HERE */}
 
-                <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>
+                <View style={{ paddingVertical: 6, flexDirection: 'row', justifyContent: 'space-evenly' }}>
+
                     {userData.portfolio !== "" &&
-                        <View style={{ paddingVertical: 9, flexDirection: 'row', justifyContent: 'center' }}>
-                            <Text style={{ fontWeight: 'bold' }} marginR-5>
-                                <Entypo name="suitcase" size={17} color={Colors.orange30} />: {userData.portfolio}
+                        <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>
+                            <Text style={{ fontWeight: 'bold' }} marginT-4>
+                                <Entypo name="suitcase" size={17} color={Colors.orange30} /> : {userData.portfolio}
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                     }
-                </TouchableOpacity>
 
-                <View style={{ paddingVertical: 6, flexDirection: 'row', justifyContent: 'center' }}>
                     {userData.twitter !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://twitter.com/${userData.twitter}`)}>
-                            <Text style={{ fontWeight: 'bold' }} marginR-8> <FontAwesome name="twitter" size={24} color="#1DA1F2" />: @{userData.twitter}</Text>
+                            <Text style={{ fontWeight: 'bold' }} > <FontAwesome name="twitter" size={24} color="#1DA1F2" />: @{userData.twitter}</Text>
                         </TouchableOpacity>
                     }
 
                     {userData.ig !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://instagram.com/${userData.ig}`)}>
-                            <Text style={{ fontWeight: 'bold' }} marginL-8><FontAwesome name="instagram" size={24} color="red" /> : @{userData.ig}</Text>
+                            <Text style={{ fontWeight: 'bold' }} ><FontAwesome name="instagram" size={24} color="red" /> : @{userData.ig}</Text>
                         </TouchableOpacity>}
+
                 </View>
 
 

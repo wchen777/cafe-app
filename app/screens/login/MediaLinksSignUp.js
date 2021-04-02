@@ -61,9 +61,10 @@ export default function MediaLinksSignUp({ navigation, route }) {
                             autoCorrect={false} 
                             onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })}/>
                     </View>
-                    <Text text70 dark10 marginB-15 marginT-20>
+                    
+                    {/* <Text text70 dark10 marginB-15 marginT-20>
                         Extra Links
-                </Text>
+                    </Text>
 
                     <View
                         style={styles.input}
@@ -87,7 +88,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                         <TextArea placeholder="extra-link.com" autoCapitalize='none'
                             autoCorrect={false} 
                             onChangeText={extra3 => setAuthData({ ...authData, extra3: extra3 })}/>
-                    </View>
+                    </View> */}
 
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <Button
