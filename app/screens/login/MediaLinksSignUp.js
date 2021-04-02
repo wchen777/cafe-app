@@ -25,19 +25,19 @@ export default function MediaLinksSignUp({ navigation, route }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
                 <View style={{ flexDirection: 'column' }}>
-                    <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold', marginTop: 50 }}>Media Links</Text>
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-30>
+                    <Text text40 style={{ textAlign: 'center', fontSize: 30, marginTop: 70 }}>Media Links</Text>
+                    <Text text70 dark10 marginB-15 marginT-30>
                         Instagram
                 </Text>
 
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="ig-username" autoCapitalize={false}
+                        <TextArea placeholder="ig-username" autoCapitalize="none"
                             autoCorrect={false}
                             onChangeText={ig => setAuthData({ ...authData, ig: ig })}/>
                     </View>
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
+                    <Text text70 dark10 marginB-15 marginT-20>
                         Twitter
                 </Text>
 
@@ -45,30 +45,30 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="twitter-handle" autoCapitalize={false}
+                        <TextArea placeholder="twitter-handle" autoCapitalize="none"
                             autoCorrect={false}
                             onChangeText={twitter => setAuthData({ ...authData, twitter: twitter })} />
                     </View>
 
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
+                    <Text text70 dark10 marginB-15 marginT-20>
                         Portfolio URL
                 </Text>
 
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="my-portfolio.com" autoCapitalize={false}
+                        <TextArea placeholder="my-portfolio.com" autoCapitalize="none"
                             autoCorrect={false} 
                             onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })}/>
                     </View>
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
+                    <Text text70 dark10 marginB-15 marginT-20>
                         Extra Links
                 </Text>
 
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="extra-link.com" autoCapitalize={false}
+                        <TextArea placeholder="extra-link.com" autoCapitalize="none"
                             autoCorrect={false} 
                             onChangeText={extra1 => setAuthData({ ...authData, extra1: extra1 })}/>
                     </View>
@@ -76,7 +76,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={{ ...styles.input, marginTop: 20 }}
                     >
-                        <TextArea placeholder="extra-link.com" autoCapitalize={false}
+                        <TextArea placeholder="extra-link.com" autoCapitalize="none"
                             autoCorrect={false} 
                             onChangeText={extra2 => setAuthData({ ...authData, extra2: extra2 })}/>
                     </View>
@@ -84,7 +84,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={{ ...styles.input, marginTop: 20 }}
                     >
-                        <TextArea placeholder="extra-link.com" autoCapitalize={false}
+                        <TextArea placeholder="extra-link.com" autoCapitalize='none'
                             autoCorrect={false} 
                             onChangeText={extra3 => setAuthData({ ...authData, extra3: extra3 })}/>
                     </View>
@@ -92,10 +92,10 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <Button
                             backgroundColor="#FFB36C"
-                            label="Sign me up!"
+                            label="Continue"
                             labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 170, marginTop: 25 }}
-                            onPress={() => onSignUp()}
+                            style={{ width: 170, marginTop: 30 }}
+                            onPress={() => navigation.navigate("UsernameSignUp", authData)}
                             enableShadow
                         />
                         <Button

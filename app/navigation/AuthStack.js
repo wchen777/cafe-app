@@ -4,6 +4,7 @@ import React from 'react'
 import LandingScreen from '../screens/login/Landing'
 import SignUpScreen from '../screens/login/SignUpInitial'
 import MediaLinks from '../screens/login/MediaLinksSignUp'
+import UsernameSignUp from '../screens/login/UsernameSignUp';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,11 @@ export default function AuthStack() {
             <Stack.Screen
                 name='MediaLinks'
                 component={MediaLinks}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name='UsernameSignUp'
+                component={UsernameSignUp}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>

@@ -22,12 +22,12 @@ export default function Landing({ navigation }) {
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 90 }}>
                         <Image style={{ width: 120, height: 100 }} source={require('../../img/logo.jpg')} />
                     </View>
-                    <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold', marginTop: 30 }}>Cafe Logo Here</Text>
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-50>
+                    <Text text40 style={{ marginTop: 30 }}>Cafe Logo Here</Text>
+                    <Text text70  dark10 marginB-15 marginT-50>
                         Email
                 </Text>
 
-                <TextInput placeholder="example@cafe.com" autoCapitalize={false}
+                <TextInput text70 placeholder="example@cafe.com" autoCapitalize='none'
                     autoCorrect={false}
                     onChangeText={email => setLogin({ ...login, email: email.trim() })}
                     style={{
@@ -40,13 +40,13 @@ export default function Landing({ navigation }) {
                     }} 
                 />
 
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20>
+                    <Text text70 dark10 marginB-15 marginT-20>
                         Password
                     </Text>
 
                     <TextInput
                         placeholder="********"
-                        autoCapitalize={false}
+                        autoCapitalize='none'
                         autoCorrect={false}
                         secureTextEntry={true}
                         onChangeText={password => setLogin({ ...login, password: password.trim() })}
@@ -65,17 +65,20 @@ export default function Landing({ navigation }) {
                             backgroundColor="#FFB36C"
                             label="Sign In"
                             labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 30 }}
+                            text30
+                            style={{ width: 145, marginTop: 30, paddingTop: 0, paddingBottom: 0 }}
                             onPress={() => onLogin()}
                             enableShadow
                         />
                     </View>
 
                     <Text
+                        text40
                         style={{
                             fontSize: 16, marginTop: 40, fontWeight: 'bold', marginLeft: 28,
                             fontStyle: 'italic', textDecorationLine: 'underline', color: '#0669FC'
                         }}
+                       
                         onPress={() => navigation.navigate("SignUp")}
                     >
                         Create a new account

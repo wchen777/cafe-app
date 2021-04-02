@@ -10,15 +10,16 @@ export default function SignUpInitial({ navigation }) {
     const initialValidation = () => {
 
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!re.test(initialAuth.email)) {
-            Alert.alert('Email is invalid');
+
+        if (!initialAuth.first || !initialAuth.last
+            || !initialAuth.email || !initialAuth.password || !initialAuth.confirmPassword) {
+            Alert.alert('Please fill out all required fields.');
+        } else if (!re.test(initialAuth.email)) {
+            Alert.alert('Invalid email address.');
         } else if (initialAuth.password.length < 6) {
             Alert.alert('Password needs to be longer than 6 characters.');
         } else if (initialAuth.password !== initialAuth.confirmPassword) {
             Alert.alert('Passwords do not match.');
-        } else if (!initialAuth.first || !initialAuth.last 
-                    || !initialAuth.email || !initialAuth.password || !initialAuth.confirmPassword) {
-            Alert.alert('Please fill out all required fields');
         } else {
             navigation.navigate("MediaLinks", initialAuth);
         }
@@ -30,13 +31,13 @@ export default function SignUpInitial({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
                 <View style={{ flexDirection: 'column' }}>
-                    <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold', marginTop: 80 }}>Sign Up</Text>
+                    <Text text40 style={{ textAlign: 'center', marginTop: 80, fontSize: 30 }}>Sign Up</Text>
 
-                        <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-20 marginR-10>
-                             <Text style={{ color: 'red' }}>*</Text> First Name 
+                    <Text text70 dark10 marginB-15 marginT-20 marginR-10>
+                        <Text style={{ color: 'red' }}>*</Text> First Name
                         </Text>
-                    <TextInput 
-                        placeholder="First Name" 
+                    <TextInput
+                        placeholder="First Name"
                         autoCorrect={false}
                         onChangeText={first => setInitialAuth({ ...initialAuth, first: first.trim() })}
                         style={{
@@ -46,15 +47,15 @@ export default function SignUpInitial({ navigation }) {
                             borderColor: Colors.dark60,
                             borderRadius: 20,
                             paddingLeft: 10
-                        }} 
+                        }}
                     />
 
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+                    <Text text70 dark10 marginB-15 marginT-15>
                         <Text style={{ color: 'red' }}>*</Text> Last Name
                     </Text>
 
-                    <TextInput 
-                        placeholder="Last Name" 
+                    <TextInput
+                        placeholder="Last Name"
                         autoCorrect={false}
                         onChangeText={last => setInitialAuth({ ...initialAuth, last: last.trim() })}
                         style={{
@@ -66,7 +67,7 @@ export default function SignUpInitial({ navigation }) {
                             paddingLeft: 10
                         }}
                     />
-                    {/* <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+                    {/* <Text text70 dark10 marginB-15 marginT-15>
                     Date of Birth
                 </Text>
                 <View
@@ -82,15 +83,15 @@ export default function SignUpInitial({ navigation }) {
                     <TextArea placeholder="mm/dd/yy"
                     onChangeText={(email) => setInitialAuth({...initialAuth, email: email})}/>
                 </View> */}
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+                    <Text text70 dark10 marginB-15 marginT-15>
                         <Text style={{ color: 'red' }}>*</Text> Email
                     </Text>
 
-                    <TextInput 
+                    <TextInput
                         placeholder="Email"
                         autoCorrect={false}
-                        keyboardType='email-address' textContentType='emailAddress' autoCapitalize={false}
-                        onChangeText={(email) => setInitialAuth({ ...initialAuth, email: email.trim() })} 
+                        keyboardType='email-address' textContentType='emailAddress' autoCapitalize='none'
+                        onChangeText={(email) => setInitialAuth({ ...initialAuth, email: email.trim() })}
                         style={{
                             height: 40,
                             width: 220,
@@ -100,13 +101,13 @@ export default function SignUpInitial({ navigation }) {
                             paddingLeft: 10
                         }}
                     />
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+                    <Text text70 dark10 marginB-15 marginT-15>
                         <Text style={{ color: 'red' }}>*</Text> Password
                     </Text>
 
-                    <TextInput 
-                        placeholder="********" 
-                        autoCapitalize={false}
+                    <TextInput
+                        placeholder="********"
+                        autoCapitalize='none'
                         autoCorrect={false}
                         textContentType='password'
                         secureTextEntry={true}
@@ -121,13 +122,13 @@ export default function SignUpInitial({ navigation }) {
                         }}
                     />
 
-                    <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-15>
+                    <Text text70 dark10 marginB-15 marginT-15>
                         <Text style={{ color: 'red' }}>*</Text> Retype Password
                     </Text>
 
-                    <TextInput 
+                    <TextInput
                         placeholder="********"
-                        autoCapitalize={false}
+                        autoCapitalize='none'
                         autoCorrect={false}
                         textContentType='password'
                         secureTextEntry={true}
