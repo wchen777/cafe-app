@@ -29,32 +29,6 @@ export default function App() {
         firebase.initializeApp(firebaseConfig);
     }
     
-    // // refactor this somewhere else
-
-    // const { user, setUser } = useAuthContext();
-
-    // const [loading, setLoading] = useState(true);
-    // const [initializing, setInitializing] = useState(true);
-
-    // // Handle user state changes
-    // const onAuthStateChanged = (user) => {
-
-    //   setUser(user);
-    //   if (initializing) setInitializing(false);
-
-    //   setLoading(false);
-    // }
-
-    // useEffect(() => {
-    //   const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
-    //   return subscriber; // unsubscribe on unmount
-    // }, []);
-
-    // // splash/loading screen
-    // // if (loading) {
-    // //   return <Loading />;
-    // // }
-
 
     return (
         <AuthProvider>

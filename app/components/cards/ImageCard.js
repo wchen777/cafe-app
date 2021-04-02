@@ -6,14 +6,15 @@ const testImage2 = '../../assets/monet1.jpeg'
 const testImage = 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/irises-in-monets-garden-at-giverny-claude-monet.jpg'
 
 
-export default function ImageCard() {
+export default function ImageCard({ navigation }) {
     return (
 
         <Card
             key={1}
             style={{ marginBottom: 20 }}
-            onPress={() => console.log('card press')}
+            onPress={() => navigation.navigate('PostView')}
             borderRadius={20}
+            marginH-4
         >
             <Card.Image
                 source={{ uri: testImage }}
@@ -35,7 +36,7 @@ export default function ImageCard() {
 
                 <Text text70 color={Colors.grey10} marginT-10>
                     description descripton descirption descriprion description,
-                     need to add like and comment buttons + symbols + timestamp
+                     need to add like and comment buttons + symbols + timestamp, limit description length
             </Text>
 
                 <View>

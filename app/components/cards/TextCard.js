@@ -2,14 +2,15 @@ import React from 'react'
 import { View, Text, Colors, Card } from 'react-native-ui-lib';
 
 
-export default function ImageCard() {
+export default function ImageCard( { navigation } ) {
     return (
 
         <Card
             key={1}
             style={{ marginBottom: 20 }}
-            onPress={() => console.log('card press')}
+            onPress={() => navigation.navigate('PostView')}
             borderRadius={20}
+            marginH-4
         >
           
             <View padding-20 bg-white borderRadius={20}>
