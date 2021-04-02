@@ -6,9 +6,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 
-
-
-
 import { signOut } from '../../api/firebase/FirebaseAuth'
 
 
@@ -28,6 +25,10 @@ export default function MyProfileView({ navigation, userData }) {
 
     console.log(userData)
 
+    const getInitials = () => {
+        return userData.first.toUpperCase().charAt(0) + userData.toUpperCase().charAt(0)
+    }
+
 
     // TODO: Break this up into components
 
@@ -37,7 +38,7 @@ export default function MyProfileView({ navigation, userData }) {
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label='TT' labelColor={Colors.orange30} backgroundColor={lightOrange} />
+                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} />
 
                     <Text text50 color={Colors.grey10} marginT-20>
                         {userData.first} {userData.last}
