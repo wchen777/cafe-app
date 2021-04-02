@@ -34,10 +34,7 @@ export default function MyProfileView({ navigation, userData }) {
     return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
 
-
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
-
-
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
                     <Avatar size={150} label='TT' labelColor={Colors.orange30} backgroundColor={lightOrange} />
