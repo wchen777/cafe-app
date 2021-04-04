@@ -25,7 +25,7 @@ export default function Landing({ navigation }) {
                     <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: 'bold', marginTop: 30 }}>Cafe Logo Here</Text>
                     <Text style={{ fontSize: 15 }} dark10 marginB-15 marginT-50>
                         Email
-                </Text>
+                    </Text>
 
                 <TextInput placeholder="example@cafe.com" autoCapitalize={false}
                     autoCorrect={false}
