@@ -5,6 +5,7 @@ import { MainScreen } from '../main/MainScreen';
 import * as firebase from "firebase";
 import "firebase/firestore";
 import { updateProfile } from '../../api/firebase/FirebaseAuth';
+import { signOut } from '../../api/firebase/FirebaseAuth'
 
 export default function EditProfile({ route, navigation }) {
     const lightOrange = '#ffdfc2'
@@ -45,6 +46,7 @@ export default function EditProfile({ route, navigation }) {
                         </Text>
                         <TextInput
                             placeholder="First Name"
+                            autoCapitalize='none'
                             autoCorrect={false}
                             onChangeText={first => changeFirst(first)} 
                             style={{
@@ -62,6 +64,7 @@ export default function EditProfile({ route, navigation }) {
                         </Text>
                         <TextInput
                             placeholder="Last Name"
+                            autoCapitalize='none'
                             autoCorrect={false}
                             onChangeText={last => changeLast(last)} 
                             style={{
@@ -79,6 +82,7 @@ export default function EditProfile({ route, navigation }) {
                         </Text>
                         <TextInput
                             placeholder="Username"
+                            autoCapitalize='none'
                             autoCorrect={false}
                             onChangeText={username => changeUsername(username)} 
                             style={{
@@ -96,10 +100,17 @@ export default function EditProfile({ route, navigation }) {
                         backgroundColor="#FFB36C"
                         label="Edit Profile"
                         labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                        style={{ width: 145, marginTop: 30, marginBottom: 40, marginRight: 6 }}
+                        style={{ width: 145, marginTop: 30}}
                         enableShadow
                         onPress={() => editProfile()}
-                        
+                    />
+                    <Button
+                        backgroundColor="#FFB36C"
+                        label="Sign Out"
+                        labelStyle={{ fontWeight: '600', fontSize: 20 }}
+                        style={{ width: 145, marginTop: 20}}
+                        onPress={() => signOut()}
+                        enableShadow
                     />
                 </View>
         </View>

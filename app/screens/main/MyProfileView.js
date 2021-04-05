@@ -96,21 +96,6 @@ export default function MyProfileView({ navigation, userData }) {
                 </View>
 
 
-
-                <View style={styles.centering}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Button
-                            backgroundColor="#FFB36C"
-                            label="Sign Out"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 30, marginBottom: 40, marginLeft: 6 }}
-                            onPress={() => signOut()}
-                            enableShadow
-                        />
-                    </View>
-
-                </View>
-
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />
 
