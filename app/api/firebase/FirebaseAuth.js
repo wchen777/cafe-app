@@ -20,14 +20,15 @@ export async function registration({ email, password, username, last, first, ig,
         portfolio: portfolio ?? "",
         extra1: extra1 ?? "",
         extra2: extra2 ?? "",
-        extra3: extra3 ?? ""
+        extra3: extra3 ?? "",
+        bio: "",
       });
   } catch (err) {
     Alert.alert("Error in account registration.", err.message);
   }
 }
 
-export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, extra1, extra2, extra3 }) {
+export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, extra1, extra2, extra3, bio }) {
   try {
     const currentUser = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -43,7 +44,8 @@ export async function updateProfile({ email, password, username, last, first, ig
         portfolio: portfolio,
         extra1: extra1,
         extra2: extra2,
-        extra3: extra3
+        extra3: extra3,
+        bio: bio,
       });
 
   } catch (err) {
