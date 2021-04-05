@@ -63,7 +63,6 @@ export default function MyProfileView({ navigation, userData }) {
                             {userData.bio}
                         </Text>
 
-
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
                             <Feather name="edit" size={20} color="grey"/>
                         </View>

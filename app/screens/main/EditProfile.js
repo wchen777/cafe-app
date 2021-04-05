@@ -42,10 +42,10 @@ export default function EditProfile({ route, navigation }) {
     return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} />
+                    <Avatar size={100} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} />
 
                     <View style={{ flexDirection: 'column' }}>
-                        <Text text70 dark10 marginB-15 marginT-50>
+                        <Text text70 dark10 marginB-15 marginT-20>
                             First Name
                         </Text>
                         <TextInput
