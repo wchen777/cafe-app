@@ -35,7 +35,7 @@ export default function SignUpInitial({ navigation }) {
 
                     <Text text70 dark10 marginB-15 marginT-20 marginR-10>
                         <Text style={{ color: 'red' }}>*</Text> First Name
-                        </Text>
+                    </Text>
                     <TextInput
                         placeholder="First Name"
                         autoCorrect={false}

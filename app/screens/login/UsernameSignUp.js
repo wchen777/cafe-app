@@ -11,6 +11,7 @@ export default function UsernameSignUp({ navigation, route }) {
 
     const [authData, setAuthData] = useState(route.params)
 
+
     const onSignUp = () => {
 
         // TODO: validation, password encryption, password hiding

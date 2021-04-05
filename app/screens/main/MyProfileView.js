@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import { View, Button, Avatar, Colors, Text, Card } from 'react-native-ui-lib';
+import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer} from 'react-native-ui-lib';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
-
 import { signOut } from '../../api/firebase/FirebaseAuth'
 
 
@@ -13,29 +12,35 @@ export default function MyProfileView({ navigation, userData }) {
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
 
+
+
     useEffect(() => {
-        console.log("asdff")
-        console.log(userData.username)
         navigation.setOptions({
-            headerTitle: <Text text60 color={Colors.orange30} >
+            headerTitle: 
+                <Text text60 color={Colors.orange30} >
                 @{userData.username} </Text>
+            
         });
 
     }, [navigation])
 
-    console.log(userData)
 
     const getInitials = () => {
         return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
-    }
+    } 
+
 
 
     // TODO: Break this up into components
 
-    return (
+     return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
 
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
+
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <FontAwesome name="cog" size={24} color="#4d4d4d" onPress={() => navigation.navigate("EditProfile", {userData: userData})}/>
+                </View>
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
                     <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} />
@@ -58,8 +63,9 @@ export default function MyProfileView({ navigation, userData }) {
                             No bio here yet! No bio here yet! No bio here yet! No bio here yet! No bio here yet! Need to move those two buttons elsewhere
                         </Text>
 
+
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                            <Feather name="edit" size={20} color="grey" />
+                            <Feather name="edit" size={20} color="grey"/>
                         </View>
                     </View>
                 </Card>
@@ -95,14 +101,6 @@ export default function MyProfileView({ navigation, userData }) {
                     <View style={{ flexDirection: 'row' }}>
                         <Button
                             backgroundColor="#FFB36C"
-                            label="Edit Profile"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 30, marginBottom: 40, marginRight: 6 }}
-                            // onPress={() => signOut()}
-                            enableShadow
-                        />
-                        <Button
-                            backgroundColor="#FFB36C"
                             label="Sign Out"
                             labelStyle={{ fontWeight: '600', fontSize: 20 }}
                             style={{ width: 145, marginTop: 30, marginBottom: 40, marginLeft: 6 }}
@@ -130,5 +128,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center'
-    }
+    },
 });
