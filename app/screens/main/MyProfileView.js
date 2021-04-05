@@ -53,14 +53,14 @@ export default function MyProfileView({ navigation, userData }) {
                 <Card
                     key={1}
                     style={{ marginBottom: 20, width: 350 }}
-                    onPress={() => console.log("edit bio")}
+                    onPress={() => navigation.navigate("EditProfile", {userData: userData})}
                     enableShadow={false}
                     marginT-15
                 >
                     <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
                         <Text text70 color={Colors.grey10} marginV-14>
-                            No bio here yet! No bio here yet! No bio here yet! No bio here yet! No bio here yet! Need to move those two buttons elsewhere
+                            {userData.bio}
                         </Text>
 
 

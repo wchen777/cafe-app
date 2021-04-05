@@ -29,6 +29,10 @@ export default function EditProfile({ route, navigation }) {
         userData.userData.username = username;
     }
 
+    const changeBio = (bio) => {
+        userData.userData.bio = bio;
+    }
+
     const editProfile = () => {
         updateProfile(userData.userData);
     }
@@ -85,6 +89,23 @@ export default function EditProfile({ route, navigation }) {
                             autoCapitalize='none'
                             autoCorrect={false}
                             onChangeText={username => changeUsername(username)} 
+                            style={{
+                                height: 40,
+                                width: 220,
+                                borderWidth: 1,
+                                borderColor: Colors.dark60,
+                                borderRadius: 20,
+                                paddingLeft: 10
+                            }}
+                        />
+
+                        <Text text70 dark10 marginB-15 marginT-20>
+                            Bio
+                        </Text>
+                        <TextInput
+                            placeholder="Bio"
+                            autoCorrect={false}
+                            onChangeText={bio => changeBio(bio)} 
                             style={{
                                 height: 40,
                                 width: 220,
