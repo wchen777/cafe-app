@@ -25,8 +25,8 @@ export default function EditProfile({ route, navigation }) {
         userData.userData.last = last;
     }
 
-    const changeUsername = (username) => {
-        userData.userData.username = username;
+    const changePortfolio = (portfolio) => {
+        userData.userData.portfolio = portfolio;
     }
 
     const changeBio = (bio) => {
@@ -82,13 +82,13 @@ export default function EditProfile({ route, navigation }) {
                         />
 
                         <Text text70 dark10 marginB-15 marginT-20>
-                            Username
+                            Portfolio URL
                         </Text>
                         <TextInput
-                            placeholder="Username"
+                            placeholder="my-portfolio.com"
                             autoCapitalize='none'
                             autoCorrect={false}
-                            onChangeText={username => changeUsername(username)} 
+                            onChangeText={portfolio => changePortfolio(portfolio)} 
                             style={{
                                 height: 40,
                                 width: 220,
@@ -119,7 +119,7 @@ export default function EditProfile({ route, navigation }) {
 
                     <Button
                         backgroundColor="#FFB36C"
-                        label="Edit Profile"
+                        label="Submit"
                         labelStyle={{ fontWeight: '600', fontSize: 20 }}
                         style={{ width: 145, marginTop: 30}}
                         enableShadow
