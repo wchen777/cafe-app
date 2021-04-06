@@ -53,7 +53,6 @@ export default function MyProfileView({ navigation, userData }) {
                 <Card
                     key={1}
                     style={{ marginBottom: 20, width: 350 }}
-                    onPress={() => navigation.navigate("EditProfile", {userData: userData})}
                     enableShadow={false}
                     marginT-15
                 >
@@ -64,7 +63,7 @@ export default function MyProfileView({ navigation, userData }) {
                         </Text>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                            <Feather name="edit" size={20} color="grey"/>
+                            <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditProfile", {userData: userData})}/>
                         </View>
                     </View>
                 </Card>
@@ -75,21 +74,20 @@ export default function MyProfileView({ navigation, userData }) {
 
                     {userData.portfolio !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>
-                            <Text style={{ fontWeight: 'bold' }} marginT-4>
-                                <Entypo name="suitcase" size={17} color={Colors.orange30} /> : {userData.portfolio}
-                            </Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 14 }} ><FontAwesome name="suitcase" size={22} color={Colors.orange30} /> : {userData.portfolio}</Text>
+                            
                         </TouchableOpacity>
                     }
 
                     {userData.twitter !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://twitter.com/${userData.twitter}`)}>
-                            <Text style={{ fontWeight: 'bold' }} > <FontAwesome name="twitter" size={24} color="#1DA1F2" />: @{userData.twitter}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 14, marginLeft: 14 }}> <FontAwesome name="twitter" size={24} color="#1DA1F2" />: @{userData.twitter}</Text>
                         </TouchableOpacity>
                     }
 
                     {userData.ig !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://instagram.com/${userData.ig}`)}>
-                            <Text style={{ fontWeight: 'bold' }} ><FontAwesome name="instagram" size={24} color="red" /> : @{userData.ig}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 14, marginLeft: 14 }} ><FontAwesome name="instagram" size={24} color="red" /> : @{userData.ig}</Text>
                         </TouchableOpacity>}
 
                 </View>
