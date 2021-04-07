@@ -72,7 +72,9 @@ export default function HomeView({ navigation }) {
 
                 <AudioCard navigation={navigation} />
 
-                <TextCard navigation={navigation} textPosts = {textPosts} />
+                {/* <TextCard navigation={navigation} textPosts = {textPosts}  /> */}
+
+                {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)}
 
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />

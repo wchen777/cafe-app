@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react'
 import { StyleSheet, Alert } from 'react-native';
-
+import Moment from 'moment';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors, Wizard, Card, Toast } from 'react-native-ui-lib';
 import TextOption from '../../../components/create/option-cards/TextOption';
@@ -57,7 +57,7 @@ export default function CreatePostMain({ navigation }) {
     // ------------------ temporary copy ---------------
 
     const uploadPost = () => {
-        let post = { ...metaInfo, content: content, type: selectedType, username: userData.current.username }
+        let post = { ...metaInfo, content: content, type: selectedType, username: userData.current.username, time: Moment().format('MMMM Do YYYY, h:mm:ss a') }
         console.log("created post:")
         console.log(post)
         if (post.content == null || post.description == null || post.title == null) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors, ActionBar, Card } from 'react-native-ui-lib';
+import { FontAwesome } from '@expo/vector-icons';
 
 import * as firebase from 'firebase';
 
@@ -8,6 +9,7 @@ import { signOut } from '../../api/firebase/FirebaseAuth'
 import ActionBarHome from '../../components/ActionBarHome';
 import MyProfileView from './MyProfileView'
 import HomeView from './HomeView';
+import ChatView from './ChatView';
 
 
 export default function MainScreen({ navigation }) {
@@ -42,15 +44,25 @@ export default function MainScreen({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0  }}>
+            <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0  }}>
                 
-                {selectedPage === "Home" && <HomeView navigation={navigation}/>}
+                {selectedPage === "Home" && 
+                    <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
+                        <HomeView navigation={navigation}/>
+                    </View>
+                }
 
                 {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current}/>}
 
-                {selectedPage === "Explore" && <Text> Explore page coming soon!</Text>}
+                {selectedPage === "Explore" && 
+                    <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
+                        <Text> Explore page coming soon!</Text>
+                    </View>
+                }
 
-                {selectedPage === "Chat" && <Text> Chat coming soon!</Text>}
+                {selectedPage === "Chat" && 
+                    <ChatView navigation={navigation}/>
+                }
 
                 <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation}/>
 
