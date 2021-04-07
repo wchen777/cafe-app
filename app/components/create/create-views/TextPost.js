@@ -6,6 +6,7 @@ import { View, Image, Text, TextField, TextArea, Button, Colors, Wizard, Card } 
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 export default function TextPost({ setContent }) {
+
     return (
         <TouchableWithoutFeedback marginT-13 onPress={Keyboard.dismiss}>
             <View >
@@ -13,7 +14,7 @@ export default function TextPost({ setContent }) {
 
                 <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
                     marginB-13>
-                    Enter your thoughts:
+                    <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20, color: 'red' }} marginB-13>*</Text>Enter your thoughts:
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                     <TextInput

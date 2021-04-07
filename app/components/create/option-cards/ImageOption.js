@@ -21,18 +21,18 @@ export default function ImageOption({ selectedType, press }) {
                 </Text>
 
                 <View row>
-                    <Text text70 color={Colors.green50}>painting</Text>
+                    <Text text70 color={Colors.green20}>painting</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.green50}>digital art</Text>
+                    <Text text70 color={Colors.green20}>digital art</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.green50}>design</Text>
+                    <Text text70 color={Colors.green20}>design</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
 
                 </View>
                 <View row marginT-5>
-                    <Text text70 color={Colors.green50}>photography</Text>
+                    <Text text70 color={Colors.green20}>photography</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.green50}>other</Text>
+                    <Text text70 color={Colors.green20}>other</Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginT-10>

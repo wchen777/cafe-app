@@ -20,16 +20,15 @@ export default function TextOption({ selectedType, press }) {
             </Text>
 
                 <View row>
-                    <Text text70 color={Colors.red50}>writing</Text>
+                    <Text text70 color={Colors.red20}>writing</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.red50}>commentary</Text>
+                    <Text text70 color={Colors.red20}>commentary</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.red50}>other</Text>
+                    <Text text70 color={Colors.red20}>other</Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginT-10>
-                    Share your thoughts with the world!
-                    (DISCLAIMER: ONLY TEXT POSTS WORK RIGHT NOW)
+                    Share your thoughts with the world.
             </Text>
 
             </View>

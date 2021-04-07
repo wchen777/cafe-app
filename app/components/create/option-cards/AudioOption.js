@@ -21,11 +21,11 @@ export default function AudioOption({ selectedType, press }) {
                 
 
                 <View row>
-                    <Text text70 color={Colors.blue50}>music</Text>
+                    <Text text70 color={Colors.blue20}>music</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.blue50}>podcast</Text>
+                    <Text text70 color={Colors.blue20}>podcast</Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.blue50}>other</Text>
+                    <Text text70 color={Colors.blue20}>other</Text>
                 </View>
                 
 

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from 'react'
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors, Wizard, Card, Toast } from 'react-native-ui-lib';
@@ -57,10 +57,12 @@ export default function CreatePostMain({ navigation }) {
     // ------------------ temporary copy ---------------
 
     const uploadPost = () => {
-        // TODO: NEED TO DO VALIDATION ON POST TITLE, TYPE, ETC
         let post = { ...metaInfo, content: content, type: selectedType, username: userData.current.username }
         console.log("created post:")
         console.log(post)
+        if (post.content == null || post.description == null || post.title == null) {
+            return Alert.alert("Please fill in all required fields.")
+        }
         createPost(post)
         // setTimeout(setShowToast(true), 3000)
         // setShowToast(false)
