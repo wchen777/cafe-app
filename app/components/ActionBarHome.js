@@ -2,36 +2,40 @@ import React from 'react'
 import { FontAwesome, Ionicons, MaterialIcons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import { ActionBar, View, Text, Button } from 'react-native-ui-lib';
 import { StyleSheet } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default function ActionBarHome({ selectedPage, setSelectedPage }) {
     const orange = '#FFB36C'
     const grey = '#d6d6d6'
 
     const setColor = (menu) => {
-       if (selectedPage === menu) {
-           return orange
-       } else {
-           return grey
-       }
+        if (selectedPage === menu) {
+            return orange
+        } else {
+            return grey
+        }
     }
 
 
     return (
         <View bg-white style={styles.bar}>
             <View style={styles.iconRow}>
-                <MaterialIcons name="home" size={32} color={setColor("Home")} 
-                    onPress={() => setSelectedPage("Home")}/>
 
-                <MaterialCommunityIcons name="telescope" size={34} color={setColor("Explore")} 
-                    onPress={() => setSelectedPage("Explore")}/>
+                <TouchableWithoutFeedback hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={() => setSelectedPage("Home")}>
+                    <MaterialIcons name="home" size={32} color={setColor("Home")}
+                         />
+                </TouchableWithoutFeedback>
 
+                <TouchableWithoutFeedback hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={() => setSelectedPage("Explore")} >
+                    <MaterialCommunityIcons name="telescope" size={34} color={setColor("Explore")}/>
+                </TouchableWithoutFeedback>
 
 
                 <Button
-                    style={{position: 'relative', zIndex: 2, height: 60, bottom: 30, width: "0%" }}
+                    style={{ position: 'relative', zIndex: 2, height: 60, bottom: 30, width: "0%" }}
                     label={<MaterialCommunityIcons name="draw" size={26} color="white" />}
                     avoidInnerPadding
-                    labelStyle={{ padding: 0, zIndex: 3, marginTop: 5, position: 'relative', fontSize: 40}}
+                    labelStyle={{ padding: 0, zIndex: 3, marginTop: 5, position: 'relative', fontSize: 40 }}
                     backgroundColor={orange}
                     borderRadius={20}
                     enableShadow
@@ -40,12 +44,16 @@ export default function ActionBarHome({ selectedPage, setSelectedPage }) {
 
 
 
+                <TouchableWithoutFeedback hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={() => setSelectedPage("Chat")}>
+                    <Entypo name="chat" size={28} color={setColor("Chat")}
+                         />
+                </TouchableWithoutFeedback>
 
-                <Entypo name="chat" size={28} color={setColor("Chat")} 
-                    onPress={() => setSelectedPage("Chat")}/>
+                <TouchableWithoutFeedback hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={() => setSelectedPage("Profile")} >
+                    <Ionicons name="md-person" size={27} color={setColor("Profile")}
+                        />
+                </TouchableWithoutFeedback>
 
-                <Ionicons name="md-person" size={27} color={setColor("Profile")} 
-                    onPress={() => setSelectedPage("Profile")}/>
             </View>
 
 
