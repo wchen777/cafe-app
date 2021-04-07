@@ -30,7 +30,6 @@ export default function ChatView({ navigation }) {
               activeBackgroundColor={Colors.dark60}
               activeOpacity={0.3}
               height={77.5}
-              onLongPress={() => { Alert.alert('Delete message?') }}
             >
               <ListItem.Part left>
                 <Image
