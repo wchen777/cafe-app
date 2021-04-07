@@ -16,7 +16,8 @@ export default function HomeView({ navigation }) {
         console.log("asdf")
         navigation.setOptions({
             headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
-            headerBackImage: () => <HeaderBack />
+            headerBackImage: () => <HeaderBack />,
+            headerRight: ""
         });
     })
 

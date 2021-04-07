@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
-import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, TextField} from 'react-native-ui-lib';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native'
+
+import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, TextField } from 'react-native-ui-lib';
 import { MainScreen } from '../main/MainScreen';
 import * as firebase from "firebase";
 import "firebase/firestore";
@@ -10,37 +12,40 @@ import { signOut } from '../../api/firebase/FirebaseAuth'
 export default function EditProfile({ route, navigation }) {
     const lightOrange = '#ffdfc2'
     let userData = route.params;
+    console.log(userData)
 
-    //const [userData, setAuthData] = useState(route.params)
+    const [userDataC, setUserDataC] = useState(route.params)
 
     const getInitials = () => {
-        return userData.userData.first.toUpperCase().charAt(0) + userData.userData.last.toUpperCase().charAt(0)
-    } 
-
-    const changeFirst = (first) => {
-        userData.userData.first = first;
+        return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
     }
 
-    const changeLast = (last) => {
-        userData.userData.last = last;
-    }
+    // const changeFirst = (first) => {
+    //     userData.first = first;
+    // }
 
-    const changePortfolio = (portfolio) => {
-        userData.userData.portfolio = portfolio;
-    }
+    // const changeLast = (last) => {
+    //     userData.last = last;
+    // }
 
-    const changeBio = (bio) => {
-        userData.userData.bio = bio;
-    }
+    // const changePortfolio = (portfolio) => {
+    //     userData.portfolio = portfolio;
+    // }
+
+    // const changeBio = (bio) => {
+    //     userData.bio = bio;
+    // }
 
     const editProfile = () => {
-        updateProfile(userData.userData);
+        updateProfile(userDataC);
+        navigation.goBack()
     }
 
 
-
+    
     return (
-        <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
                 <View style={{ ...styles.centering, marginTop: 20 }}>
                     <Avatar size={100} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} />
 
@@ -52,7 +57,8 @@ export default function EditProfile({ route, navigation }) {
                             placeholder="First Name"
                             autoCapitalize='none'
                             autoCorrect={false}
-                            onChangeText={first => changeFirst(first)} 
+                            defaultValue={userData.first}
+                            onChangeText={first => setUserDataC({...userDataC, first: first})}
                             style={{
                                 height: 40,
                                 width: 220,
@@ -70,7 +76,8 @@ export default function EditProfile({ route, navigation }) {
                             placeholder="Last Name"
                             autoCapitalize='none'
                             autoCorrect={false}
-                            onChangeText={last => changeLast(last)} 
+                            defaultValue={userData.last}
+                            onChangeText={last => setUserDataC({...userDataC, last: last})}
                             style={{
                                 height: 40,
                                 width: 220,
@@ -88,7 +95,8 @@ export default function EditProfile({ route, navigation }) {
                             placeholder="my-portfolio.com"
                             autoCapitalize='none'
                             autoCorrect={false}
-                            onChangeText={portfolio => changePortfolio(portfolio)} 
+                            defaultValue={userData.portfolio}
+                            onChangeText={portfolio => setUserDataC({...userDataC, portfolio: portfolio})}
                             style={{
                                 height: 40,
                                 width: 220,
@@ -99,13 +107,13 @@ export default function EditProfile({ route, navigation }) {
                             }}
                         />
 
-                        <Text text70 dark10 marginB-15 marginT-20>
+                        {/* <Text text70 dark10 marginB-15 marginT-20>
                             Bio
                         </Text>
                         <TextInput
                             placeholder="Bio"
                             autoCorrect={false}
-                            onChangeText={bio => changeBio(bio)} 
+                            onChangeText={bio => changeBio(bio)}
                             style={{
                                 height: 40,
                                 width: 220,
@@ -114,14 +122,14 @@ export default function EditProfile({ route, navigation }) {
                                 borderRadius: 20,
                                 paddingLeft: 10
                             }}
-                        />
+                        /> */}
                     </View>
 
                     <Button
                         backgroundColor="#FFB36C"
-                        label="Submit"
+                        label="Save Edits"
                         labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                        style={{ width: 145, marginTop: 30}}
+                        style={{ width: 145, marginTop: 30 }}
                         enableShadow
                         onPress={() => editProfile()}
                     />
@@ -129,12 +137,13 @@ export default function EditProfile({ route, navigation }) {
                         backgroundColor="#FFB36C"
                         label="Sign Out"
                         labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                        style={{ width: 145, marginTop: 20}}
+                        style={{ width: 145, marginTop: 20 }}
                         onPress={() => signOut()}
                         enableShadow
                     />
                 </View>
-        </View>
+            </View>
+        </TouchableWithoutFeedback>
 
     )
 }

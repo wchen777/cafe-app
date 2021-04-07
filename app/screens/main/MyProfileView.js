@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer} from 'react-native-ui-lib';
+import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer } from 'react-native-ui-lib';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -16,10 +16,16 @@ export default function MyProfileView({ navigation, userData }) {
 
     useEffect(() => {
         navigation.setOptions({
-            headerTitle: 
+            headerTitle:
                 <Text text60 color={Colors.orange30} >
-                @{userData.username} </Text>
-            
+                    @{userData.username} </Text>,
+            headerRight: () => 
+            <TouchableOpacity onPress={() => navigation.navigate("EditProfile", userData )} >
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 25 }}>
+                    <FontAwesome name="cog" size={24} color="#4d4d4d"/>
+                </View>
+            </TouchableOpacity>
+
         });
 
     }, [navigation])
@@ -27,20 +33,16 @@ export default function MyProfileView({ navigation, userData }) {
 
     const getInitials = () => {
         return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
-    } 
+    }
 
 
 
     // TODO: Break this up into components
 
-     return (
+    return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
 
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
-
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <FontAwesome name="cog" size={24} color="#4d4d4d" onPress={() => navigation.navigate("EditProfile", {userData: userData})}/>
-                </View>
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
                     <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} />
@@ -55,6 +57,7 @@ export default function MyProfileView({ navigation, userData }) {
                     style={{ marginBottom: 20, width: 350 }}
                     enableShadow={false}
                     marginT-15
+                    onPress={() => navigation.navigate("EditProfile", userData )}
                 >
                     <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
@@ -63,21 +66,24 @@ export default function MyProfileView({ navigation, userData }) {
                         </Text>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                            <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditProfile", {userData: userData})}/>
+                            <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditProfile", { userData: userData })} />
                         </View>
                     </View>
                 </Card>
 
                 {/* NEED TO FIX OVERFLOW HERE */}
+                <View style={{ paddingVertical: 6, flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 6 }}>
+                {userData.portfolio !== "" &&
+                        <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 14 }} ><FontAwesome name="suitcase" size={22} color={Colors.orange30} /> : {userData.portfolio}</Text>
+
+                        </TouchableOpacity>
+                    }
+                </View>
 
                 <View style={{ paddingVertical: 6, flexDirection: 'row', justifyContent: 'space-evenly' }}>
 
-                    {userData.portfolio !== "" &&
-                        <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 14 }} ><FontAwesome name="suitcase" size={22} color={Colors.orange30} /> : {userData.portfolio}</Text>
-                            
-                        </TouchableOpacity>
-                    }
+
 
                     {userData.twitter !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://twitter.com/${userData.twitter}`)}>

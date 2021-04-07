@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react'
-import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer} from 'react-native-ui-lib';
+import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer } from 'react-native-ui-lib';
 
 import MainScreen from '../screens/main/MainScreen'
 import PostViewScreen from '../screens/main/PostViewScreen'
@@ -17,19 +17,26 @@ export default function AuthStack() {
             <Stack.Screen
                 name='Main'
                 component={MainScreen}
-                options={{ headerShown: true, headerTitle:  <HeaderBarLogo/> }}
+                options={{ headerShown: true, headerTitle: <HeaderBarLogo /> }}
             />
             <Stack.Screen
                 name='PostView'
                 component={PostViewScreen}
-                options={{ headerShown: true, headerTitle: <HeaderBarLogo/>, headerBackTitleVisible: false,
-                    headerTintColor: "orange", headerBackImage: () => <HeaderBack/>}}
+                options={{
+                    headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
+                    headerTintColor: "orange", headerBackImage: () => <HeaderBack />
+                }}
             />
             <Stack.Screen
                 name='EditProfile'
                 component={EditProfileScreen}
-                options={{ headerShown: true, headerTitle: 'Edit Profile',
-                 headerBackTitleVisible: false, headerBackImage: () => <HeaderBack/>}}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />, 
+                    headerTitle:
+                        <Text text60 color={Colors.orange30} >
+                            Edit Profile </Text>
+                }}
             />
         </Stack.Navigator>
     )
