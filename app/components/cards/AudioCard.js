@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Colors, Card } from 'react-native-ui-lib';
 
 
-export default function ImageCard({ navigation }) {
+export default function AudioCard({ navigation }) {
     return (
 
         <Card

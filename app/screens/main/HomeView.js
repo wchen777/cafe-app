@@ -16,11 +16,13 @@ import { getPosts } from '../../api/firebase/FirebasePosts'
 import * as firebase from 'firebase';
 
 export default function HomeView({ navigation }) {
+    let imagePosts = null;
+    let textPosts = null;
+    let audioPosts = null;
 
     const [allPosts, setAllPosts] = useState([])
 
     useEffect(() => {
-        console.log("asdf")
         navigation.setOptions({
             headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
             headerBackImage: () => <HeaderBack />,
@@ -29,24 +31,29 @@ export default function HomeView({ navigation }) {
     })
 
 
-    // async function getPostData() {
-    //     let doc = await firebase
-    //         .firestore()
-    //         .collection('posts')
-    //         .get();
-    //     let dataObj = doc.docs.data();
-    //     console.log(doc.docs)
-    //     // setUserData(dataObj)
-    //     setAllPosts(dataObj)
+    async function getPostData() {
+        let doc = await firebase
+            .firestore()
+            .collection('posts')
+            .get();
+        //let dataObj = doc.docs.data();
+        let dataObj = doc.docs.map(doc => doc.data());
+        // setUserData(dataObj)
+        setAllPosts(dataObj)
 
-    // }
+    }
 
-    // useEffect(() => {
+    useEffect(() => {
+        getPostData()
+    })
 
-    //     getPostData()
-    // })
+    function filterPosts(posts) {
+        imagePosts = posts.filter(post => post.type == 'Image');
+        audioPosts = posts.filter(post => post.type == 'Audio');
+        textPosts = posts.filter(post => post.type == 'Text');
+    }
 
-    // console.log(allPosts)
+    filterPosts(allPosts);
 
 
     return (
@@ -56,7 +63,7 @@ export default function HomeView({ navigation }) {
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
 
 
-                {allPosts.map((post) => <Text> {post.username} {post.title} {post.description} {post.content} {post.type} </Text>)}
+                {/* {allPosts.map((post) => <Text> {post.username} {post.title} {post.description} {post.content} {post.type} </Text>)} */}
 
 
                 {/* refactor navigation props later */}
@@ -65,7 +72,7 @@ export default function HomeView({ navigation }) {
 
                 <AudioCard navigation={navigation} />
 
-                <TextCard navigation={navigation} />
+                <TextCard navigation={navigation} textPosts = {textPosts} />
 
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />
