@@ -28,6 +28,7 @@
     "react-dom": "16.13.1",
     "react-native": "^0.64.0",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-get-random-values": "^1.6.0",
     "react-native-hide-show-password-input": "^1.2.0",
     "react-native-material-textfield": "^0.16.1",
     "react-native-paper": "^4.7.2",
@@ -40,7 +41,8 @@
     "react-native-web": "^0.15.6",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
-    "undefined": "react-native-community/masked-view"
+    "undefined": "react-native-community/masked-view",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
