@@ -48,8 +48,11 @@ export default function MainScreen({ navigation }) {
 
                 {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current}/>}
 
-                {/* MAKE ICONS MORE EASILY CLICKABLE */}
-                <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage}/>
+                {selectedPage === "Explore" && <Text> Coming soon!</Text>}
+
+                {selectedPage === "Chat" && <Text> Coming soon!</Text>}
+
+                <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation}/>
 
             </View>
 

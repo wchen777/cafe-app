@@ -24,7 +24,7 @@ export default function ImageCard({ navigation }) {
             <View padding-20 bg-white borderRadius={20}>
                 <Text text40 color={Colors.grey10} marginV-14>
                     Monet: The Garden Paintings
-            </Text>
+                </Text>
 
                 <View row>
                     <Text text60 color={Colors.orange30} >

@@ -8,6 +8,9 @@ import EditProfileScreen from '../screens/main/EditProfile'
 import EditBioScreen from '../screens/main/EditBio'
 import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import HeaderBack from '../components/header/HeaderBack'
+import CreatePostMain from '../screens/main/create-post/CreatePostMain';
+
+import { CardStyleInterpolators } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -48,6 +51,17 @@ export default function AuthStack() {
                     headerTitle:
                         <Text text60 color={Colors.orange30} >
                             Edit Bio</Text>
+                }}
+            />
+            <Stack.Screen
+                name='CreatePostMain'
+                component={CreatePostMain}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <></>,
+                    headerTitle: <HeaderBarLogo />,
+                    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+                    gestureDirection: "vertical"
                 }}
             />
         </Stack.Navigator>

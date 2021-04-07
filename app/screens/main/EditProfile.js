@@ -38,6 +38,8 @@ export default function EditProfile({ route, navigation }) {
 
     const editProfile = () => {
         updateProfile(userDataC);
+        // might have to set the state here
+        route.params = userDataC
         navigation.goBack()
     }
 

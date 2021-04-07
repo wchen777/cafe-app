@@ -62,7 +62,8 @@ export default function MyProfileView({ navigation, userData }) {
                     <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
                         <Text text70 color={Colors.grey10} marginV-14>
-                            {userData.bio}
+                            {userData.bio === "" || userData === undefined ? 
+                            'No bio here yet! Also edit profile does not register immediately, need to fix profile gallery view' : userData.bio}
                         </Text>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
@@ -71,7 +72,7 @@ export default function MyProfileView({ navigation, userData }) {
                     </View>
                 </Card>
 
-                {/* NEED TO FIX OVERFLOW HERE */}
+
                 <View style={{ paddingVertical: 6, flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 6 }}>
                 {userData.portfolio !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>

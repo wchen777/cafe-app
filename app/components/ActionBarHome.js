@@ -4,7 +4,7 @@ import { ActionBar, View, Text, Button } from 'react-native-ui-lib';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-export default function ActionBarHome({ selectedPage, setSelectedPage }) {
+export default function ActionBarHome({ selectedPage, setSelectedPage, navigation }) {
     const orange = '#FFB36C'
     const grey = '#d6d6d6'
 
@@ -39,6 +39,7 @@ export default function ActionBarHome({ selectedPage, setSelectedPage }) {
                     backgroundColor={orange}
                     borderRadius={20}
                     enableShadow
+                    onPress={() => navigation.navigate("CreatePostMain")}
                     size="small"
                 />
 
