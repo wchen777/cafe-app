@@ -37,6 +37,7 @@ export default function EditBio({ route, navigation }) {
                         width="80%"
                         style={{ minHeight: 150, marginTop: 0, paddingTop: 0, marginHorizontal: 10, paddingHorizontal: 10 }}
                         floatOnFocus
+                        multiline={true}
                     />
 
                     <View style={styles.centering}>

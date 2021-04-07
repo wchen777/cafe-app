@@ -6,13 +6,24 @@ import { View, Image, Text, TextField, TextArea, Button, Colors, Wizard, Card } 
 import TextOption from '../../../components/create/option-cards/TextOption';
 import ImageOption from '../../../components/create/option-cards/ImageOption';
 import AudioOption from '../../../components/create/option-cards/AudioOption';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import TextPost from '../../../components/create/create-views/TextPost';
+import TextInfo from '../../../components/create/create-views/TextInfo';
 
 
 
 export default function CreatePostMain({ navigation }) {
     const [index, setIndex] = useState({ active: 0, completed: -1 })
     const [selectedType, setSelectedType] = useState("Image")
+    const [content, setContent] = useState(null)
+    const [metaInfo, setMetaInfo] = useState({})
+
+    console.log(content)
+    console.log(metaInfo)
+
+    const uploadPost = () => {
+
+    }
 
     const getStepState = (i) => {
 
@@ -73,28 +84,10 @@ export default function CreatePostMain({ navigation }) {
 
                             </View>}
 
-                        {index.active == 1 && selectedType === "Text" &&
-                            <TouchableWithoutFeedback marginT-13 onPress={Keyboard.dismiss}>
-                                <View>
 
+                        {index.active == 1 && selectedType === "Text" && <TextPost setContent={setContent} />}
 
-                                    <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}>Enter your thoughts: </Text>
-
-                                    <TextField
-                                        backgroundColor="#ffffff"
-                                        text70
-                                        floatOnFocus
-                                        width="80%"
-                                        height={500}
-                                        style={{ minHeight: 150, marginTop: 0, paddingTop: 0, marginHorizontal: 10, paddingHorizontal: 10 }}
-                                        floatOnFocus
-                                    />
-                                </View>
-
-                            </TouchableWithoutFeedback>}
-
-
-
+                        {index.active == 2 && selectedType === "Text" && <TextInfo setInfo={setMetaInfo} info={metaInfo} />}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                             <Button
@@ -106,15 +99,28 @@ export default function CreatePostMain({ navigation }) {
                                 onPress={() => onBack()}
                                 enableShadow
                             />
-                            <Button
-                                backgroundColor="#FFB36C"
-                                label="Next"
-                                marginL-5
-                                labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                                style={{ width: 150 }}
-                                onPress={() => nextStep(1)}
-                                enableShadow
-                            />
+                            {index.active < 2 &&
+                                <Button
+                                    backgroundColor="#FFB36C"
+                                    label="Next"
+                                    marginL-5
+                                    labelStyle={{ fontWeight: '600', fontSize: 20 }}
+                                    style={{ width: 150 }}
+                                    onPress={() => nextStep(1)}
+                                    enableShadow
+                                />}
+
+                            {/* TEMPORARY PURPOSES */}
+                            {index.active == 2 && selectedType === "Text" &&
+                                <Button
+                                    backgroundColor="#FFB36C"
+                                    label="Post!"
+                                    marginL-5
+                                    labelStyle={{ fontWeight: '600', fontSize: 20 }}
+                                    style={{ width: 150 }}
+                                    onPress={() => uploadPost()}
+                                    enableShadow
+                                />}
 
                         </View>
 

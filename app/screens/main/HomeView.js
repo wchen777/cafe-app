@@ -36,11 +36,7 @@ export default function HomeView({ navigation }) {
 
                 <AudioCard navigation={navigation} />
 
-                <ImageCard navigation={navigation} />
-
                 <TextCard navigation={navigation} />
-
-                <ImageCard navigation={navigation} />
 
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />

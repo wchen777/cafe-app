@@ -48,9 +48,9 @@ export default function MainScreen({ navigation }) {
 
                 {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current}/>}
 
-                {selectedPage === "Explore" && <Text> Coming soon!</Text>}
+                {selectedPage === "Explore" && <Text> Explore page coming soon!</Text>}
 
-                {selectedPage === "Chat" && <Text> Coming soon!</Text>}
+                {selectedPage === "Chat" && <Text> Chat coming soon!</Text>}
 
                 <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation}/>
 
