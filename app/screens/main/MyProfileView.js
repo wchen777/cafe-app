@@ -57,7 +57,7 @@ export default function MyProfileView({ navigation, userData }) {
                     style={{ marginBottom: 20, width: 350 }}
                     enableShadow={false}
                     marginT-15
-                    onPress={() => navigation.navigate("EditProfile", userData )}
+                    onPress={() => navigation.navigate("EditBio", userData )}
                 >
                     <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
@@ -66,7 +66,7 @@ export default function MyProfileView({ navigation, userData }) {
                         </Text>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                            <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditProfile", { userData: userData })} />
+                            <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", userData)} />
                         </View>
                     </View>
                 </Card>

@@ -5,6 +5,7 @@ import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer }
 import MainScreen from '../screens/main/MainScreen'
 import PostViewScreen from '../screens/main/PostViewScreen'
 import EditProfileScreen from '../screens/main/EditProfile'
+import EditBioScreen from '../screens/main/EditBio'
 import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import HeaderBack from '../components/header/HeaderBack'
 
@@ -32,10 +33,21 @@ export default function AuthStack() {
                 component={EditProfileScreen}
                 options={{
                     headerShown: true,
-                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />, 
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
                     headerTitle:
                         <Text text60 color={Colors.orange30} >
                             Edit Profile </Text>
+                }}
+            />
+            <Stack.Screen
+                name='EditBio'
+                component={EditBioScreen}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
+                    headerTitle:
+                        <Text text60 color={Colors.orange30} >
+                            Edit Bio</Text>
                 }}
             />
         </Stack.Navigator>
