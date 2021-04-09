@@ -7,7 +7,7 @@ import TextOption from '../../../components/create/option-cards/TextOption';
 import ImageOption from '../../../components/create/option-cards/ImageOption';
 import AudioOption from '../../../components/create/option-cards/AudioOption';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import TextPost from '../../../components/create/create-views/TextPost';
+import TextPost from '../../../components/create/create-views/TextPostContent';
 import TextInfo from '../../../components/create/create-views/TextInfo';
 
 import { createPost } from '../../../api/firebase/FirebasePosts'
@@ -141,6 +141,7 @@ export default function CreatePostMain({ navigation }) {
                         {index.active == 2 && selectedType === "Text" && <TextInfo setInfo={setMetaInfo} info={metaInfo} />}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+
                             <Button
                                 backgroundColor="#FFB36C"
                                 label="Back"
@@ -150,6 +151,7 @@ export default function CreatePostMain({ navigation }) {
                                 onPress={() => onBack()}
                                 enableShadow
                             />
+
                             {index.active < 2 &&
                                 <Button
                                     backgroundColor="#FFB36C"

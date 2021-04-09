@@ -14,7 +14,7 @@ export default function TextPost({ setContent }) {
 
                 <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
                     marginB-13>
-                    <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20, color: 'red' }} marginB-13>*</Text>Enter your thoughts:
+                    <Text style={{ textAlign: 'center', fontSize: 25, marginTop: 20}} marginB-13 color={Colors.red40}>* </Text>Enter your thoughts:
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                     <TextInput

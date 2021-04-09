@@ -46,7 +46,7 @@ export default function HomeView({ navigation }) {
 
     useEffect(() => {
         getPostData()
-    }, [getPostData, setAllPosts, allPosts])
+    }, [])
 
     // function filterPosts(posts) {
     //     imagePosts = posts.filter(post => post.type == 'Image');
@@ -56,14 +56,16 @@ export default function HomeView({ navigation }) {
 
     // filterPosts(allPosts);
 
+    // TODO: need to cache these
+    let count = 1
     const postsComponents = allPosts.map((p) => {
         switch (p.type) {
             case 'Text':
-                return (<TextCard  navigation={navigation} textPost = {p}/>)
+                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
             case 'Image':
-                return (<ImageCard  navigation={navigation} imagePost = {p}/>)
+                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
             case 'Audio':
-                return (<AudioCard  navigation={navigation} audioPost = {p}/>)
+                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)
             default:
                 return
         }

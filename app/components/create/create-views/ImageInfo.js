@@ -55,17 +55,15 @@ export default function ImageInfo({ setInfo, info }) {
             {/* onValueChange={value => this.setState({ textSide: value })} */}
             <RadioGroup marginB-20 marginT-10 marginL-55 initialValue={info.category} onValueChange={value => setInfo({...info, category: value})}>
 
-                <RadioButton value="Writing" label="Writing" marginB-9 color={'#FFB36C'}/>
+                <RadioButton value="Painting" label="Writing" marginB-9 color={'#FFB36C'}/>
 
+                <RadioButton value="Digital Art" label="Digital Art" marginB-9 color={'#FFB36C'}/>
 
-                <RadioButton value="Commentary" label="Commentary" marginB-9 color={'#FFB36C'}/>
+                <RadioButton value="Design" label="Design" marginB-9 color={'#FFB36C'}/>
 
+                <RadioButton value="Photography" label="Photography" marginB-9 color={'#FFB36C'}/>
 
                 <RadioButton value="Other" label="Other" marginB-9 color={'#FFB36C'}/>
-
-
-
-
 
             </RadioGroup>
 

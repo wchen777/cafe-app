@@ -7,7 +7,7 @@ import { Text, View, TextField, TextArea, Colors, Wizard, Card } from 'react-nat
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function ImagePost({ setContent }) {
+export default function ImageSelect({ setContent }) {
 
     const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
     const [hasCameraPermission, setHasCameraPermission] = useState(null);

@@ -9,6 +9,7 @@ import EditBioScreen from '../screens/main/EditBio'
 import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import HeaderBack from '../components/header/HeaderBack'
 import CreatePostMain from '../screens/main/create-post/CreatePostMain';
+import CreatePatio from '../screens/main/patio/CreatePatio'
 
 import { CardStyleInterpolators } from '@react-navigation/stack';
 
@@ -62,6 +63,15 @@ export default function AuthStack() {
                     headerTitle: <HeaderBarLogo />,
                     cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
                     gestureDirection: "vertical"
+                }}
+            />
+            <Stack.Screen
+                name='CreatePatio'
+                component={CreatePatio}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
+                    headerTitle: <HeaderBarLogo />,
                 }}
             />
         </Stack.Navigator>
