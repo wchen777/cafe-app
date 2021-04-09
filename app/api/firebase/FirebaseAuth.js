@@ -26,7 +26,7 @@ export async function registration({ email, password, username, last, first, ig,
   }
 }
 
-export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, extra1, extra2, extra3, bio }) {
+export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, bio }) {
   try {
     const currentUser = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -40,9 +40,6 @@ export async function updateProfile({ email, password, username, last, first, ig
         ig: ig,
         twitter: twitter,
         portfolio: portfolio,
-        extra1: extra1,
-        extra2: extra2,
-        extra3: extra3,
         bio: bio,
       });
 

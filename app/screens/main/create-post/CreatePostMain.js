@@ -7,19 +7,21 @@ import TextOption from '../../../components/create/option-cards/TextOption';
 import ImageOption from '../../../components/create/option-cards/ImageOption';
 import AudioOption from '../../../components/create/option-cards/AudioOption';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import TextPost from '../../../components/create/create-views/TextPostContent';
+import TextPostContent from '../../../components/create/create-views/TextPostContent';
 import TextInfo from '../../../components/create/create-views/TextInfo';
+import ImageInfo from '../../../components/create/create-views/ImageInfo';
 
 import { createPost } from '../../../api/firebase/FirebasePosts'
 import * as firebase from 'firebase';
 
 
 import { AuthContext } from '../../../context/AuthContext'
+import ImagePostContent from '../../../components/create/create-views/ImagePostContent';
 
 export default function CreatePostMain({ navigation }) {
     const [index, setIndex] = useState({ active: 0, completed: -1 })
     const [selectedType, setSelectedType] = useState("Image")
-    const [content, setContent] = useState(null)
+    const [content, setContent] = useState({})
     const [metaInfo, setMetaInfo] = useState({})
 
     const [showToast, setShowToast] = useState(false)
@@ -51,8 +53,16 @@ export default function CreatePostMain({ navigation }) {
     }
 
     useEffect(() => {
+        setContent({})
+    }, [])
+
+    useEffect(() => {
         getUserInfo();
+        setContent({})
     }, [userData])
+
+    console.log("fuck", content)
+    console.log(content["first"])
 
     // ------------------ temporary copy ---------------
 
@@ -136,9 +146,13 @@ export default function CreatePostMain({ navigation }) {
                             </View>}
 
 
-                        {index.active == 1 && selectedType === "Text" && <TextPost setContent={setContent} />}
+                        {index.active == 1 && selectedType === "Text" && <TextPostContent setContent={setContent} />}
+
+                        {index.active == 1 && selectedType === "Image" && <ImagePostContent setContent={setContent} content={content}/>}
 
                         {index.active == 2 && selectedType === "Text" && <TextInfo setInfo={setMetaInfo} info={metaInfo} />}
+                        
+                        {index.active == 2 && selectedType === "Image" && <ImageInfo setInfo={setMetaInfo} info={metaInfo} />}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 
@@ -164,7 +178,7 @@ export default function CreatePostMain({ navigation }) {
                                 />}
 
                             {/* TEMPORARY PURPOSES */}
-                            {index.active == 2 && selectedType === "Text" &&
+                            {index.active == 2 &&
                                 <Button
                                     backgroundColor="#FFB36C"
                                     label="Post!"

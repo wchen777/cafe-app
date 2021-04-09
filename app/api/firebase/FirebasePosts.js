@@ -5,7 +5,7 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 
-export async function createPost({title, description, type, category, content, username}) {
+export async function createPost({title, description, type, category, content, username, time}) {
     try {
         const db = firebase.firestore();
         db.collection("posts")
@@ -17,7 +17,8 @@ export async function createPost({title, description, type, category, content, u
             type: type,
             category: category,
             content: content,
-            username: username
+            username: username,
+            time: time,
           });
     } catch (err) {
         Alert.alert("Could not create post right now.", err.message);

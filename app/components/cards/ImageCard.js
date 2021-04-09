@@ -18,7 +18,7 @@ export default function ImageCard({ navigation, imagePost }) {
         >
             <Card.Image
                 source={{ uri: testImage }}
-                height={270}
+                height={280}
             />
 
             <View padding-20 bg-white borderRadius={20}>

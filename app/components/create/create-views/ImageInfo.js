@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet } from 'react-native';
 
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
-import { View, Image, Text, RadioButton, RadioGroup } from 'react-native-ui-lib';
+import { View, Image, Text, RadioButton, RadioGroup, Colors } from 'react-native-ui-lib';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 export default function ImageInfo({ setInfo, info }) {
@@ -26,13 +26,13 @@ export default function ImageInfo({ setInfo, info }) {
                     placeholder="A title of your choosing"
                     width="90%"
                     multiline={false}
-                    style={{ paddingVertical: 5, paddingHorizontal: 10, minHeight: 50, marginBottom: 25 }}
+                    style={{ paddingVertical: 5, paddingHorizontal: 10, minHeight: 50, marginBottom: 17 }}
                 />
             </View>
 
             <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
                 marginB-13>
-                <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20, color: 'red' }} marginB-13>*</Text>Enter a description:
+                <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 15, color: 'red' }} marginB-13>*</Text>Enter a description:
             </Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                 <TextInput
@@ -47,7 +47,7 @@ export default function ImageInfo({ setInfo, info }) {
                 />
             </View>
 
-            <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
+            <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 2 }}
                 marginB-13>
                 Category:
             </Text>
@@ -55,15 +55,15 @@ export default function ImageInfo({ setInfo, info }) {
             {/* onValueChange={value => this.setState({ textSide: value })} */}
             <RadioGroup marginB-20 marginT-10 marginL-55 initialValue={info.category} onValueChange={value => setInfo({...info, category: value})}>
 
-                <RadioButton value="Painting" label="Writing" marginB-9 color={'#FFB36C'}/>
+                <RadioButton value="Painting" label="Writing" marginB-9 color={Colors.green20}/>
 
-                <RadioButton value="Digital Art" label="Digital Art" marginB-9 color={'#FFB36C'}/>
+                <RadioButton value="Digital Art" label="Digital Art" marginB-9 color={Colors.green20}/>
 
-                <RadioButton value="Design" label="Design" marginB-9 color={'#FFB36C'}/>
+                <RadioButton value="Design" label="Design" marginB-9 color={Colors.green20}/>
 
-                <RadioButton value="Photography" label="Photography" marginB-9 color={'#FFB36C'}/>
+                <RadioButton value="Photography" label="Photography" marginB-9 color={Colors.green20}/>
 
-                <RadioButton value="Other" label="Other" marginB-9 color={'#FFB36C'}/>
+                <RadioButton value="Other" label="Other" marginB-9 color={Colors.green20}/>
 
             </RadioGroup>
 

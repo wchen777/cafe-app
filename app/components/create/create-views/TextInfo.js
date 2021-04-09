@@ -47,7 +47,7 @@ export default function TextInfo({ setInfo, info }) {
                     />
                 </View>
 
-                <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
+                <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 10, marginBottom: 10 }}
                     marginB-13>
                     Category:
                 </Text>
@@ -55,16 +55,13 @@ export default function TextInfo({ setInfo, info }) {
                 {/* onValueChange={value => this.setState({ textSide: value })} */}
                 <RadioGroup marginB-20 marginT-10 marginL-55 initialValue={info.category} onValueChange={value => setInfo({...info, category: value})}>
 
-                    <RadioButton value="Writing" label="Writing" marginB-9 color={'#FFB36C'}/>
+                    <RadioButton value="Writing" label="Writing" marginB-9 color={Colors.red20}/>
 
 
-                    <RadioButton value="Commentary" label="Commentary" marginB-9 color={'#FFB36C'}/>
+                    <RadioButton value="Commentary" label="Commentary" marginB-9 color={Colors.red20}/>
 
 
-                    <RadioButton value="Other" label="Other" marginB-9 color={'#FFB36C'}/>
-
-
-
+                    <RadioButton value="Other" label="Other" marginB-9 color={Colors.red20}/>
 
 
                 </RadioGroup>
