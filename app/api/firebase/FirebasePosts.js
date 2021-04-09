@@ -5,10 +5,6 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import 'firebase/storage';
 
-export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
-
-let dbFireStore = firebase.firestore();
-
 export async function createTextPost({ title, description, type, category, content, username, time }) {
     try {
         const db = firebase.firestore();
@@ -29,7 +25,7 @@ export async function createTextPost({ title, description, type, category, conte
     }
 }
 
-async function uploadImgStorage(imageURI, imagesDB, id, count) {
+async function uploadImgStorage(imageURI, imagesDB, id, count, dbFirestore) {
 
     // grab name of image, which is the last part of the path
     const splitArr = imageURI.split("/")
@@ -56,7 +52,7 @@ async function uploadImgStorage(imageURI, imagesDB, id, count) {
         console.log(err)
     }, async () => {
         const url = await imageRef.getDownloadURL();
-        dbFireStore.collection("posts")
+        dbFirestore.collection("posts")
             .doc(id)
             .update({
                 [count]: url
@@ -68,8 +64,9 @@ async function uploadImgStorage(imageURI, imagesDB, id, count) {
 
 export async function createImagePost({ title, description, type, category, content, username, time }) {
     let id = uuidv4()
+    let db = firebase.firestore();
     try {
-        dbFireStore.collection("posts")
+        db.collection("posts")
             .doc(id)
             .set({
                 title: title,
@@ -92,23 +89,23 @@ export async function createImagePost({ title, description, type, category, cont
     // upload each image, then update the document with the urls 
     // (really ugly, but needed due to async function calls being annoying)
     if (content["first"]) {
-        await uploadImgStorage(content["first"], imagesDB, id, count++)
+        await uploadImgStorage(content["first"], imagesDB, id, count++, db)
     }
 
     if (content["second"]) {
-        await uploadImgStorage(content["second"], imagesDB, id, count++)
+        await uploadImgStorage(content["second"], imagesDB, id, count++, db)
     }
 
     if (content["third"]) {
-        await uploadImgStorage(content["third"], imagesDB, id, count++)
+        await uploadImgStorage(content["third"], imagesDB, id, count++, db)
     }
 
     if (content["fourth"]) {
-        await uploadImgStorage(content["fourth"], imagesDB, id, count++)
+        await uploadImgStorage(content["fourth"], imagesDB, id, count++, db)
     }
 
     if (content["fifth"]) {
-       await uploadImgStorage(content["fifth"], imagesDB, id, count++)
+       await uploadImgStorage(content["fifth"], imagesDB, id, count++, db)
     }
 
 

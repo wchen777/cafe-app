@@ -15,7 +15,7 @@ export default function ImageInfo({ setInfo, info }) {
         <View >
             <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
                 marginB-13>
-                <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20, color: 'red' }} marginB-13>*</Text>Enter a title:
+                <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20}} color={Colors.red40} marginB-13>* </Text>Enter a title:
             </Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                 <TextInput
@@ -32,7 +32,7 @@ export default function ImageInfo({ setInfo, info }) {
 
             <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
                 marginB-13>
-                <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 15, color: 'red' }} marginB-13>*</Text>Enter a description:
+                <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 15}} marginB-13 color={Colors.red40}>* </Text>Enter a description:
             </Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                 <TextInput

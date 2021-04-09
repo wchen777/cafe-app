@@ -7,7 +7,7 @@ export default function TextCard({ navigation, textPost }) {
         <Card
             key={1}
             style={{ marginBottom: 20 }}
-            onPress={() => navigation.navigate('PostView')}
+            onPress={() => navigation.navigate('PostView', textPost)}
             borderRadius={20}
             marginH-4
         >

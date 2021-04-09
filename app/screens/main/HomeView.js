@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native'
 import { View, Button, Text } from 'react-native-ui-lib';
 
-
 import { signOut } from '../../api/firebase/FirebaseAuth'
 
 import ImageCard from '../../components/cards/ImageCard';
@@ -10,9 +9,9 @@ import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
-
 import { getPosts } from '../../api/firebase/FirebasePosts'
 
+import Moment from 'moment';
 import * as firebase from 'firebase';
 
 export default function HomeView({ navigation, allPosts, setAllPosts }) {
@@ -36,6 +35,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     // TODO: need to cache these
     let count = 1
+    allPosts = allPosts.sort((p1, p2) => Moment(p2.time).isAfter(Moment(p1.time)))
     const postsComponents = allPosts.map((p) => {
         switch (p.type) {
             case 'Text':
