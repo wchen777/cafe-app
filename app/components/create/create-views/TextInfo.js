@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet } from 'react-native';
 
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
-import { View, Image, Text, RadioButton, RadioGroup } from 'react-native-ui-lib';
+import { View, Image, Text, RadioButton, RadioGroup, Colors } from 'react-native-ui-lib';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 export default function TextInfo({ setInfo, info }) {
@@ -15,7 +15,7 @@ export default function TextInfo({ setInfo, info }) {
             <View >
                 <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
                     marginB-13>
-                    <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20, color: 'red' }} marginB-13>*</Text>Enter a title:
+                    <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20}} marginB-13 color={Colors.red40}>* </Text>Enter a title:
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                     <TextInput
@@ -32,7 +32,7 @@ export default function TextInfo({ setInfo, info }) {
 
                 <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
                     marginB-13>
-                    <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20, color: 'red' }} marginB-13>*</Text>Enter a description:
+                    <Text  style={{ textAlign: 'center', fontSize: 25, marginTop: 20}} marginB-13 color={Colors.red40}>* </Text>Enter a description:
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                     <TextInput
@@ -47,7 +47,7 @@ export default function TextInfo({ setInfo, info }) {
                     />
                 </View>
 
-                <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }}
+                <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 10, marginBottom: 10 }}
                     marginB-13>
                     Category:
                 </Text>
@@ -55,16 +55,13 @@ export default function TextInfo({ setInfo, info }) {
                 {/* onValueChange={value => this.setState({ textSide: value })} */}
                 <RadioGroup marginB-20 marginT-10 marginL-55 initialValue={info.category} onValueChange={value => setInfo({...info, category: value})}>
 
-                    <RadioButton value="Writing" label="Writing" marginB-9 color={'#FFB36C'}/>
+                    <RadioButton value="Writing" label="Writing" marginB-9 color={Colors.red20}/>
 
 
-                    <RadioButton value="Commentary" label="Commentary" marginB-9 color={'#FFB36C'}/>
+                    <RadioButton value="Commentary" label="Commentary" marginB-9 color={Colors.red20}/>
 
 
-                    <RadioButton value="Other" label="Other" marginB-9 color={'#FFB36C'}/>
-
-
-
+                    <RadioButton value="Other" label="Other" marginB-9 color={Colors.red20}/>
 
 
                 </RadioGroup>

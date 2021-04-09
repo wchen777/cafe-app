@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native'
+import { ScrollView, RefreshControl } from 'react-native'
 import { View, Button, Text } from 'react-native-ui-lib';
-
 
 import { signOut } from '../../api/firebase/FirebaseAuth'
 
@@ -10,17 +9,29 @@ import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
-
 import { getPosts } from '../../api/firebase/FirebasePosts'
 
+import Moment from 'moment';
 import * as firebase from 'firebase';
 
-export default function HomeView({ navigation }) {
-    let imagePosts = null;
-    let textPosts = null;
-    let audioPosts = null;
+const wait = timeout => {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+};
 
-    const [allPosts, setAllPosts] = useState([])
+export default function HomeView({ navigation, allPosts, setAllPosts }) {
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        console.log('hi');
+        console.log(allPosts);
+    
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+    
 
     useEffect(() => {
         navigation.setOptions({
@@ -31,54 +42,48 @@ export default function HomeView({ navigation }) {
     })
 
 
-    async function getPostData() {
-        let doc = await firebase
-            .firestore()
-            .collection('posts')
-            .get();
-        //let dataObj = doc.docs.data();
-        let dataObj = doc.docs.map(doc => doc.data());
-        // setUserData(dataObj)
-        setAllPosts(dataObj)
+    // function filterPosts(posts) {
+    //     imagePosts = posts.filter(post => post.type == 'Image');
+    //     audioPosts = posts.filter(post => post.type == 'Audio');
+    //     textPosts = posts.filter(post => post.type == 'Text');
+    // }
 
-    }
+    // filterPosts(allPosts);
 
-    useEffect(() => {
-        getPostData()
+    // TODO: need to cache these
+    let count = 1;
+    allPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
+    const postsComponents = allPosts.map((p) => {
+        switch (p.type) {
+            case 'Text':
+                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
+            case 'Image':
+                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
+            case 'Audio':
+                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)
+            default:
+                return
+        }
     })
-
-    function filterPosts(posts) {
-        imagePosts = posts.filter(post => post.type == 'Image');
-        audioPosts = posts.filter(post => post.type == 'Audio');
-        textPosts = posts.filter(post => post.type == 'Text');
-    }
-
-    filterPosts(allPosts);
 
 
     return (
         <View style={{ flexDirection: 'column', marginBottom: 0, paddingBottom: 0 }}>
 
 
-            <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
-
-
-                {/* {allPosts.map((post) => <Text> {post.username} {post.title} {post.description} {post.content} {post.type} </Text>)} */}
-
+            <ScrollView style={{ marginBottom: 80, paddingTop: 15 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 
                 {/* refactor navigation props later */}
 
-                {imagePosts.map((post) => <ImageCard  navigation={navigation} imagePost = {post}/>)}
-               
+                {postsComponents}
+
                 <AudioCard navigation={navigation} />
 
-                {/* <TextCard navigation={navigation} textPosts = {textPosts}  /> */}
 
-                {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)}
+                {/* {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)} */}
 
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />
-
 
             </ScrollView>
         </View>

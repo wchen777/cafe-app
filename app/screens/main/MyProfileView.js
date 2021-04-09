@@ -19,12 +19,12 @@ export default function MyProfileView({ navigation, userData }) {
             headerTitle:
                 <Text text60 color={Colors.orange30} >
                     @{userData.username} </Text>,
-            headerRight: () => 
-            <TouchableOpacity onPress={() => navigation.navigate("EditProfile", userData )} >
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 25 }}>
-                    <FontAwesome name="cog" size={24} color="#4d4d4d"/>
-                </View>
-            </TouchableOpacity>
+            headerRight: () =>
+                <TouchableOpacity onPress={() => navigation.navigate("EditProfile", userData)} >
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 25 }}>
+                        <FontAwesome name="cog" size={24} color="#4d4d4d" />
+                    </View>
+                </TouchableOpacity>
 
         });
 
@@ -52,29 +52,30 @@ export default function MyProfileView({ navigation, userData }) {
                     </Text>
                 </View>
 
-                <Card
-                    key={1}
-                    style={{ marginBottom: 20, width: 350 }}
-                    enableShadow={false}
-                    marginT-15
-                    onPress={() => navigation.navigate("EditBio", userData )}
-                >
-                    <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
+                <View style={styles.centering}>
+                    <Card
+                        key={1}
+                        style={{ marginBottom: 20, width: 350 }}
+                        enableShadow={false}
+                        marginT-15
+                        onPress={() => navigation.navigate("EditBio", userData)}
+                    >
+                        <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
-                        <Text text70 color={Colors.grey10} marginV-14>
-                            {userData.bio === "" || userData === undefined ? 
-                            'No bio here yet! Also edit profile does not register immediately, need to fix profile gallery view' : userData.bio}
-                        </Text>
+                            <Text text70 color={Colors.grey10} marginV-14>
+                                {userData.bio === "" || userData === undefined ?
+                                    'No bio here yet! Also edit profile does not register immediately, need to fix profile gallery view' : userData.bio}
+                            </Text>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                            <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", userData)} />
+                            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
+                                <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", userData)} />
+                            </View>
                         </View>
-                    </View>
-                </Card>
-
+                    </Card>
+                </View>
 
                 <View style={{ paddingVertical: 6, flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 6 }}>
-                {userData.portfolio !== "" &&
+                    {userData.portfolio !== "" &&
                         <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>
                             <Text style={{ fontWeight: 'bold', fontSize: 14 }} ><FontAwesome name="suitcase" size={22} color={Colors.orange30} /> : {userData.portfolio}</Text>
 

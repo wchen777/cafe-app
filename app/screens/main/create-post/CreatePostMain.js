@@ -7,21 +7,21 @@ import TextOption from '../../../components/create/option-cards/TextOption';
 import ImageOption from '../../../components/create/option-cards/ImageOption';
 import AudioOption from '../../../components/create/option-cards/AudioOption';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import TextPost from '../../../components/create/create-views/TextPost';
+import TextPostContent from '../../../components/create/create-views/TextPostContent';
 import TextInfo from '../../../components/create/create-views/TextInfo';
-import ImagePost from '../../../components/create/create-views/ImagePost';
 import ImageInfo from '../../../components/create/create-views/ImageInfo';
 
-import { createPost } from '../../../api/firebase/FirebasePosts'
+import { createTextPost, createImagePost } from '../../../api/firebase/FirebasePosts'
 import * as firebase from 'firebase';
 
 
 import { AuthContext } from '../../../context/AuthContext'
+import ImagePostContent from '../../../components/create/create-views/ImagePostContent';
 
 export default function CreatePostMain({ navigation }) {
     const [index, setIndex] = useState({ active: 0, completed: -1 })
     const [selectedType, setSelectedType] = useState("Image")
-    const [content, setContent] = useState(null)
+    const [content, setContent] = useState({})
     const [metaInfo, setMetaInfo] = useState({})
 
     const [showToast, setShowToast] = useState(false)
@@ -54,19 +54,40 @@ export default function CreatePostMain({ navigation }) {
     }
 
     useEffect(() => {
+        setContent({})
+    }, [])
+
+    useEffect(() => {
         getUserInfo();
+        setContent({})
     }, [userData])
 
     // ------------------ temporary copy ---------------
 
     const uploadPost = () => {
-        let post = { ...metaInfo, content: content, type: selectedType, username: userData.current.username, time: Moment().format('MMMM Do YYYY, h:mm:ss a') }
-        console.log("created post:")
-        console.log(post)
-        if (post.content == null || post.description == null || post.title == null) {
+        if (!content || !metaInfo.description == null || !metaInfo.title == null) {
             return Alert.alert("Please fill in all required fields.")
         }
-        createPost(post)
+
+        let post = { ...metaInfo, 
+            type: selectedType, 
+            username: userData.current.username, 
+            content: content,
+            time: Moment().format('MMMM Do YYYY, h:mm:ss a') }
+        switch (selectedType){
+            case "Text":
+                createTextPost(post)
+                break;
+            case "Image":
+                createImagePost(post)
+                break;
+            case "Audio":
+                console.log("not done with audio yet")
+                break;
+            default:
+                break;
+        }
+   
         // setTimeout(setShowToast(true), 3000)
         // setShowToast(false)
         navigation.goBack()
@@ -144,11 +165,16 @@ export default function CreatePostMain({ navigation }) {
 
                         {index.active == 2 && selectedType === "Image" && <ImageInfo setInfo={setMetaInfo} info={metaInfo} />}
 
-                        {index.active == 1 && selectedType === "Text" && <TextPost setContent={setContent} />}
+                        {index.active == 1 && selectedType === "Text" && <TextPostContent setContent={setContent} />}
+
+                        {index.active == 1 && selectedType === "Image" && <ImagePostContent setContent={setContent} content={content}/>}
 
                         {index.active == 2 && selectedType === "Text" && <TextInfo setInfo={setMetaInfo} info={metaInfo} />}
+                        
+                        {index.active == 2 && selectedType === "Image" && <ImageInfo setInfo={setMetaInfo} info={metaInfo} />}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+
                             <Button
                                 backgroundColor="#FFB36C"
                                 label="Back"
@@ -158,6 +184,7 @@ export default function CreatePostMain({ navigation }) {
                                 onPress={() => onBack()}
                                 enableShadow
                             />
+
                             {index.active < 2 &&
                                 <Button
                                     backgroundColor="#FFB36C"
@@ -170,7 +197,7 @@ export default function CreatePostMain({ navigation }) {
                                 />}
 
                             {/* TEMPORARY PURPOSES */}
-                            {index.active == 2 && selectedType === "Text" &&
+                            {index.active == 2 &&
                                 <Button
                                     backgroundColor="#FFB36C"
                                     label="Post!"
