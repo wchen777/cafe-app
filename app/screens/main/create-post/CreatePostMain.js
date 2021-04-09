@@ -11,7 +11,7 @@ import TextPostContent from '../../../components/create/create-views/TextPostCon
 import TextInfo from '../../../components/create/create-views/TextInfo';
 import ImageInfo from '../../../components/create/create-views/ImageInfo';
 
-import { createPost } from '../../../api/firebase/FirebasePosts'
+import { createTextPost, createImagePost } from '../../../api/firebase/FirebasePosts'
 import * as firebase from 'firebase';
 
 
@@ -61,19 +61,35 @@ export default function CreatePostMain({ navigation }) {
         setContent({})
     }, [userData])
 
-    console.log("fuck", content)
-    console.log(content["first"])
-
     // ------------------ temporary copy ---------------
 
     const uploadPost = () => {
-        let post = { ...metaInfo, content: content, type: selectedType, username: userData.current.username, time: Moment().format('MMMM Do YYYY, h:mm:ss a') }
-        console.log("created post:")
-        console.log(post)
-        if (post.content == null || post.description == null || post.title == null) {
+        if (!content || !metaInfo.description == null || !metaInfo.title == null) {
             return Alert.alert("Please fill in all required fields.")
         }
-        createPost(post)
+
+        let post = { ...metaInfo, 
+            type: selectedType, 
+            username: userData.current.username, 
+            content: content,
+            time: Moment().format('MMMM Do YYYY, h:mm:ss a') }
+        switch (selectedType){
+            case "Text":
+                createTextPost(post)
+                break;
+            case "Image":
+                createImagePost(post)
+                break;
+            case "Audio":
+                console.log("not done with audio yet")
+                break;
+            default:
+                break;
+        }
+
+        console.log("created post:")
+        console.log(post)
+   
         // setTimeout(setShowToast(true), 3000)
         // setShowToast(false)
         navigation.goBack()

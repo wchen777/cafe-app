@@ -15,12 +15,7 @@ import { getPosts } from '../../api/firebase/FirebasePosts'
 
 import * as firebase from 'firebase';
 
-export default function HomeView({ navigation }) {
-    let imagePosts = null;
-    let textPosts = null;
-    let audioPosts = null;
-
-    const [allPosts, setAllPosts] = useState([])
+export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     useEffect(() => {
         navigation.setOptions({
@@ -30,23 +25,6 @@ export default function HomeView({ navigation }) {
         });
     })
 
-
-    async function getPostData() {
-        let doc = await firebase
-            .firestore()
-            .collection('posts')
-            .get();
-
-        let dataObj = doc.docs.map(doc => doc.data());
-
-        console.log("db query")
-        setAllPosts(dataObj)
-
-    }
-
-    useEffect(() => {
-        getPostData()
-    }, [])
 
     // function filterPosts(posts) {
     //     imagePosts = posts.filter(post => post.type == 'Image');
@@ -81,8 +59,6 @@ export default function HomeView({ navigation }) {
                 {/* refactor navigation props later */}
 
                 {postsComponents}
-
-                <ImageCard navigation={navigation} />
 
                 <AudioCard navigation={navigation} />
 

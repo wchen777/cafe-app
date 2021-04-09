@@ -14,6 +14,8 @@ import ChatView from './ChatView';
 
 export default function MainScreen({ navigation }) {
 
+    const [allPosts, setAllPosts] = useState([])
+
     const userData = useRef()
 
     const [selectedPage, setSelectedPage] = useState('Home')
@@ -33,10 +35,25 @@ export default function MainScreen({ navigation }) {
             Alert.alert('No user data found!')
         } else {
             let dataObj = doc.data();
-            // setUserData(dataObj)
             userData.current = dataObj
         }
     }
+
+    async function getPostData() {
+        let doc = await firebase
+            .firestore()
+            .collection('posts')
+            .get();
+
+        let dataObj = doc.docs.map(doc => doc.data());
+
+        console.log("db query")
+        setAllPosts(dataObj)
+    }
+
+    useEffect(() => {
+        getPostData()
+    }, [])
 
     useEffect(() => {
         getUserInfo();
@@ -48,7 +65,7 @@ export default function MainScreen({ navigation }) {
                 
                 {selectedPage === "Home" && 
                     <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <HomeView navigation={navigation}/>
+                        <HomeView navigation={navigation} allPosts={allPosts} setAllPosts={setAllPosts}/>
                     </View>
                 }
 

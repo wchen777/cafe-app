@@ -23,7 +23,7 @@ export default function AudioCard({ navigation }) {
                         @beethoven
                 </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.blue50}>music </Text>
+                    <Text text70 color={Colors.blue30}>music </Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginT-10>

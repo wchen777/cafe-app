@@ -55,7 +55,7 @@ export default function ImageInfo({ setInfo, info }) {
             {/* onValueChange={value => this.setState({ textSide: value })} */}
             <RadioGroup marginB-20 marginT-10 marginL-55 initialValue={info.category} onValueChange={value => setInfo({...info, category: value})}>
 
-                <RadioButton value="Painting" label="Writing" marginB-9 color={Colors.green20}/>
+                <RadioButton value="Painting" label="Painting" marginB-9 color={Colors.green20}/>
 
                 <RadioButton value="Digital Art" label="Digital Art" marginB-9 color={Colors.green20}/>
 

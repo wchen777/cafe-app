@@ -22,7 +22,7 @@ export default function TextCard({ navigation, textPost }) {
                         @{textPost.username}
                     </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.red50}>{textPost.category} </Text>
+                    <Text text70 color={Colors.red30}>{textPost.category.toLowerCase()} </Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginT-10>
