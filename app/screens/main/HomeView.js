@@ -36,24 +36,38 @@ export default function HomeView({ navigation }) {
             .firestore()
             .collection('posts')
             .get();
-        //let dataObj = doc.docs.data();
+
         let dataObj = doc.docs.map(doc => doc.data());
-        // setUserData(dataObj)
+
+        console.log("db query")
         setAllPosts(dataObj)
 
     }
 
     useEffect(() => {
         getPostData()
+    }, [getPostData, setAllPosts, allPosts])
+
+    // function filterPosts(posts) {
+    //     imagePosts = posts.filter(post => post.type == 'Image');
+    //     audioPosts = posts.filter(post => post.type == 'Audio');
+    //     textPosts = posts.filter(post => post.type == 'Text');
+    // }
+
+    // filterPosts(allPosts);
+
+    const postsComponents = allPosts.map((p) => {
+        switch (p.type) {
+            case 'Text':
+                return (<TextCard  navigation={navigation} textPost = {p}/>)
+            case 'Image':
+                return (<ImageCard  navigation={navigation} imagePost = {p}/>)
+            case 'Audio':
+                return (<AudioCard  navigation={navigation} audioPost = {p}/>)
+            default:
+                return
+        }
     })
-
-    function filterPosts(posts) {
-        imagePosts = posts.filter(post => post.type == 'Image');
-        audioPosts = posts.filter(post => post.type == 'Audio');
-        textPosts = posts.filter(post => post.type == 'Text');
-    }
-
-    filterPosts(allPosts);
 
 
     return (
@@ -62,19 +76,16 @@ export default function HomeView({ navigation }) {
 
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
 
-
-                {/* {allPosts.map((post) => <Text> {post.username} {post.title} {post.description} {post.content} {post.type} </Text>)} */}
-
-
                 {/* refactor navigation props later */}
+
+                {postsComponents}
 
                 <ImageCard navigation={navigation} />
 
                 <AudioCard navigation={navigation} />
 
-                {/* <TextCard navigation={navigation} textPosts = {textPosts}  /> */}
 
-                {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)}
+                {/* {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)} */}
 
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />

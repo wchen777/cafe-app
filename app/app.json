@@ -2,11 +2,12 @@
   "name": "app",
   "displayName": "app",
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "cafe-app",
+    "slug": "cafe-app",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "description": ""
   }
 }
