@@ -6,7 +6,7 @@ const testImage2 = '../../assets/monet1.jpeg'
 const testImage = 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/irises-in-monets-garden-at-giverny-claude-monet.jpg'
 
 
-export default function ImageCard({ navigation }) {
+export default function ImageCard({ navigation, imagePost }) {
     return (
 
         <Card
@@ -46,14 +46,6 @@ export default function ImageCard({ navigation }) {
 
                     <View row right>
                         
-                        {/* <Button
-                        style={{ marginRight: 10 }}
-                        text90
-                        link
-                        iconSource={featureIcon}
-                        label="Feature"
-                    /> */}
-                        {/* <Button text90 link iconSource={shareIcon} label="Share" /> */}
                     </View>
                 </View>
             </View>

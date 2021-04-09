@@ -19,7 +19,7 @@ export default function TextCard( { navigation , textPost} ) {
         
                         <View row>
                             <Text text60 color={Colors.orange30} >
-                                {textPost.username}
+                                @{textPost.username}
                         </Text>
                             <Text text60 color={Colors.grey10}> | </Text>
                             <Text text70 color={Colors.red50}>{textPost.category} </Text>
@@ -30,8 +30,8 @@ export default function TextCard( { navigation , textPost} ) {
                     </Text>
         
                         <View>
-                            <Text text90 color={Colors.grey50} marginT-10>
-                                120 Likes
+                        <Text text90 color={Colors.grey50} marginT-10>
+                                120 likes
                             </Text>
         
                             <View row right>
@@ -44,6 +44,9 @@ export default function TextCard( { navigation , textPost} ) {
                                 label="Feature"
                             /> */}
                                 {/* <Button text90 link iconSource={shareIcon} label="Share" /> */}
+                                <Text text90 color={Colors.grey50} marginT-10>
+                                {textPost.time}
+                            </Text>
                             </View>
                         </View>
                     </View>
