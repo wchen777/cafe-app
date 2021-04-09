@@ -1,6 +1,6 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer } from 'react-native-ui-lib';
+import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer } from 'react-native-ui-lib'
 
 import MainScreen from '../screens/main/MainScreen'
 import PostViewScreen from '../screens/main/PostViewScreen'
@@ -8,9 +8,10 @@ import EditProfileScreen from '../screens/main/EditProfile'
 import EditBioScreen from '../screens/main/EditBio'
 import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import HeaderBack from '../components/header/HeaderBack'
-import CreatePostMain from '../screens/main/create-post/CreatePostMain';
+import CreatePostMain from '../screens/main/create-post/CreatePostMain'
 
-import { CardStyleInterpolators } from '@react-navigation/stack';
+
+import { CardStyleInterpolators } from '@react-navigation/stack'
 
 const Stack = createStackNavigator();
 

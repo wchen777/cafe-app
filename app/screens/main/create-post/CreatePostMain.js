@@ -9,6 +9,8 @@ import AudioOption from '../../../components/create/option-cards/AudioOption';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import TextPost from '../../../components/create/create-views/TextPost';
 import TextInfo from '../../../components/create/create-views/TextInfo';
+import ImagePost from '../../../components/create/create-views/ImagePost';
+import ImageInfo from '../../../components/create/create-views/ImageInfo';
 
 import { createPost } from '../../../api/firebase/FirebasePosts'
 import * as firebase from 'firebase';
@@ -47,6 +49,7 @@ export default function CreatePostMain({ navigation }) {
             let dataObj = doc.data();
             // setUserData(dataObj)
             userData.current = dataObj
+            console.log(userData);
         }
     }
 
@@ -135,6 +138,11 @@ export default function CreatePostMain({ navigation }) {
 
                             </View>}
 
+                        
+
+                        {index.active == 1 && selectedType === "Image" && <ImagePost setContent={setContent} />}
+
+                        {index.active == 2 && selectedType === "Image" && <ImageInfo setInfo={setMetaInfo} info={metaInfo} />}
 
                         {index.active == 1 && selectedType === "Text" && <TextPost setContent={setContent} />}
 

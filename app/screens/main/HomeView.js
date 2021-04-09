@@ -68,8 +68,8 @@ export default function HomeView({ navigation }) {
 
                 {/* refactor navigation props later */}
 
-                <ImageCard navigation={navigation} />
-
+                {imagePosts.map((post) => <ImageCard  navigation={navigation} imagePost = {post}/>)}
+               
                 <AudioCard navigation={navigation} />
 
                 {/* <TextCard navigation={navigation} textPosts = {textPosts}  /> */}
