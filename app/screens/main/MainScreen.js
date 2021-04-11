@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import { Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { View, Image, Text, TextField, TextArea, Button, Colors, ActionBar, Card } from 'react-native-ui-lib';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -10,6 +10,7 @@ import ActionBarHome from '../../components/ActionBarHome';
 import MyProfileView from './MyProfileView';
 import HomeView from './HomeView';
 import ChatView from './ChatView';
+import ExploreView from './ExploreView';
 
 
 export default function MainScreen({ navigation }) {
@@ -21,6 +22,9 @@ export default function MainScreen({ navigation }) {
     const [userPosts, setUserPosts] = useState([])
 
     const [selectedPage, setSelectedPage] = useState('Home')
+
+    const [selectedCategory, setSelectedCategory] = useState('digital art')
+
 
 
     let currentUserUID = firebase.auth().currentUser.uid;
@@ -75,7 +79,7 @@ export default function MainScreen({ navigation }) {
 
                 {selectedPage === "Explore" && 
                     <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <Text> Explore page coming soon!</Text>
+                        <ExploreView navigation={navigation} allPosts={allPosts} setAllPosts={setAllPosts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
                     </View>
                 }
 
