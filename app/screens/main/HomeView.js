@@ -51,6 +51,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
     // TODO: need to cache these
     let count = 1;
     allPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
+    console.log(allPosts);
     const postsComponents = allPosts.map((p) => {
         switch (p.type) {
             case 'Text':
@@ -74,8 +75,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
                 {/* refactor navigation props later */}
 
                 {postsComponents}
-
-                <AudioCard navigation={navigation} />
 
 
                 {/* {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)} */}

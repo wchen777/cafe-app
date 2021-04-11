@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Colors, Card } from 'react-native-ui-lib';
 
 
-export default function AudioCard({ navigation }) {
+export default function AudioCard({ navigation, audioPost }) {
     return (
 
         <Card
@@ -15,20 +15,19 @@ export default function AudioCard({ navigation }) {
           
             <View padding-20 bg-white borderRadius={20}>
                 <Text text40 color={Colors.grey10} marginV-14>
-                    Beethoven: 5th Symphony
+                    {audioPost.title}
             </Text>
 
                 <View row>
                     <Text text60 color={Colors.orange30} >
-                        @beethoven
+                        @{audioPost.username}
                 </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.blue30}>music </Text>
+                    <Text text70 color={Colors.blue30}>{audioPost.category.toLowerCase()} </Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginT-10>
-                    would like an embedded audio player somewhere above the title, 
-                    description descripton descirption descriprion description
+                    {audioPost.description}
             </Text>
 
                 <View>

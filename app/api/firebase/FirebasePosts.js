@@ -5,6 +5,8 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import 'firebase/storage';
 
+/* Text */
+
 export async function createTextPost({ title, description, type, category, content, username, time }) {
     try {
         const db = firebase.firestore();
@@ -24,6 +26,8 @@ export async function createTextPost({ title, description, type, category, conte
         Alert.alert("Could not create post right now.", err.message);
     }
 }
+
+/* Image */
 
 async function uploadImgStorage(imageURI, imagesDB, id, count, dbFirestore) {
 
@@ -81,7 +85,7 @@ export async function createImagePost({ title, description, type, category, cont
     }
 
     
-    // firebase storage, which is differen than firestore
+    // firebase storage, which is different than firestore
     const imagesDB = firebase.storage();
 
     let count = 0
@@ -111,6 +115,72 @@ export async function createImagePost({ title, description, type, category, cont
 
 }
 
+/* Audio */
+
+async function uploadAudioStorage(audioURI, audioDB, id, dbFirestore) {
+
+    // grab name of audio, which is the last part of the path
+    const splitArr = audioURI.split("/")
+    let newURI = splitArr[splitArr.length - 1]
+
+    console.log(newURI)
+
+    // get db path to image
+    const audioRef = audioDB.ref(newURI)
+
+    console.log("asfasdf", imageRef)
+
+    // comvert image to blob
+    const response = await fetch(audioURI);
+    const blob = await response.blob();
+
+    console.log("here")
+
+    let urlRes
+    // insert blob into db and return the download path
+    await audioRef.put(blob).on(firebase.storage.TaskEvent.STATE_CHANGED, (snap) => {
+        console.log("total bytes transferring:", snap.totalBytes)
+    }, (err) => {
+        console.log(err)
+    }, async () => {
+        const url = await audioRef.getDownloadURL();
+        dbFirestore.collection("posts")
+            .doc(id)
+            .set({
+                count: url
+            })
+    })
+
+}
+
+export async function createAudioPost({ title, description, type, category, content, username, time }) {
+    let id = uuidv4()
+    let db = firebase.firestore();
+    try {
+        db.collection("posts")
+            .doc(id)
+            .set({
+                title: title,
+                description: description,
+                type: type,
+                category: category,
+                username: username,
+                time: time,
+            });
+    } catch (err) {
+        Alert.alert("Could not create post right now.", err.message);
+    }
+    // firebase storage, which is different than firestore
+    const audioDB = firebase.storage();
+
+    await uploadAudioStorage(content, audioDB, id, db)
+
+}
+
+
+
+
+
 
 
 export async function getPosts() {
@@ -120,6 +190,7 @@ export async function getPosts() {
             .get()
             .then((data) => {
                 return data
+                
             })
     } catch (err) {
         Alert.alert("Could not fetch posts right now.", err.message);

@@ -43,7 +43,6 @@ export default function ImagePostContent({ setContent, content }) {
     // const width = Dimensions.get('window').width
 
     const onPagePress = (index, prev) => {
-        console.log("asdf")
         if (carousel && carousel.current) {
             carousel.current.goToPage(index, true);
         }

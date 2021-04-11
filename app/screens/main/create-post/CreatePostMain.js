@@ -10,8 +10,10 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import TextPostContent from '../../../components/create/create-views/TextPostContent';
 import TextInfo from '../../../components/create/create-views/TextInfo';
 import ImageInfo from '../../../components/create/create-views/ImageInfo';
+import AudioPostContent from '../../../components/create/create-views/AudioPostContent';
+import AudioInfo from '../../../components/create/create-views/AudioInfo';
 
-import { createTextPost, createImagePost } from '../../../api/firebase/FirebasePosts'
+import { createTextPost, createImagePost, createAudioPost } from '../../../api/firebase/FirebasePosts'
 import * as firebase from 'firebase';
 
 
@@ -65,6 +67,7 @@ export default function CreatePostMain({ navigation }) {
     // ------------------ temporary copy ---------------
 
     const uploadPost = () => {
+        console.log(content);
         if (!content || !metaInfo.description == null || !metaInfo.title == null) {
             return Alert.alert("Please fill in all required fields.")
         }
@@ -82,7 +85,7 @@ export default function CreatePostMain({ navigation }) {
                 createImagePost(post)
                 break;
             case "Audio":
-                console.log("not done with audio yet")
+                createAudioPost(post)
                 break;
             default:
                 break;
@@ -161,17 +164,18 @@ export default function CreatePostMain({ navigation }) {
 
                         
 
-                        {index.active == 1 && selectedType === "Image" && <ImagePost setContent={setContent} />}
-
+                        {index.active == 1 && selectedType === "Image" && <ImagePostContent setContent={setContent} content={content}/>}
+                        
                         {index.active == 2 && selectedType === "Image" && <ImageInfo setInfo={setMetaInfo} info={metaInfo} />}
 
                         {index.active == 1 && selectedType === "Text" && <TextPostContent setContent={setContent} />}
 
-                        {index.active == 1 && selectedType === "Image" && <ImagePostContent setContent={setContent} content={content}/>}
-
                         {index.active == 2 && selectedType === "Text" && <TextInfo setInfo={setMetaInfo} info={metaInfo} />}
+
+                        {index.active == 1 && selectedType === "Audio" && <AudioPostContent setContent={setContent}/>}
+
+                        {index.active == 2 && selectedType === "Audio" && <AudioInfo setInfo={setMetaInfo} info={metaInfo} />}
                         
-                        {index.active == 2 && selectedType === "Image" && <ImageInfo setInfo={setMetaInfo} info={metaInfo} />}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 
