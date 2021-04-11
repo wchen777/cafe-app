@@ -6,9 +6,15 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { signOut } from '../../api/firebase/FirebaseAuth'
+import * as firebase from "firebase";
+import "firebase/firestore";
+
+import ImageCard from '../../components/cards/ImageCard';
+import AudioCard from '../../components/cards/AudioCard';
+import TextCard from '../../components/cards/TextCard';
 
 
-export default function MyProfileView({ navigation, userData }) {
+export default function MyProfileView({ navigation, userData, userPosts }) {
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
 
@@ -34,6 +40,22 @@ export default function MyProfileView({ navigation, userData }) {
     const getInitials = () => {
         return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
     }
+
+    let count = 1;
+    userPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
+    console.log(userPosts);
+    const postsComponents = userPosts.map((p) => {
+        switch (p.type) {
+            case 'Text':
+                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
+            case 'Image':
+                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
+            case 'Audio':
+                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)
+            default:
+                return
+        }
+    })
 
 
 
@@ -100,9 +122,12 @@ export default function MyProfileView({ navigation, userData }) {
 
                 </View>
 
+                <View style={{marginTop: 40}}>
 
-                {/* whitespace block */}
-                <View style={{ height: 40 }} />
+                {postsComponents}
+                </View>
+
+
 
 
             </ScrollView>

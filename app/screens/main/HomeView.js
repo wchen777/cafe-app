@@ -26,8 +26,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        console.log('hi');
-        console.log(allPosts);
     
         wait(2000).then(() => setRefreshing(false));
     }, []);

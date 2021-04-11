@@ -5,9 +5,9 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import * as firebase from 'firebase';
 
-import { signOut } from '../../api/firebase/FirebaseAuth'
+import { signOut } from '../../api/firebase/FirebaseAuth';
 import ActionBarHome from '../../components/ActionBarHome';
-import MyProfileView from './MyProfileView'
+import MyProfileView from './MyProfileView';
 import HomeView from './HomeView';
 import ChatView from './ChatView';
 
@@ -17,6 +17,8 @@ export default function MainScreen({ navigation }) {
     const [allPosts, setAllPosts] = useState([])
 
     const userData = useRef()
+
+    const [userPosts, setUserPosts] = useState([])
 
     const [selectedPage, setSelectedPage] = useState('Home')
 
@@ -47,8 +49,8 @@ export default function MainScreen({ navigation }) {
 
         let dataObj = doc.docs.map(doc => doc.data());
 
-        console.log("db query")
         setAllPosts(dataObj)
+        setUserPosts(allPosts.filter(post => post.username == userData.current.username));
     }
 
     useEffect(() => {
@@ -69,7 +71,7 @@ export default function MainScreen({ navigation }) {
                     </View>
                 }
 
-                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current}/>}
+                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current} userPosts={userPosts}/>}
 
                 {selectedPage === "Explore" && 
                     <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
