@@ -12,6 +12,7 @@ import TextInfo from '../../../components/create/create-views/TextInfo';
 import ImageInfo from '../../../components/create/create-views/ImageInfo';
 import AudioPostContent from '../../../components/create/create-views/AudioPostContent';
 import AudioInfo from '../../../components/create/create-views/AudioInfo';
+import { v4 as uuidv4 } from 'uuid';
 
 import { createTextPost, createImagePost, createAudioPost } from '../../../api/firebase/FirebasePosts'
 import * as firebase from 'firebase';
@@ -67,7 +68,6 @@ export default function CreatePostMain({ navigation }) {
     // ------------------ temporary copy ---------------
 
     const uploadPost = () => {
-        console.log(content);
         if (!content || !metaInfo.description == null || !metaInfo.title == null) {
             return Alert.alert("Please fill in all required fields.")
         }
@@ -76,7 +76,10 @@ export default function CreatePostMain({ navigation }) {
             type: selectedType, 
             username: userData.current.username, 
             content: content,
-            time: Moment().format('MMMM Do YYYY, h:mm:ss a') }
+            likes: 0, 
+            time: Moment().format('MMMM Do YYYY, h:mm:ss a'),
+            id: uuidv4(),
+        }
         switch (selectedType){
             case "Text":
                 createTextPost(post)

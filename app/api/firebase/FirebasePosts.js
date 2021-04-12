@@ -7,11 +7,11 @@ import 'firebase/storage';
 
 /* Text */
 
-export async function createTextPost({ title, description, type, category, content, username, time }) {
+export async function createTextPost({ title, description, type, category, content, username, time, likes, id}) {
     try {
         const db = firebase.firestore();
         db.collection("posts")
-            .doc(uuidv4())
+            .doc(id)
             .set({
                 title: title,
                 description: description,
@@ -21,6 +21,8 @@ export async function createTextPost({ title, description, type, category, conte
                 content: content,
                 username: username,
                 time: time,
+                likes: likes,
+                id: id,
             });
     } catch (err) {
         Alert.alert("Could not create post right now.", err.message);
@@ -177,12 +179,6 @@ export async function createAudioPost({ title, description, type, category, cont
 
 }
 
-
-
-
-
-
-
 export async function getPosts() {
     try {
         const db = firebase.firestore();
@@ -194,6 +190,20 @@ export async function getPosts() {
             })
     } catch (err) {
         Alert.alert("Could not fetch posts right now.", err.message);
+    }
+}
+
+export async function updateLikes(id, likes) {
+    try {
+      const db = firebase.firestore();
+      db.collection("posts")
+        .doc(id)
+        .update({
+            likes: likes++,
+        });
+  
+    } catch (err) {
+      Alert.alert("Error in updating likes.", err.message);
     }
 }
 

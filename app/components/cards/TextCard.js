@@ -31,7 +31,7 @@ export default function TextCard({ navigation, textPost }) {
 
                 <View row style={{justifyContent: 'space-between'}}>
                     <Text text90 color={Colors.grey50} marginT-10>
-                        120 likes
+                        {textPost.likes} likes 
                     </Text>
 
                     <View right>
