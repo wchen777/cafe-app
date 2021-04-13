@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, TouchableOpacity, DevSettings } from 'react-native'
 import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, ActionSheet } from 'react-native-ui-lib';
 import * as ImagePicker from 'expo-image-picker';
 import { Feather } from '@expo/vector-icons';
@@ -17,11 +17,14 @@ import TextCard from '../../components/cards/TextCard';
 import {updatePic} from '../../api/firebase/FirebaseAuth';
 
 
+
 export default function MyProfileView({ navigation, userData, userPosts }) {
     console.log(userData);
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
+    const [profPic, setUserDataC] = useState(userData);
+
 
 
 
@@ -70,7 +73,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
         });
 
         if (!result.cancelled) {
-            console.log(result.uri);
+            setUserDataC({ ...profPic, pic: result.uri });
             updatePic(result.uri);
         }
 
@@ -127,7 +130,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                 />
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{uri: userData.pic}} />
+                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{uri: profPic.pic}} />
 
                     <Text text50 color={Colors.grey10} marginT-20>
                         {userData.first} {userData.last}

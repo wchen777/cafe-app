@@ -29,7 +29,6 @@ export default function PostViewScreen({ navigation, route }) {
         updateLikes(post.id, numberOfLikes);
         // might have to set the state here
         route.params = post;
-        console.log(numberOfLikes);
     }
 
     return (
