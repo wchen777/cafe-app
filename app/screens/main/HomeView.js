@@ -57,6 +57,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
             case 'Text':
                 return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
             case 'Image':
+                console.log(p);
                 return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
             case 'Audio':
                 return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)

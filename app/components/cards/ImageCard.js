@@ -45,7 +45,7 @@ export default function ImageCard({ navigation, imagePost }) {
 
                 <View row style={{justifyContent: 'space-between'}}>
                     <Text text90 color={Colors.grey50} marginT-10>
-                        100 Likes
+                        {imagePost.likes} likes
                     </Text>
 
                     <View ight>

@@ -68,8 +68,7 @@ async function uploadImgStorage(imageURI, imagesDB, id, count, dbFirestore) {
 }
 
 
-export async function createImagePost({ title, description, type, category, content, username, time }) {
-    let id = uuidv4()
+export async function createImagePost({ title, description, type, category, content, username, time, likes, id }) {
     let db = firebase.firestore();
     try {
         db.collection("posts")
@@ -81,6 +80,8 @@ export async function createImagePost({ title, description, type, category, cont
                 category: category,
                 username: username,
                 time: time,
+                likes: likes,
+                id: id, 
             });
     } catch (err) {
         Alert.alert("Could not create post right now.", err.message);
@@ -155,8 +156,7 @@ async function uploadAudioStorage(audioURI, audioDB, id, dbFirestore) {
 
 }
 
-export async function createAudioPost({ title, description, type, category, content, username, time }) {
-    let id = uuidv4()
+export async function createAudioPost({ title, description, type, category, content, username, time, likes, id }) {
     let db = firebase.firestore();
     try {
         db.collection("posts")
@@ -168,6 +168,8 @@ export async function createAudioPost({ title, description, type, category, cont
                 category: category,
                 username: username,
                 time: time,
+                likes: likes,
+                id: id,
             });
     } catch (err) {
         Alert.alert("Could not create post right now.", err.message);
@@ -199,7 +201,7 @@ export async function updateLikes(id, likes) {
       db.collection("posts")
         .doc(id)
         .update({
-            likes: likes++,
+            likes: likes,
         });
   
     } catch (err) {

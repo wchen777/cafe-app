@@ -1,33 +1,35 @@
 import React, { useRef, useState } from 'react'
-import { StyleSheet, Touchable } from 'react-native';
+import { StyleSheet, Touchable, DevSettings } from 'react-native';
 import { View, Text, Colors, Carousel, Spacings, AnimatedImage } from 'react-native-ui-lib';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity, Image, Dimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { updateLikes } from '../../api/firebase/FirebasePosts';
+import { number } from 'prop-types';
 
 
 export default function PostViewScreen({ navigation, route }) {
     const [post, setPostDataC] = useState(route.params);
     console.log(post);
+    let numberOfLikes = post.likes;
     const carousel = useRef(null)
 
     const windowWidth = Dimensions.get('window').width;
     const w = 0.8 * windowWidth
     const h = 0.6 * windowWidth
     const onPagePress = (index, prev) => {
-        console.log("asdf")
         if (carousel && carousel.current) {
             carousel.current.goToPage(index, true);
         }
     }
 
     const editLikes = () => {
-        console.log(post.likes);
-        updateLikes(post.id, post.likes);
-        setPostDataC({ ...post, likes: post.likes++ })
+        numberOfLikes++;
+        setPostDataC({ ...post, likes: numberOfLikes });
+        updateLikes(post.id, numberOfLikes);
         // might have to set the state here
         route.params = post;
+        console.log(numberOfLikes);
     }
 
     return (

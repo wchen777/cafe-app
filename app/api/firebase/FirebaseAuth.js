@@ -20,13 +20,14 @@ export async function registration({ email, password, username, last, first, ig,
         twitter: twitter ?? "",
         portfolio: portfolio ?? "",
         bio: "",
+        pic: "",
       });
   } catch (err) {
     Alert.alert("Error in account registration.", err.message);
   }
 }
 
-export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, bio }) {
+export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, bio}) {
   try {
     const currentUser = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -41,9 +42,26 @@ export async function updateProfile({ email, password, username, last, first, ig
         twitter: twitter,
         portfolio: portfolio,
         bio: bio,
+
       });
 
   } catch (err) {
+    Alert.alert("Error in updating profile.", err.message);
+  }
+}
+
+export async function updatePic(pic) {
+  try {
+    const currentUser = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    db.collection("users")
+      .doc(currentUser.uid)
+      .update({
+        pic: pic
+      });
+
+  } catch (err) {
+    console.log(err.message);
     Alert.alert("Error in updating profile.", err.message);
   }
 }

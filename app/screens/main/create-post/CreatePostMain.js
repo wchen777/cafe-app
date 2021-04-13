@@ -86,6 +86,7 @@ export default function CreatePostMain({ navigation }) {
                 break;
             case "Image":
                 createImagePost(post)
+                console.log(post.likes);
                 break;
             case "Audio":
                 createAudioPost(post)

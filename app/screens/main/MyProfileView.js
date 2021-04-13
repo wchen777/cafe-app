@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer } from 'react-native-ui-lib';
+import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, ActionSheet } from 'react-native-ui-lib';
+import * as ImagePicker from 'expo-image-picker';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -13,10 +14,15 @@ import ImageCard from '../../components/cards/ImageCard';
 import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
+import {updatePic} from '../../api/firebase/FirebaseAuth';
+
 
 export default function MyProfileView({ navigation, userData, userPosts }) {
+    console.log(userData);
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
+    const [showSheet, setShowSheet] = useState(false);
+
 
 
 
@@ -34,7 +40,42 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
 
         });
 
+
     }, [navigation])
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
+
+    const onPlaceholderPress = () => {
+        if (showSheet) {
+            setShowSheet(!showSheet)
+        }
+        setShowSheet(!showSheet)
+    }
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            // aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            console.log(result.uri);
+            updatePic(result.uri);
+        }
+
+        setShowSheet(false)
+    };
 
 
     const getInitials = () => {
@@ -43,7 +84,6 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
 
     let count = 1;
     userPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
-    console.log(userPosts);
     const postsComponents = userPosts.map((p) => {
         switch (p.type) {
             case 'Text':
@@ -66,8 +106,28 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
 
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
 
+                <ActionSheet
+                    title='Select Image'
+                    message='Image'
+                    cancelButtonIndex={3}
+                    useNativeIOS={false}
+                    options={[{
+                        label: 'Upload Image from Camera Roll', onPress: () => {
+                            pickImage()
+                        }
+                    },
+                    { label: 'Cancel', onPress: () => setShowSheet(false) },
+                    ]}
+                    visible={showSheet}
+                    // onDismiss={() => setTimeout(() => { if (!imgActive) {
+                    //     console.log(imgActive)
+                    //     setShowSheet(false)
+                    // }}, 1000)}
+                    containerStyle={{ paddingBottom: 25 }}
+                />
+
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} />
+                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{uri: userData.pic}} />
 
                     <Text text50 color={Colors.grey10} marginT-20>
                         {userData.first} {userData.last}

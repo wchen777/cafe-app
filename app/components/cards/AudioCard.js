@@ -32,7 +32,7 @@ export default function AudioCard({ navigation, audioPost }) {
 
                 <View>
                     <Text text90 color={Colors.grey50} marginT-10>
-                        150 Likes
+                        {audioPost.likes} likes
                     </Text>
 
                     <View row right>
