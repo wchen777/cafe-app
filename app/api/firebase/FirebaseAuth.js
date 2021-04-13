@@ -2,30 +2,65 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import { Alert } from "react-native";
 
-
 export async function registration({ email, password, username, last, first, ig, twitter, portfolio }) {
-  try {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
-    const currentUser = firebase.auth().currentUser;
+  let doc = await firebase
+      .firestore()
+      .collection('users')
+      .get();
 
-    const db = firebase.firestore();
-    db.collection("users")
-      .doc(currentUser.uid)
-      .set({
-        email: currentUser.email,
-        last: last,
-        first: first,
-        username: username,
-        ig: ig ?? "",
-        twitter: twitter ?? "",
-        portfolio: portfolio ?? "",
-        bio: "",
-        pic: "",
-      });
-  } catch (err) {
-    Alert.alert("Error in account registration.", err.message);
-  }
+      let dataObj = doc.docs.map(doc => doc.data());
+      let userNames = dataObj.map(user => user.username);
+      if (userNames.includes(username)) {
+        Alert.alert('This username already exists. Please try another username.')
+      } else {
+          try {
+            await firebase.auth().createUserWithEmailAndPassword(email, password);
+            const currentUser = firebase.auth().currentUser;
+        
+            const db = firebase.firestore();
+            db.collection("users")
+              .doc(currentUser.uid)
+              .set({
+                email: currentUser.email,
+                last: last,
+                first: first,
+                username: username,
+                ig: ig ?? "",
+                twitter: twitter ?? "",
+                portfolio: portfolio ?? "",
+                bio: "",
+                pic: "",
+              });
+          } catch (err) {
+            Alert.alert("Error in account registration.", err.message);
+          } 
+      }
 }
+
+
+/* export async function registration({ email, password, username, last, first, ig, twitter, portfolio }) {
+     try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const currentUser = firebase.auth().currentUser;
+  
+      const db = firebase.firestore();
+      db.collection("users")
+        .doc(currentUser.uid)
+        .set({
+          email: currentUser.email,
+          last: last,
+          first: first,
+          username: username,
+          ig: ig ?? "",
+          twitter: twitter ?? "",
+          portfolio: portfolio ?? "",
+          bio: "",
+          pic: "",
+        });
+    } catch (err) {
+      Alert.alert("Error in account registration.", err.message);
+    } 
+} */
 
 export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, bio}) {
   try {

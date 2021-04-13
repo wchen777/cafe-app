@@ -8,7 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
 import HeaderBack from '../../components/header/HeaderBack'
 
-export default function ChatView({ navigation }) {
+export default function ChatView({ navigation, usernames }) {
 
     const orange = '#FFB36C'
 
@@ -33,6 +33,7 @@ export default function ChatView({ navigation }) {
     }
 
     const [search, setSearch] = useState(null);
+    const [doingSearch, setDoingSearch] = useState(false);
     const orders = [
         {
             name: 'Amy Farha',
@@ -47,6 +48,34 @@ export default function ChatView({ navigation }) {
             mediaUrl: 'https://gravatar.com/avatar/8668e1d18523ffc4b78a2d3c45420153?s=200&d=robohash&r=x'
         }
     ]
+
+    function displaySearch(searchResult) {
+        let searchResults = [];
+        if (searchResult === '') {
+            setDoingSearch(false);
+        } else {
+            setDoingSearch(true);
+            searchResults = usernames.filter(x => String(x).includes(searchResult.toLowerCase()));
+            setSearch(searchResults);
+        }
+    }
+
+    function renderSearch(row, id) {
+        return (
+            <View key={id} id={id}>
+            <ListItem
+                activeBackgroundColor={Colors.dark60}
+                activeOpacity={0.3}
+                height={77.5}
+                key={id}
+            >
+                <ListItem.Part left marginH-10>
+                    <Text>@{row}</Text>
+                </ListItem.Part>
+            </ListItem>
+        </View>
+        )
+    }
 
     function renderRow(row, id) {
 
@@ -107,7 +136,7 @@ export default function ChatView({ navigation }) {
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20, height: 80, alignContent: 'center' }}>
                 <SearchBar
                     placeholder="Search"
-                    onChangeText={search => setSearch(search)}
+                    onChangeText={search => displaySearch(search)}
                     value={search}
                     lightTheme='true'
                     containerStyle={{ backgroundColor: 'white', width: '97%', height: 55, marginTop: 10, marginLeft: 10 }}
@@ -115,13 +144,27 @@ export default function ChatView({ navigation }) {
                 />
             </View>
 
-            <View style={{ marginTop: 10 }}>
-                <FlatList
-                    data={orders}
-                    renderItem={({ item, index }) => renderRow(item, index)}
-                    keyExtractor={(item, index) => index.toString()}
-                />
-            </View>
+            {doingSearch ? 
+
+                <View style={{ marginTop: 10 }}>
+                    <FlatList
+                        data={search}
+                        renderItem={({ item, index }) => renderSearch(item, index)}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+
+                :
+
+                <View style={{ marginTop: 10 }}>
+                    <FlatList
+                        data={orders}
+                        renderItem={({ item, index }) => renderRow(item, index)}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+            }
+        
         </View>
     )
 }

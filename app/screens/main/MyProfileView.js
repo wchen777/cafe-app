@@ -149,7 +149,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
 
                             <Text text70 color={Colors.grey10} marginV-14>
                                 {userData.bio === "" || userData === undefined ?
-                                    'No bio here yet! Also edit profile does not register immediately, need to fix profile gallery view' : userData.bio}
+                                    'No bio here yet!' : userData.bio}
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>

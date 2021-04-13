@@ -51,13 +51,11 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
     // TODO: need to cache these
     let count = 1;
     allPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
-    console.log(allPosts);
     const postsComponents = allPosts.map((p) => {
         switch (p.type) {
             case 'Text':
                 return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
             case 'Image':
-                console.log(p);
                 return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
             case 'Audio':
                 return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)

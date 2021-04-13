@@ -25,6 +25,8 @@ export default function MainScreen({ navigation }) {
 
     const [selectedCategory, setSelectedCategory] = useState('digital art')
 
+    const [usernames, setUsernames] = useState([])
+
 
 
     let currentUserUID = firebase.auth().currentUser.uid;
@@ -43,6 +45,16 @@ export default function MainScreen({ navigation }) {
             let dataObj = doc.data();
             userData.current = dataObj
         }
+    }
+
+    async function getUsernames() {
+        let doc = await firebase
+            .firestore()
+            .collection('users')
+            .get();
+
+            let dataObj = doc.docs.map(doc => doc.data());
+            setUsernames(dataObj.map(user => user.username));
     }
 
     async function getPostData() {
@@ -65,6 +77,11 @@ export default function MainScreen({ navigation }) {
         getUserInfo();
     }, [userData])
 
+    useEffect(() => {
+        getUsernames()
+    }, [])
+
+
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0  }}>
@@ -84,7 +101,7 @@ export default function MainScreen({ navigation }) {
                 }
 
                 {selectedPage === "Chat" && 
-                    <ChatView navigation={navigation}/>
+                    <ChatView navigation={navigation} usernames={usernames}/>
                 }
 
                 <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation}/>
