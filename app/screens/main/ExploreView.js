@@ -190,10 +190,11 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
                     label='Filter by'
                     data={data}
                     width={250}
+                    useNativeDriver
                 />
                 </View>
 
-                <View style={{marginTop: 20}}>
+                <View style={{marginTop: 20}} paddingH-10>
                     {postsComponents}
                 </View>
 
