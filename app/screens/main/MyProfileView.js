@@ -20,12 +20,30 @@ import { AuthContext } from '../../context/AuthContext'
 
 
 
-export default function MyProfileView({ navigation, userPosts }) {
+export default function MyProfileView({ navigation }) {
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
+    const [userPosts, setUserPosts] = useState()
 
     const { userData, setUserData } = useContext(AuthContext)
+
+    async function queryPostsUsername(username) {
+        try {
+             
+            let doc = await firebase
+                .firestore()
+                .collection("posts")
+                .where("username", "==", username)
+                .get()
+
+            let d = doc.docs.map(doc => doc.data());    
+            setUserPosts(d)
+
+        } catch (err) {
+            Alert.alert("Error in updating likes.", err.message);
+        }
+    }
 
 
     useEffect(() => {
@@ -41,25 +59,11 @@ export default function MyProfileView({ navigation, userPosts }) {
                 </TouchableOpacity>
 
         });
-
-
     }, [navigation])
 
-    // async function getUserInfo() {
-    //     let doc = await firebase
-    //         .firestore()
-    //         .collection('users')
-    //         .doc(currentUserUID)
-    //         .get();
-
-    //     if (!doc.exists) {
-    //         Alert.alert('No user data found!')
-    //     } else {
-    //         let dataObj = doc.data();
-    //         setUserData(dataObj)
-    //         // userData.current = dataObj
-    //     }
-    // }
+    useEffect(() => {
+        queryPostsUsername(userData.username)
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -72,9 +76,6 @@ export default function MyProfileView({ navigation, userPosts }) {
         })();
     }, []);
 
-    // useEffect(() => {
-    //     getUserInfo()
-    // }, [])
 
     const onPlaceholderPress = () => {
         if (showSheet) {

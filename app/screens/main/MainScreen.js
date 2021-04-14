@@ -21,8 +21,6 @@ export default function MainScreen({ navigation }) {
 
     const { userData, setUserData } = useContext(AuthContext)
 
-    const [userPosts, setUserPosts] = useState([])
-
     const [selectedPage, setSelectedPage] = useState('Home')
 
     const [selectedCategory, setSelectedCategory] = useState('digital art')
@@ -79,17 +77,13 @@ export default function MainScreen({ navigation }) {
                             navigation={navigation}
                             allPosts={allPosts}
                             setAllPosts={setAllPosts}
-                            setUserPosts={setUserPosts}
-                            userData={userData} />
+                            />
                     </View>
                 }
 
                 {selectedPage === "Profile" &&
                     <MyProfileView
                         navigation={navigation}
-                        userData={userData}
-                        setUserData={setUserData}
-                        userPosts={userPosts}
                     />
                 }
 

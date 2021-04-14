@@ -20,7 +20,7 @@ const wait = timeout => {
     });
 };
 
-export default function HomeView({ navigation, allPosts, setAllPosts, setUserPosts, userData }) {
+export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -49,7 +49,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts, setUserPos
         let dataObj = doc.docs.map(doc => doc.data());
 
         setAllPosts(dataObj)
-        setUserPosts(allPosts.filter(post => post.username == userData.username));
     }
 
     useEffect(() => {

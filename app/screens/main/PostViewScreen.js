@@ -45,9 +45,12 @@ export default function PostViewScreen({ navigation, route }) {
                     <Text text70>
                         by
                     </Text>
-                    <Text text60 color={Colors.orange30} marginL-4>
-                        @{post.username}
-                    </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("OtherProfile", { username: post.username })}>
+                        <Text text60 color={Colors.orange30} marginL-4>
+                            @{post.username}
+                        </Text>
+                    </TouchableOpacity>
+
                     <Text text60 color={Colors.grey10}>  |  </Text>
                     <Text text70>
                         category:
@@ -55,19 +58,21 @@ export default function PostViewScreen({ navigation, route }) {
                     <Text text70 color={Colors.green30} marginL-4>{post.category.toLowerCase()} </Text>
                 </View>
 
-                <TouchableOpacity>
-                    <View row marginT-20 padding-10>
 
-                        <FontAwesome name="heart-o" size={35} color="#4d4d4d" onPress={() => editLikes()} />
-                        <Text text90 color={"#4d4d4d"} marginT-10 style={{ fontSize: 15, paddingTop: 6 }} marginL-4>
-                            x{post.likes}
-                        </Text>
+                <View row marginT-20 padding-10>
+                    <TouchableOpacity onPress={() => editLikes()}>
+                        <View row>
+                            <FontAwesome name="heart-o" size={35} color="#4d4d4d" />
+                            <Text text90 color={"#4d4d4d"} marginT-10 style={{ fontSize: 15, paddingTop: 6 }} marginL-4>
+                                x{post.likes}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <Text text80 marginL-25 marginT-10 color={"#4d4d4d"}>
+                        On <Text text70BO >{post.time}</Text>
+                    </Text>
+                </View>
 
-                        <Text text80 marginL-25 marginT-10 color={"#4d4d4d"}>
-                            On <Text text70BO >{post.time}</Text>
-                        </Text>
-                    </View>
-                </TouchableOpacity>
 
                 <View marginV-20>
                     <Text text70 style={{ width: 350 }}>
@@ -79,7 +84,7 @@ export default function PostViewScreen({ navigation, route }) {
 
 
                 {post.type === "Text" &&
-                    <View backgroundColor="white" paddingH-20 style={{minHeight: 450}}>
+                    <View backgroundColor="white" paddingH-20 style={{ minHeight: 450 }}>
                         <Text text70 style={{ width: 320 }} marginV-20>
                             {post.content}
                         </Text>
