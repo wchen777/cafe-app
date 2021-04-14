@@ -20,20 +20,29 @@ import Routes from './navigation/Routes'
 import { firebaseConfig } from './config/Firebase'
 
 import * as firebase from 'firebase';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 
 export default function App() {
+
+    // Initialize Apollo Client
+    const client = new ApolloClient({
+        uri: 'localhost:443/',
+        cache: new InMemoryCache()
+    });
 
     if (!firebase.apps.length) {
         console.log('Connected with Firebase')
         firebase.initializeApp(firebaseConfig);
     }
-    
+
 
     return (
-        <AuthProvider>
-            <Routes />
-        </AuthProvider>
+        <ApolloProvider client={client}>
+            <AuthProvider>
+                <Routes />
+            </AuthProvider>
+        </ApolloProvider>
     );
 }
 

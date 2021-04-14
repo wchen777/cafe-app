@@ -19,10 +19,10 @@ export default function Landing({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
                 <View style={{ flexDirection: 'column' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 90 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 150 }}>
                         <Image style={{ width: 120, height: 100 }} source={require('../../img/logo.jpg')} />
                     </View>
-                    <Text text40 style={{ marginTop: 30 }}>Cafe Logo Here</Text>
+                    {/* <Text text40 style={{ marginTop: 30 }}>Cafe Logo Here</Text> */}
                     <Text text70  dark10 marginB-15 marginT-50>
                         Email
                 </Text>
@@ -60,7 +60,7 @@ export default function Landing({ navigation }) {
                         }} 
                     />
 
-                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} marginT-10>
                         <Button
                             backgroundColor="#FFB36C"
                             label="Sign In"

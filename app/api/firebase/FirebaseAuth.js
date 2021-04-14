@@ -30,6 +30,11 @@ export async function registration({ email, password, username, last, first, ig,
                 portfolio: portfolio ?? "",
                 bio: "",
                 pic: "",
+                chats: [],
+                liked: [],
+                following: [],
+                // followers: [],
+                id: currentUser.uid
               });
           } catch (err) {
             Alert.alert("Error in account registration.", err.message);

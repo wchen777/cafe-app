@@ -14,16 +14,16 @@ import ImageCard from '../../components/cards/ImageCard';
 import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
-import {updatePic} from '../../api/firebase/FirebaseAuth';
+import { updatePic } from '../../api/firebase/FirebaseAuth';
 
 
 
-export default function MyProfileView({ navigation, userData, userPosts }) {
+export default function MyProfileView({ navigation, userData, userPosts, setUserData }) {
     console.log(userData);
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
-    const [profPic, setUserDataC] = useState(userData);
+    const [profPic, setProPic] = useState(userData);
 
 
 
@@ -35,7 +35,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                 <Text text60 color={Colors.orange30} >
                     @{userData.username} </Text>,
             headerRight: () =>
-                <TouchableOpacity onPress={() => navigation.navigate("EditProfile", userData)} >
+                <TouchableOpacity onPress={() => navigation.navigate("EditProfile", {userData: userData, set: setUserData})} >
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 25 }}>
                         <FontAwesome name="cog" size={24} color="#4d4d4d" />
                     </View>
@@ -73,7 +73,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
         });
 
         if (!result.cancelled) {
-            setUserDataC({ ...profPic, pic: result.uri });
+            setProPic({ ...profPic, pic: result.uri });
             updatePic(result.uri);
         }
 
@@ -86,15 +86,15 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
     }
 
     let count = 1;
-    userPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
+    userPosts.sort((p1, p2) => (p1.time < p2.time) ? 1 : -1);
     const postsComponents = userPosts.map((p) => {
         switch (p.type) {
             case 'Text':
-                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
+                return (<TextCard navigation={navigation} textPost={p} key={count++} />)
             case 'Image':
-                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
+                return (<ImageCard navigation={navigation} imagePost={p} key={count++} />)
             case 'Audio':
-                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)
+                return (<AudioCard navigation={navigation} audioPost={p} key={count++} />)
             default:
                 return
         }
@@ -130,7 +130,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                 />
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{uri: profPic.pic}} />
+                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{ uri: profPic.pic }} />
 
                     <Text text50 color={Colors.grey10} marginT-20>
                         {userData.first} {userData.last}
@@ -143,7 +143,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                         style={{ marginBottom: 20, width: 350 }}
                         enableShadow={false}
                         marginT-15
-                        onPress={() => navigation.navigate("EditBio", userData)}
+                        onPress={() => navigation.navigate("EditBio", {userData: userData, set: setUserData})}
                     >
                         <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
@@ -153,7 +153,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                                <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", userData)} />
+                                <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", {userData: userData, set: setUserData})} />
                             </View>
                         </View>
                     </Card>
@@ -185,13 +185,13 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
 
                 </View>
 
-                <View style={{marginTop: 40}}>
-
-                {postsComponents}
+                <View marginT-45 marginH-8>
+                    {postsComponents}
                 </View>
 
 
 
+                <View style={{ marginTop: 40 }} />
 
             </ScrollView>
         </View>

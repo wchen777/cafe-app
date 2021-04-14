@@ -115,7 +115,7 @@ export default function AudioPostContent({ setContent }) {
                     </View>
                 </TouchableOpacity> */}
 
-                <View style={styles.container}>
+                <View style={styles.container} marginT-20>
                     <Button
                         label={recording ? 'Stop Recording' : 'Start Recording'}
                         onPress={recording ? stopRecording : startRecording}
@@ -123,7 +123,7 @@ export default function AudioPostContent({ setContent }) {
                     />
                 </View>
 
-                <View style={styles.container}>
+                <View style={styles.container} marginV-20 marginB-30>
                     <Button label="Play Audio" onPress={playSound} style={{ width: 200 }} />
                 </View> 
 

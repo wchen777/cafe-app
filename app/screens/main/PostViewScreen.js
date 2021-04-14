@@ -69,6 +69,23 @@ export default function PostViewScreen({ navigation, route }) {
                     </View>
                 </TouchableOpacity>
 
+                <View marginV-20>
+                    <Text text70 style={{ width: 350 }}>
+                        <Text text60 color={Colors.grey10} fontSize={20}> Description: </Text>
+                        {post.description}
+
+                    </Text>
+                </View>
+
+
+                {post.type === "Text" &&
+                    <View backgroundColor="white" paddingH-20 style={{minHeight: 450}}>
+                        <Text text70 style={{ width: 320 }} marginV-20>
+                            {post.content}
+                        </Text>
+                    </View>
+                }
+
                 {post.type === "Image" &&
                     <Carousel
                         ref={carousel}
@@ -112,12 +129,6 @@ export default function PostViewScreen({ navigation, route }) {
                     </Carousel>
 
                 }
-
-                <View>
-                    <Text text70 style={{ width: 320 }}>
-                        {post.description}
-                    </Text>
-                </View>
 
             </View>
         </ScrollView>

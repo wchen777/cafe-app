@@ -26,7 +26,7 @@ export default function TextCard({ navigation, textPost }) {
                 </View>
 
                 <Text text70 color={Colors.grey10} marginT-10>
-                    {textPost.description}
+                    {textPost.description.length > 280 ? textPost.description.substring(0, 280): textPost.description}
                 </Text>
 
                 <View row style={{justifyContent: 'space-between'}}>

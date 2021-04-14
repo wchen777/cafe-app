@@ -11,16 +11,15 @@ import { signOut } from '../../api/firebase/FirebaseAuth'
 
 export default function EditBio({ route, navigation }) {
     const lightOrange = '#ffdfc2'
-    let userData = route.params;
+    let { userData, set } = route.params;
 
-    const [userDataC, setUserDataC] = useState(route.params)
+    const [userDataC, setUserDataC] = useState(userData)
 
     const editBio = () => {
         updateProfile(userDataC);
-        route.params = userDataC
+        set(userDataC)
         navigation.goBack()
     }
-
 
 
     return (

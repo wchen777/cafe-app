@@ -13,10 +13,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function EditProfile({ route, navigation }) {
     const lightOrange = '#ffdfc2'
-    let userData = route.params;
+    let { userData, set }= route.params;
     console.log(userData)
 
-    const [userDataC, setUserDataC] = useState(route.params)
+    const [userDataC, setUserDataC] = useState(userData)
 
     const getInitials = () => {
         return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
@@ -41,7 +41,7 @@ export default function EditProfile({ route, navigation }) {
     const editProfile = () => {
         updateProfile(userDataC);
         // might have to set the state here
-        route.params = userDataC
+        set(userDataC)
         navigation.goBack()
     }
 

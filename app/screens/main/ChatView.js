@@ -135,7 +135,7 @@ export default function ChatView({ navigation, usernames }) {
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20, height: 80, alignContent: 'center' }}>
                 <SearchBar
-                    placeholder="Search"
+                    placeholder="Search for a user"
                     onChangeText={search => displaySearch(search)}
                     value={search}
                     lightTheme='true'

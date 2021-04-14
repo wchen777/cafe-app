@@ -9,7 +9,7 @@ const testImage = 'https://images.fineartamerica.com/images/artworkimages/medium
 // NEED TO CACHE IMAGES LATER, LOADING IS VERY SLOW
 
 export default function ImageCard({ navigation, imagePost }) {
-    
+
     return (
 
         <Card
@@ -20,10 +20,10 @@ export default function ImageCard({ navigation, imagePost }) {
             marginH-4
         >
             <AnimatedImage
-                source={{ uri: imagePost["0"]}}
+                source={{ uri: imagePost["0"] }}
                 height={280}
                 animationDuration={150}
-                style={{borderTopLeftRadius: 20, borderTopRightRadius: 20}}
+                style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
             />
 
             <View padding-20 bg-white borderRadius={20}>
@@ -40,16 +40,16 @@ export default function ImageCard({ navigation, imagePost }) {
                 </View>
 
                 <Text text70 color={Colors.grey10} marginT-10>
-                    {imagePost.description}
+                    {imagePost.description.length > 280 ? imagePost.description.substring(0, 280) : imagePost.description}
                 </Text>
 
-                <View row style={{justifyContent: 'space-between'}}>
+                <View row style={{ justifyContent: 'space-between' }}>
                     <Text text90 color={Colors.grey50} marginT-10>
                         {imagePost.likes} likes
                     </Text>
 
                     <View ight>
-                    <Text text90 color={Colors.grey50} marginT-10>
+                        <Text text90 color={Colors.grey50} marginT-10>
                             {imagePost.time}
                         </Text>
                     </View>

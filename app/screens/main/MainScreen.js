@@ -17,7 +17,7 @@ export default function MainScreen({ navigation }) {
 
     const [allPosts, setAllPosts] = useState([])
 
-    const userData = useRef()
+    const [userData, setUserData] = useState(null)
 
     const [userPosts, setUserPosts] = useState([])
 
@@ -43,10 +43,13 @@ export default function MainScreen({ navigation }) {
             Alert.alert('No user data found!')
         } else {
             let dataObj = doc.data();
-            userData.current = dataObj
+            setUserData(dataObj)
+            // userData.current = dataObj
         }
     }
+    console.log(userData)
 
+    // TODO: refactor later, without loading into local mem for scalability
     async function getUsernames() {
         let doc = await firebase
             .firestore()
@@ -57,25 +60,9 @@ export default function MainScreen({ navigation }) {
             setUsernames(dataObj.map(user => user.username));
     }
 
-    async function getPostData() {
-        let doc = await firebase
-            .firestore()
-            .collection('posts')
-            .get();
-
-        let dataObj = doc.docs.map(doc => doc.data());
-
-        setAllPosts(dataObj)
-        setUserPosts(allPosts.filter(post => post.username == userData.current.username));
-    }
-
-    useEffect(() => {
-        getPostData()
-    }, [])
-
     useEffect(() => {
         getUserInfo();
-    }, [userData])
+    }, [])
 
     useEffect(() => {
         getUsernames()
@@ -84,19 +71,35 @@ export default function MainScreen({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0  }}>
+            <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }}>
                 
                 {selectedPage === "Home" && 
                     <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <HomeView navigation={navigation} allPosts={allPosts} setAllPosts={setAllPosts}/>
+                        <HomeView 
+                            navigation={navigation} 
+                            allPosts={allPosts} 
+                            setAllPosts={setAllPosts} 
+                            setUserPosts={setUserPosts} 
+                            userData={userData}/>
                     </View>
                 }
 
-                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current} userPosts={userPosts}/>}
+                {selectedPage === "Profile" && 
+                    <MyProfileView 
+                        navigation={navigation} 
+                        userData={userData}
+                        setUserData={setUserData} 
+                        userPosts={userPosts}/>}
 
                 {selectedPage === "Explore" && 
                     <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <ExploreView navigation={navigation} allPosts={allPosts} setAllPosts={setAllPosts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
+                        <ExploreView 
+                            navigation={navigation} 
+                            allPosts={allPosts} 
+                            setAllPosts={setAllPosts} 
+                            selectedCategory={selectedCategory} 
+                            setSelectedCategory={setSelectedCategory}
+                            />
                     </View>
                 }
 
