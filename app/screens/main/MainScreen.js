@@ -28,7 +28,6 @@ export default function MainScreen({ navigation }) {
     const [usernames, setUsernames] = useState([])
 
 
-
     let currentUserUID = firebase.auth().currentUser.uid;
     // const [userData, setUserData] = useState({});
 
@@ -56,8 +55,8 @@ export default function MainScreen({ navigation }) {
             .collection('users')
             .get();
 
-            let dataObj = doc.docs.map(doc => doc.data());
-            setUsernames(dataObj.map(user => user.username));
+        let dataObj = doc.docs.map(doc => doc.data());
+        setUsernames(dataObj.map(user => user.username));
     }
 
     useEffect(() => {
@@ -72,42 +71,44 @@ export default function MainScreen({ navigation }) {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }}>
-                
-                {selectedPage === "Home" && 
-                    <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <HomeView 
-                            navigation={navigation} 
-                            allPosts={allPosts} 
-                            setAllPosts={setAllPosts} 
-                            setUserPosts={setUserPosts} 
-                            userData={userData}/>
+
+                {selectedPage === "Home" &&
+                    <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+                        <HomeView
+                            navigation={navigation}
+                            allPosts={allPosts}
+                            setAllPosts={setAllPosts}
+                            setUserPosts={setUserPosts}
+                            userData={userData} />
                     </View>
                 }
 
-                {selectedPage === "Profile" && 
-                    <MyProfileView 
-                        navigation={navigation} 
+                {selectedPage === "Profile" &&
+                    <MyProfileView
+                        navigation={navigation}
                         userData={userData}
-                        setUserData={setUserData} 
-                        userPosts={userPosts}/>}
+                        setUserData={setUserData}
+                        userPosts={userPosts}
+                    />
+                }
 
-                {selectedPage === "Explore" && 
-                    <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <ExploreView 
-                            navigation={navigation} 
-                            allPosts={allPosts} 
-                            setAllPosts={setAllPosts} 
-                            selectedCategory={selectedCategory} 
+                {selectedPage === "Explore" &&
+                    <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+                        <ExploreView
+                            navigation={navigation}
+                            allPosts={allPosts}
+                            setAllPosts={setAllPosts}
+                            selectedCategory={selectedCategory}
                             setSelectedCategory={setSelectedCategory}
-                            />
+                        />
                     </View>
                 }
 
-                {selectedPage === "Chat" && 
-                    <ChatView navigation={navigation} usernames={usernames}/>
+                {selectedPage === "Chat" &&
+                    <ChatView navigation={navigation} usernames={usernames} />
                 }
 
-                <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation}/>
+                <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation} />
 
             </View>
 

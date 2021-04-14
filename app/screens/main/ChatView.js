@@ -8,6 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
 import HeaderBack from '../../components/header/HeaderBack'
 
+
 export default function ChatView({ navigation, usernames }) {
 
     const orange = '#FFB36C'
@@ -32,8 +33,6 @@ export default function ChatView({ navigation, usernames }) {
         )
     }
 
-    const [search, setSearch] = useState(null);
-    const [doingSearch, setDoingSearch] = useState(false);
     const orders = [
         {
             name: 'Amy Farha',
@@ -49,33 +48,6 @@ export default function ChatView({ navigation, usernames }) {
         }
     ]
 
-    function displaySearch(searchResult) {
-        let searchResults = [];
-        if (searchResult === '') {
-            setDoingSearch(false);
-        } else {
-            setDoingSearch(true);
-            searchResults = usernames.filter(x => String(x).includes(searchResult.toLowerCase()));
-            setSearch(searchResults);
-        }
-    }
-
-    function renderSearch(row, id) {
-        return (
-            <View key={id} id={id}>
-            <ListItem
-                activeBackgroundColor={Colors.dark60}
-                activeOpacity={0.3}
-                height={77.5}
-                key={id}
-            >
-                <ListItem.Part left marginH-10>
-                    <Text>@{row}</Text>
-                </ListItem.Part>
-            </ListItem>
-        </View>
-        )
-    }
 
     function renderRow(row, id) {
 
@@ -113,8 +85,8 @@ export default function ChatView({ navigation, usernames }) {
         <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} marginT-24>
                 <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 30 }}>My Chats </Text>
-                <TouchableOpacity>
-                    <FontAwesome name="edit" size={24} color="#4d4d4d" style={{ marginTop: 8, marginLeft: 110 }} />
+                <TouchableOpacity onPress={() => navigation.navigate("SearchUsers", {usernames: usernames})}>
+                    <FontAwesome name="search" size={24} color="#4d4d4d" style={{ marginTop: 8, marginLeft: 110 }} />
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <FontAwesome name="ellipsis-h" size={24} color="#4d4d4d" style={{ marginTop: 8, marginRight: 30 }} />
@@ -133,38 +105,16 @@ export default function ChatView({ navigation, usernames }) {
                 />
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20, height: 80, alignContent: 'center' }}>
-                <SearchBar
-                    placeholder="Search for a user"
-                    onChangeText={search => displaySearch(search)}
-                    value={search}
-                    lightTheme='true'
-                    containerStyle={{ backgroundColor: 'white', width: '97%', height: 55, marginTop: 10, marginLeft: 10 }}
-                    inputContainerStyle={{ backgroundColor: 'white', height: 35 }}
+
+            <View style={{ marginTop: 10 }}>
+                <FlatList
+                    data={orders}
+                    renderItem={({ item, index }) => renderRow(item, index)}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
 
-            {doingSearch ? 
 
-                <View style={{ marginTop: 10 }}>
-                    <FlatList
-                        data={search}
-                        renderItem={({ item, index }) => renderSearch(item, index)}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View>
-
-                :
-
-                <View style={{ marginTop: 10 }}>
-                    <FlatList
-                        data={orders}
-                        renderItem={({ item, index }) => renderRow(item, index)}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View>
-            }
-        
         </View>
     )
 }

@@ -10,6 +10,7 @@ import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import HeaderBack from '../components/header/HeaderBack'
 import CreatePostMain from '../screens/main/create-post/CreatePostMain';
 import CreatePatio from '../screens/main/patio/CreatePatio'
+import SearchUsers from '../screens/main/SearchUsers'
 
 
 import { CardStyleInterpolators } from '@react-navigation/stack'
@@ -69,6 +70,15 @@ export default function AuthStack() {
             <Stack.Screen
                 name='CreatePatio'
                 component={CreatePatio}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
+                    headerTitle: <HeaderBarLogo />,
+                }}
+            />
+            <Stack.Screen
+                name='SearchUsers'
+                component={SearchUsers}
                 options={{
                     headerShown: true,
                     headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,

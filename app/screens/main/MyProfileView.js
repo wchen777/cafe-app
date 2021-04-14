@@ -23,8 +23,6 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
-    const [profPic, setProPic] = useState(userData);
-
 
 
 
@@ -73,7 +71,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
         });
 
         if (!result.cancelled) {
-            setProPic({ ...profPic, pic: result.uri });
+            setUserData({ ...userData, pic: result.uri });
             updatePic(result.uri);
         }
 
@@ -130,7 +128,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                 />
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{ uri: profPic.pic }} />
+                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{ uri: userData.pic }} />
 
                     <Text text50 color={Colors.grey10} marginT-20>
                         {userData.first} {userData.last}
