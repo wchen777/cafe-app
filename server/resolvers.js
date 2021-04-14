@@ -4,15 +4,9 @@ const { PubSub } = require('apollo-server')
 const { v4: uuidv4 } = require('uuid');
 
 // pub sub instance for gql subscription, pass it down to resolvers
+// TODO: SWITCH THIS TO PUBSUBENGINE IN PRODUCTION
 const pubsub = new PubSub()
 
-const MongoClient = require('mongodb').MongoClient;
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
 
 module.exports = {
     Query: {
@@ -59,41 +53,10 @@ module.exports = {
                     createdAt: new Date().toISOString()
                 }
 
-                // await Message.create({
-                //     from: user.username,
-                //     to,
-                //     content,
-
-
                 const collection = db.collection("messages");
                 collection.insertOne(message, (err, res) => {
                     if (err) console.log(err);
                 });
-
-                // if (!user) throw new AuthenticationError('unauthenticated')
-
-                // // find recipient based on whether user is instructor or not
-                // const recipient = user.isInstructor ?
-                //     await User.findOne({ where: { username: to } }) :
-                //     await Instructor.findOne({ where: { username: to } })
-
-                // error checking and validation
-                // if (!recipient) {
-                //     throw new UserInputError('user not found')
-                // } else if (recipient.username == user.username) {
-                //     throw new UserInputError('cannot message yourself')
-                // }
-
-                // if (content.trim() === '') {
-                //     throw new UserInputError('message is empty')
-                // }
-
-                // new message instance
-                // const message = await Message.create({
-                //     from: user.username,
-                //     to,
-                //     content,
-                // })
 
                 // fire subscription whenever new message is published for listener
                 pubsub.publish('NEW_MESSAGE', { newMessage: message })
@@ -113,15 +76,13 @@ module.exports = {
             subscribe: withFilter((_, __, ___) => {
 
                 return pubsub.asyncIterator('NEW_MESSAGE')
-            }, ({ newMessage }, _, __) => {
-                // verify whether or not the logged in user is able to see the message
+            }, ({ newMessage }, { username },) => {
                 // user can only see messages that are to or from them
 
                 // newMessage from parent contains the new message object
 
                 // return true if either message is from user or to user
-                // return (newMessage.from === user.username || newMessage.to === user.username)
-                return true
+                return newMessage.to === username || newMessage.from === username
 
             })
         },

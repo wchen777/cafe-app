@@ -24,6 +24,6 @@ module.exports = gql`
         ): Message!
     }
     type Subscription{
-        newMessage: Message!
+        newMessage(username: String!): Message!
     }
 `
