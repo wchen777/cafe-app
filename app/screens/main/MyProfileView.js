@@ -30,7 +30,6 @@ export default function MyProfileView({ navigation }) {
 
     async function queryPostsUsername(username) {
         try {
-             
             let doc = await firebase
                 .firestore()
                 .collection("posts")
@@ -107,8 +106,8 @@ export default function MyProfileView({ navigation }) {
     }
 
     let count = 1;
-    userPosts.sort((p1, p2) => (p1.time < p2.time) ? 1 : -1);
-    const postsComponents = userPosts.map((p) => {
+    userPosts?.sort((p1, p2) => (p1.time < p2.time) ? 1 : -1);
+    const postsComponents = userPosts?.map((p) => {
         switch (p.type) {
             case 'Text':
                 return (<TextCard navigation={navigation} textPost={p} key={count++} />)

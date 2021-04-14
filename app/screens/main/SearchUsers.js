@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, FlatList, Alert } from 'react-native'
 import { SearchBar } from 'react-native-elements';
 import { View, Button, Colors, Text, Card, TextArea, Constants, Drawer, ListItem, Avatar, BorderRadiuses, Image } from 'react-native-ui-lib';
@@ -8,10 +8,14 @@ import { FontAwesome } from '@expo/vector-icons';
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
 import HeaderBack from '../../components/header/HeaderBack'
 
+import { AuthContext } from '../../context/AuthContext'
 
 export default function SearchUsers({ navigation, route }) {
 
     const orange = '#FFB36C'
+
+    const { userData, setUserData } = useContext(AuthContext)
+
 
     const { usernames } = route.params
 
@@ -40,8 +44,7 @@ export default function SearchUsers({ navigation, route }) {
     }
 
     function renderSearch(row, id) {
-        return (
-         
+        return row !== userData.username && (
             <TouchableOpacity onPress={() => navigation.navigate("OtherProfile", { username: row })}>
                 <View key={id} id={id}>
                     <ListItem
@@ -60,6 +63,7 @@ export default function SearchUsers({ navigation, route }) {
                     </ListItem>
                 </View>
             </TouchableOpacity> 
+         
         )
     }
 

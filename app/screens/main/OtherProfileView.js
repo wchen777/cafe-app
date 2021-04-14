@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, DevSettings } from 'react-native'
 import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, ActionSheet } from 'react-native-ui-lib';
 import * as ImagePicker from 'expo-image-picker';
@@ -14,6 +14,8 @@ import ImageCard from '../../components/cards/ImageCard';
 import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
+import { AuthContext } from '../../context/AuthContext'
+import InteractionButtons from '../../components/profile/InteractionButtons';
 
 
 export default function OtherProfileView({ navigation, route }) {
@@ -23,7 +25,10 @@ export default function OtherProfileView({ navigation, route }) {
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
 
-    const [userData, setUserData] = useState({})
+    const { userData, setUserData } = useContext(AuthContext)
+
+
+    const [userDataO, setUserDataO] = useState({})
     const [userPosts, setUserPosts] = useState()
 
     async function getUserInfo() {
@@ -38,7 +43,7 @@ export default function OtherProfileView({ navigation, route }) {
             Alert.alert('No user data found!')
         } else {
             let dataObj = doc.docs[0].data();
-            setUserData(dataObj)
+            setUserDataO(dataObj)
             // userData.current = dataObj
         }
     }
@@ -81,8 +86,6 @@ export default function OtherProfileView({ navigation, route }) {
 
     }, [])
 
-    console.log(userData)
-
 
     const getInitials = () => {
         return username.first.toUpperCase().charAt(0) + username.last.toUpperCase().charAt(0)
@@ -113,7 +116,7 @@ export default function OtherProfileView({ navigation, route }) {
 
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    {userData.pic === "" ?
+                    {userDataO.pic === "" ?
                         <Avatar
                             size={150}
                             label={getInitials()}
@@ -122,12 +125,14 @@ export default function OtherProfileView({ navigation, route }) {
                         :
                         <Avatar
                             size={150}
-                            source={{ uri: userData.pic }} />
+                            source={{ uri: userDataO.pic }} />
                     }
                     <Text text50 color={Colors.grey10} marginT-20>
-                        {userData.first} {userData.last}
+                        {userDataO.first} {userDataO.last}
                     </Text>
                 </View>
+
+                { userData.username !== username && <InteractionButtons otherUsername={username}/> }
 
                 <View style={styles.centering}>
                     <Card
@@ -139,17 +144,17 @@ export default function OtherProfileView({ navigation, route }) {
                         <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
                             <Text text70 color={Colors.grey10} marginV-14>
-                                {userData.bio === "" || userData === undefined ?
-                                    'No bio here yet!' : userData.bio}
+                                {userDataO.bio === "" || userDataO === undefined ?
+                                    'No bio here yet!' : userDataO.bio}
                             </Text>
                         </View>
                     </Card>
                 </View>
 
                 <View style={{ paddingVertical: 6, flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 6 }}>
-                    {userData.portfolio !== "" &&
-                        <TouchableOpacity onPress={() => Linking.openURL(`https://${userData.portfolio}`)}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 14 }} ><FontAwesome name="suitcase" size={22} color={Colors.orange30} /> : {userData.portfolio}</Text>
+                    {userDataO.portfolio !== "" &&
+                        <TouchableOpacity onPress={() => Linking.openURL(`https://${userDataO.portfolio}`)}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 14 }} ><FontAwesome name="suitcase" size={22} color={Colors.orange30} /> : {userDataO.portfolio}</Text>
 
                         </TouchableOpacity>
                     }
@@ -159,15 +164,15 @@ export default function OtherProfileView({ navigation, route }) {
 
 
 
-                    {userData.twitter !== "" &&
-                        <TouchableOpacity onPress={() => Linking.openURL(`https://twitter.com/${userData.twitter}`)}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 14, marginLeft: 14 }}> <FontAwesome name="twitter" size={24} color="#1DA1F2" />: @{userData.twitter}</Text>
+                    {userDataO.twitter !== "" &&
+                        <TouchableOpacity onPress={() => Linking.openURL(`https://twitter.com/${userDataO.twitter}`)}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 14, marginLeft: 14 }}> <FontAwesome name="twitter" size={24} color="#1DA1F2" />: @{userDataO.twitter}</Text>
                         </TouchableOpacity>
                     }
 
-                    {userData.ig !== "" &&
-                        <TouchableOpacity onPress={() => Linking.openURL(`https://instagram.com/${userData.ig}`)}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 14, marginLeft: 14 }} ><FontAwesome name="instagram" size={24} color="red" /> : @{userData.ig}</Text>
+                    {userDataO.ig !== "" &&
+                        <TouchableOpacity onPress={() => Linking.openURL(`https://instagram.com/${userDataO.ig}`)}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 14, marginLeft: 14 }} ><FontAwesome name="instagram" size={24} color="red" /> : @{userDataO.ig}</Text>
                         </TouchableOpacity>}
 
                 </View>
