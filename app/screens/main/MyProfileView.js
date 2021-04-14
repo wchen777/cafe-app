@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, DevSettings } from 'react-native'
 import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, ActionSheet } from 'react-native-ui-lib';
 import * as ImagePicker from 'expo-image-picker';
@@ -16,14 +16,16 @@ import TextCard from '../../components/cards/TextCard';
 
 import { updatePic } from '../../api/firebase/FirebaseAuth';
 
+import { AuthContext } from '../../context/AuthContext'
 
 
-export default function MyProfileView({ navigation, userData, userPosts, setUserData }) {
+
+export default function MyProfileView({ navigation, userPosts }) {
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
 
-
+    const { userData, setUserData } = useContext(AuthContext)
 
 
     useEffect(() => {
@@ -32,7 +34,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                 <Text text60 color={Colors.orange30} >
                     @{userData.username} </Text>,
             headerRight: () =>
-                <TouchableOpacity onPress={() => navigation.navigate("EditProfile", { userData: userData, set: setUserData })} >
+                <TouchableOpacity onPress={() => navigation.navigate("EditProfile")} >
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 25 }}>
                         <FontAwesome name="cog" size={24} color="#4d4d4d" />
                     </View>
@@ -42,6 +44,22 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
 
 
     }, [navigation])
+
+    // async function getUserInfo() {
+    //     let doc = await firebase
+    //         .firestore()
+    //         .collection('users')
+    //         .doc(currentUserUID)
+    //         .get();
+
+    //     if (!doc.exists) {
+    //         Alert.alert('No user data found!')
+    //     } else {
+    //         let dataObj = doc.data();
+    //         setUserData(dataObj)
+    //         // userData.current = dataObj
+    //     }
+    // }
 
     useEffect(() => {
         (async () => {
@@ -53,6 +71,10 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
             }
         })();
     }, []);
+
+    // useEffect(() => {
+    //     getUserInfo()
+    // }, [])
 
     const onPlaceholderPress = () => {
         if (showSheet) {
@@ -155,7 +177,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                         style={{ marginBottom: 20, width: 350 }}
                         enableShadow={false}
                         marginT-15
-                        onPress={() => navigation.navigate("EditBio", { userData: userData, set: setUserData })}
+                        onPress={() => navigation.navigate("EditBio")}
                     >
                         <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
@@ -165,7 +187,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                                <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", { userData: userData, set: setUserData })} />
+                                <Feather name="edit" size={20} color="grey"/>
                             </View>
                         </View>
                     </Card>

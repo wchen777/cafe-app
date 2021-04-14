@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { View, Image, Text, TextField, TextArea, Button, Colors, ActionBar, Card } from 'react-native-ui-lib';
 import { FontAwesome } from '@expo/vector-icons';
@@ -12,12 +12,14 @@ import HomeView from './HomeView';
 import ChatView from './ChatView';
 import ExploreView from './ExploreView';
 
+import { AuthContext } from '../../context/AuthContext'
+
 
 export default function MainScreen({ navigation }) {
 
     const [allPosts, setAllPosts] = useState([])
 
-    const [userData, setUserData] = useState(null)
+    const { userData, setUserData } = useContext(AuthContext)
 
     const [userPosts, setUserPosts] = useState([])
 
@@ -46,7 +48,6 @@ export default function MainScreen({ navigation }) {
             // userData.current = dataObj
         }
     }
-    console.log(userData)
 
     // TODO: refactor later, without loading into local mem for scalability
     async function getUsernames() {
