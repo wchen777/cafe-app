@@ -5,9 +5,12 @@ import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, 
 import { AuthContext } from '../../context/AuthContext'
 import { Feather } from '@expo/vector-icons';
 
-export default function InteractionButtons({ otherUsername }) {
+import { followHandler, chatAdd } from '../../api/firebase/FirebaseInteractions'
+
+export default function InteractionButtons({ otherUsername, otherID }) {
 
     const { userData, setUserData } = useContext(AuthContext)
+    console.log(userData)
 
     const addToChat = () => {
         if (!userData.chats)
@@ -16,30 +19,33 @@ export default function InteractionButtons({ otherUsername }) {
             setUserData({ ...userData, chats: [...userData.chats, otherUsername] })
 
         // update database on my side and other side
+        chatAdd(userData.id, otherID, userData.username, otherUsername)
     }
 
     const onFollow = () => {
+        // new following list
+        let newFollowing
 
         if (userData.following && userData.following.includes(otherUsername)) {
-            setUserData({ ...userData, following: userData.following.filter(user => user !== otherUsername) })
-            // update database on my end for unfollow
-
+            // following currently, need to unfollow
+            newFollowing = userData.following.filter(user => user !== otherUsername)
+            // unfolllow in db (true parameter)
+            followHandler(userData.id, otherUsername, true)
         } else {
             // not following currently
             if (!userData.following) {
-                setUserData({ ...userData, following: [otherUsername] })
+                newFollowing = [otherUsername]
             }
             else if (!userData.following.includes(otherUsername)) {
-                setUserData({ ...userData, following: [...userData.following, otherUsername] })
+                newFollowing = [...userData.following, otherUsername]
             }
-
-            // update database for follow
+            followHandler(userData.id, otherUsername, false)
         }
-
+        // set state and update db
+        setUserData({ ...userData, following: newFollowing })
+        
     }
 
-
-    console.log(userData)
 
     const renderFollowLabel = () => {
         if (!userData.following || !userData.following.includes(otherUsername))

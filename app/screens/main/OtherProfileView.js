@@ -32,7 +32,6 @@ export default function OtherProfileView({ navigation, route }) {
     const [userPosts, setUserPosts] = useState()
 
     async function getUserInfo() {
-        console.log("route", route.params["username"])
         let doc = await firebase
             .firestore()
             .collection('users')
@@ -132,7 +131,7 @@ export default function OtherProfileView({ navigation, route }) {
                     </Text>
                 </View>
 
-                { userData.username !== username && <InteractionButtons otherUsername={username}/> }
+                { userData.username !== username && <InteractionButtons otherUsername={username} otherID={userDataO.id}/> }
 
                 <View style={styles.centering}>
                     <Card
