@@ -19,7 +19,6 @@ import { updatePic } from '../../api/firebase/FirebaseAuth';
 
 
 export default function MyProfileView({ navigation, userData, userPosts, setUserData }) {
-    console.log(userData);
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
@@ -33,7 +32,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                 <Text text60 color={Colors.orange30} >
                     @{userData.username} </Text>,
             headerRight: () =>
-                <TouchableOpacity onPress={() => navigation.navigate("EditProfile", {userData: userData, set: setUserData})} >
+                <TouchableOpacity onPress={() => navigation.navigate("EditProfile", { userData: userData, set: setUserData })} >
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 25 }}>
                         <FontAwesome name="cog" size={24} color="#4d4d4d" />
                     </View>
@@ -71,7 +70,8 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
         });
 
         if (!result.cancelled) {
-            setUserData({ ...userData, pic: result.uri });
+            console.log(result.uri)
+            setUserData({ ...userData, pic: result.uri })
             updatePic(result.uri);
         }
 
@@ -128,7 +128,21 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                 />
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{ uri: userData.pic }} />
+                    {userData.pic === "" ?
+                        <Avatar
+                            size={150}
+                            label={getInitials()}
+                            labelColor={Colors.orange30}
+                            backgroundColor={lightOrange}
+                            onPress={() => onPlaceholderPress()}
+                            />
+                        :
+                        <Avatar
+                            size={150}
+                            onPress={() => onPlaceholderPress()}
+                            source={{ uri: userData.pic }} />
+                    }
+
 
                     <Text text50 color={Colors.grey10} marginT-20>
                         {userData.first} {userData.last}
@@ -141,7 +155,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                         style={{ marginBottom: 20, width: 350 }}
                         enableShadow={false}
                         marginT-15
-                        onPress={() => navigation.navigate("EditBio", {userData: userData, set: setUserData})}
+                        onPress={() => navigation.navigate("EditBio", { userData: userData, set: setUserData })}
                     >
                         <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
@@ -151,7 +165,7 @@ export default function MyProfileView({ navigation, userData, userPosts, setUser
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                                <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", {userData: userData, set: setUserData})} />
+                                <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", { userData: userData, set: setUserData })} />
                             </View>
                         </View>
                     </Card>

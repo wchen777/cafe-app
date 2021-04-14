@@ -41,25 +41,25 @@ export default function SearchUsers({ navigation, route }) {
 
     function renderSearch(row, id) {
         return (
-            <View key={id} id={id}>
-                <ListItem
-                    activeBackgroundColor={Colors.dark60}
-                    activeOpacity={0.3}
-                    height={77.5}
-                    key={id}
-                >
-                    <ListItem.Part left marginR-10 marginL-30>
-                        <TouchableOpacity>
+         
+            <TouchableOpacity onPress={() => navigation.navigate("OtherProfile", { username: row })}>
+                <View key={id} id={id}>
+                    <ListItem
+                        activeBackgroundColor={Colors.dark60}
+                        activeOpacity={0.3}
+                        height={77.5}
+                        key={id}
+                    >
+                        <ListItem.Part left marginR-10 marginL-30>
 
                             <Text text60 color={Colors.orange30} >
                                 @{row}
                             </Text>
 
-                        </TouchableOpacity>
-
-                    </ListItem.Part>
-                </ListItem>
-            </View>
+                        </ListItem.Part>
+                    </ListItem>
+                </View>
+            </TouchableOpacity> 
         )
     }
 
