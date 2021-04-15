@@ -1,48 +1,45 @@
 const { ApolloServer, gql } = require('apollo-server');
+const { uri } = require('./mongoDB')
+const MongoClient = require('mongodb').MongoClient;
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
-const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
-
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
-`;
-
-
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
+ const typeDefs = require('./typedefs')
 
 // Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
-};
+// schema, map of functions which return data for the schema
+ 
+const resolvers = require('./resolvers')
 
+
+let db 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+    typeDefs, 
+    resolvers,
+    context: async () => {
+        if (!db) {
+          try {
+            const dbClient = new MongoClient(
+                uri,
+              {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+              }
+            )
+    
+            if (!dbClient.isConnected()) await dbClient.connect()
+
+            db = dbClient.db('cafe-app') // database name
+          } catch (e) {
+            console.log('ERROR while connecting with graphql context (db)', e)
+          }
+        }
+        return { db }
+      }, });
 
 const PORT = 443;
 

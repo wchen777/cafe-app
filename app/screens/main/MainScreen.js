@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { View, Image, Text, TextField, TextArea, Button, Colors, ActionBar, Card } from 'react-native-ui-lib';
 import { FontAwesome } from '@expo/vector-icons';
@@ -12,21 +12,20 @@ import HomeView from './HomeView';
 import ChatView from './ChatView';
 import ExploreView from './ExploreView';
 
+import { AuthContext } from '../../context/AuthContext'
+
 
 export default function MainScreen({ navigation }) {
 
     const [allPosts, setAllPosts] = useState([])
 
-    const [userData, setUserData] = useState([])
-
-    const [userPosts, setUserPosts] = useState([])
+    const { userData, setUserData } = useContext(AuthContext)
 
     const [selectedPage, setSelectedPage] = useState('Home')
 
     const [selectedCategory, setSelectedCategory] = useState('digital art')
 
     const [usernames, setUsernames] = useState([])
-
 
 
     let currentUserUID = firebase.auth().currentUser.uid;
@@ -40,38 +39,24 @@ export default function MainScreen({ navigation }) {
             .get();
 
         if (!doc.exists) {
-            Alert.alert('No user data found!')
+            console.log("no user data found")
         } else {
             let dataObj = doc.data();
-            setUserData(dataObj);
+            setUserData(dataObj)
+            // userData.current = dataObj
         }
     }
 
+    // TODO: refactor later, without loading into local mem for scalability
     async function getUsernames() {
         let doc = await firebase
             .firestore()
             .collection('users')
             .get();
 
-            let dataObj = doc.docs.map(doc => doc.data());
-            setUsernames(dataObj.map(user => user.username));
-    }
-
-    async function getPostData() {
-        let doc = await firebase
-            .firestore()
-            .collection('posts')
-            .get();
-
         let dataObj = doc.docs.map(doc => doc.data());
-
-        setAllPosts(dataObj)
-        setUserPosts(allPosts.filter(post => post.username == userData.username));
+        setUsernames(dataObj.map(user => user.username));
     }
-
-    useEffect(() => {
-        getPostData();
-    }, [])
 
     useEffect(() => {
         getUserInfo();
@@ -84,27 +69,42 @@ export default function MainScreen({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0  }}>
-                
-                {selectedPage === "Home" && 
-                    <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <HomeView navigation={navigation} allPosts={allPosts} setAllPosts={setAllPosts}/>
+            <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }}>
+
+                {selectedPage === "Home" &&
+                    <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+                        <HomeView
+                            navigation={navigation}
+                            allPosts={allPosts}
+                            setAllPosts={setAllPosts}
+                            getUserInfo={getUserInfo}
+                            />
                     </View>
                 }
 
-                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData} setUserData={setUserData} userPosts={userPosts}/>}
+                {selectedPage === "Profile" &&
+                    <MyProfileView
+                        navigation={navigation}
+                    />
+                }
 
-                {selectedPage === "Explore" && 
-                    <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                        <ExploreView navigation={navigation} allPosts={allPosts} setAllPosts={setAllPosts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
+                {selectedPage === "Explore" &&
+                    <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+                        <ExploreView
+                            navigation={navigation}
+                            allPosts={allPosts}
+                            setAllPosts={setAllPosts}
+                            selectedCategory={selectedCategory}
+                            setSelectedCategory={setSelectedCategory}
+                        />
                     </View>
                 }
 
-                {selectedPage === "Chat" && 
-                    <ChatView navigation={navigation} usernames={usernames}/>
+                {selectedPage === "Chat" &&
+                    <ChatView navigation={navigation} usernames={usernames} />
                 }
 
-                <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation}/>
+                <ActionBarHome selectedPage={selectedPage} setSelectedPage={setSelectedPage} navigation={navigation} />
 
             </View>
 

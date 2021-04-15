@@ -7,7 +7,7 @@ import 'firebase/storage';
 
 /* Text */
 
-export async function createTextPost({ title, description, type, category, content, username, time, likes, id}) {
+export async function createTextPost({ title, description, type, category, content, username, time, likes, id }) {
     try {
         const db = firebase.firestore();
         db.collection("posts")
@@ -50,7 +50,6 @@ async function uploadImgStorage(imageURI, imagesDB, id, count, dbFirestore) {
 
     console.log("here")
 
-    let urlRes
     // insert blob into db and return the download path
     await imageRef.put(blob).on(firebase.storage.TaskEvent.STATE_CHANGED, (snap) => {
         console.log("total bytes transferring:", snap.totalBytes)
@@ -81,13 +80,13 @@ export async function createImagePost({ title, description, type, category, cont
                 username: username,
                 time: time,
                 likes: likes,
-                id: id, 
+                id: id,
             });
     } catch (err) {
         Alert.alert("Could not create post right now.", err.message);
     }
 
-    
+
     // firebase storage, which is different than firestore
     const imagesDB = firebase.storage();
 
@@ -112,7 +111,7 @@ export async function createImagePost({ title, description, type, category, cont
     }
 
     if (content["fifth"]) {
-       await uploadImgStorage(content["fifth"], imagesDB, id, count++, db)
+        await uploadImgStorage(content["fifth"], imagesDB, id, count++, db)
     }
 
 
@@ -188,7 +187,7 @@ export async function getPosts() {
             .get()
             .then((data) => {
                 return data
-                
+
             })
     } catch (err) {
         Alert.alert("Could not fetch posts right now.", err.message);
@@ -197,15 +196,15 @@ export async function getPosts() {
 
 export async function updateLikes(id, likes) {
     try {
-      const db = firebase.firestore();
-      db.collection("posts")
-        .doc(id)
-        .update({
-            likes: likes,
-        });
-  
+        const db = firebase.firestore();
+        db.collection("posts")
+            .doc(id)
+            .update({
+                likes: likes,
+            });
+
     } catch (err) {
-      Alert.alert("Error in updating likes.", err.message);
+        Alert.alert("Error in updating likes.", err.message);
     }
 }
 

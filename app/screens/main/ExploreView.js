@@ -3,6 +3,7 @@ import { ScrollView, RefreshControl } from 'react-native'
 import { View, Button, Text } from 'react-native-ui-lib';
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed';
+import * as firebase from 'firebase';
 
 import ImageCard from '../../components/cards/ImageCard';
 import AudioCard from '../../components/cards/AudioCard';
@@ -12,6 +13,8 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
 
     const orange = '#FFB36C';
     const black = '#000000';
+
+    const [filteredPosts, setFilteredPosts] = useState([])
 
 
     useEffect(() => {
@@ -23,22 +26,22 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
     })
 
     const filterCategory = (category) => {
-        if (category === "painting") {
-            setSelectedCategory("painting");
-        } else if (category === "digital art") {
-            setSelectedCategory("digital art");
-        } else if (category === "design") {
-            setSelectedCategory("design");
-        } else if (category === "photography") {
-            setSelectedCategory("photography");
-        } else if (category === "music") {
-            setSelectedCategory("music");
-        } else if (category === "podcast") {
-            setSelectedCategory("podcast");
-        } else if (category === "writing") {
-            setSelectedCategory("writing");
-        } else if (category === "commentary") {
-            setSelectedCategory("commentary");
+        if (category === "Painting") {
+            setSelectedCategory("Painting");
+        } else if (category === "Digital Art") {
+            setSelectedCategory("Digital Art");
+        } else if (category === "Design") {
+            setSelectedCategory("Design");
+        } else if (category === "Photography") {
+            setSelectedCategory("Photography");
+        } else if (category === "Music") {
+            setSelectedCategory("Music");
+        } else if (category === "Podcast") {
+            setSelectedCategory("Podcast");
+        } else if (category === "Writing") {
+            setSelectedCategory("Writing");
+        } else if (category === "Commentary") {
+            setSelectedCategory("Commentary");
         }
     }
 
@@ -59,33 +62,47 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
         }
     }
 
+
+    async function getPosts() {
+        let doc = await firebase
+            .firestore()
+            .collection('posts')
+            .where("category", "==", selectedCategory)
+            .get();
+
+            let dataObj = doc.docs.map(doc => doc.data());
+            setFilteredPosts(dataObj);
+    }
+
+    useEffect(() => {
+        getPosts()
+    }, [selectedCategory])
+
     let count = 1;
     const postsComponents = 
-    allPosts.map((p) => {
-        switch (p.category.toLowerCase()) {
-            case selectedCategory:
-                if (selectedCategory === 'painting') {
-                    return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
-                } else if (selectedCategory === 'digital art') {
-                    return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
-                } else if (selectedCategory === 'design') {
-                    return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
-                } else if (selectedCategory === 'photography') {
-                    return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
-                } else if (selectedCategory === 'music') {
-                    return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>);
-                } else if (selectedCategory === 'podcast') {
-                    return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>);
-                } else if (selectedCategory === 'writing') {
-                    return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>);
-                } else if (selectedCategory === 'commentary') {
-                    return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>);
-                } 
+    filteredPosts.map((p) => {
+        switch (p.category) {
+            case 'Painting':
+                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
+            case 'Digital Art':
+                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
+            case 'Design':
+                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
+            case 'Photography':
+                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>);
+            case 'Music':
+                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>);
+            case 'Podcast':
+                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>);
+            case 'Writing':
+                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>);
+            case 'Commentary':
+                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>);
             default:
                 return
         }
-
     })
+
 
     let data = [{
         value: 'Top Posts',
@@ -203,13 +220,11 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
                     value = 'All'
                     data={data}
                     width={250}
-                    onChangeText={(value, index, data) => filterByValue(value)}
-                    
-                    
+                    useNativeDriver
                 />
                 </View>
 
-                <View style={{marginTop: 20}}>
+                <View style={{marginTop: 20}} paddingH-10>
                     {postsComponents}
                 </View>
 

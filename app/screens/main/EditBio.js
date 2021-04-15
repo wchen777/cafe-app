@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 
@@ -7,28 +7,27 @@ import { MainScreen } from '../main/MainScreen';
 import * as firebase from "firebase";
 import "firebase/firestore";
 import { updateProfile } from '../../api/firebase/FirebaseAuth';
-import { signOut } from '../../api/firebase/FirebaseAuth'
+
+import { AuthContext } from '../../context/AuthContext'
 
 export default function EditBio({ route, navigation }) {
     const lightOrange = '#ffdfc2'
-    let userData = route.params;
 
-    const [userDataC, setUserDataC] = useState(route.params)
+    const { userData, setUserData } = useContext(AuthContext)
+
+    const [userDataC, setUserDataC] = useState(userData)
 
     const editBio = () => {
         updateProfile(userDataC);
-        route.params = userDataC
+        setUserData(userDataC)
         navigation.goBack()
     }
-
 
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ ...styles.centering, marginTop: 20 }}>
                 <ScrollView>
-
-
                     <TextField
                         text70
                         floatingPlaceholder

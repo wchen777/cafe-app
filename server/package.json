@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start ecosystem.config.js"
+    "start": "pm2 start ecosystem.config.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.22.1",
-    "graphql": "^15.5.0"
+    "graphql": "^15.5.0",
+    "mongodb": "^3.6.6",
+    "nodemon": "^2.0.7",
+    "uuid": "^8.3.2"
   }
 }

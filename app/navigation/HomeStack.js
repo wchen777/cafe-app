@@ -10,9 +10,12 @@ import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import HeaderBack from '../components/header/HeaderBack'
 import CreatePostMain from '../screens/main/create-post/CreatePostMain';
 import CreatePatio from '../screens/main/patio/CreatePatio'
-
+import SearchUsers from '../screens/main/SearchUsers'
+import OtherProfileView from '../screens/main/OtherProfileView'
 
 import { CardStyleInterpolators } from '@react-navigation/stack'
+import ChatMain from '../screens/main/ChatMainScreen'
+
 
 const Stack = createStackNavigator();
 
@@ -75,6 +78,34 @@ export default function AuthStack() {
                     headerTitle: <HeaderBarLogo />,
                 }}
             />
+            <Stack.Screen
+                name='SearchUsers'
+                component={SearchUsers}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
+                    headerTitle: <HeaderBarLogo />,
+                }}
+            />
+            <Stack.Screen
+                name='OtherProfile'
+                component={OtherProfileView}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
+                    headerTitle: <HeaderBarLogo />,
+                }}
+            />
+            <Stack.Screen
+                name='ChatMain'
+                component={ChatMain}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
+                    headerTitle: <HeaderBarLogo />,
+                }}
+            />
+
         </Stack.Navigator>
     )
 }

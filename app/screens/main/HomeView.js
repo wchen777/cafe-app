@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ScrollView, RefreshControl } from 'react-native'
 import { View, Button, Text } from 'react-native-ui-lib';
 
@@ -9,14 +9,14 @@ import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
-import { getPosts } from '../../api/firebase/FirebasePosts'
+import { AuthContext } from '../../context/AuthContext'
 
 import Moment from 'moment';
 import * as firebase from 'firebase';
 
 const wait = timeout => {
     return new Promise(resolve => {
-      setTimeout(resolve, timeout);
+        setTimeout(resolve, timeout);
     });
 };
 
@@ -24,12 +24,34 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
+    const { userData, setUserData } = useContext(AuthContext)
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-    
-        wait(2000).then(() => setRefreshing(false));
+        getPostData()
+        getUserInfo()
+        wait(1000).then(() => setRefreshing(false));
+
     }, []);
-    
+
+
+    async function getUserInfo() {
+        let currentUserUID = firebase.auth().currentUser.uid;
+        let doc = await firebase
+            .firestore()
+            .collection('users')
+            .doc(currentUserUID)
+            .get();
+
+        if (!doc.exists) {
+            console.log("no data found")
+        } else {
+            let dataObj = doc.data();
+            setUserData(dataObj)
+            // userData.current = dataObj
+        }
+    }
+
 
     useEffect(() => {
         navigation.setOptions({
@@ -39,6 +61,25 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
         });
     })
 
+    // TODO: lazy loading and batch fetching and caching
+    async function getPostData() {
+        console.log(userData.following)
+        console.log(userData)
+        let doc = await firebase
+            .firestore()
+            .collection('posts')
+            .where("username", "in", userData.following)
+            .get();
+
+        let dataObj = doc.docs.map(doc => doc.data());
+
+        setAllPosts(dataObj)
+    }
+
+    useEffect(() => {
+        getUserInfo()
+        getPostData()
+    }, [])
 
     // function filterPosts(posts) {
     //     imagePosts = posts.filter(post => post.type == 'Image');
@@ -50,15 +91,15 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     // TODO: need to cache these
     let count = 1;
-    allPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
+    allPosts.sort((p1, p2) => (p1.time < p2.time) ? 1 : -1);
     const postsComponents = allPosts.map((p) => {
         switch (p.type) {
             case 'Text':
-                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
+                return (<TextCard navigation={navigation} textPost={p} key={count++} />)
             case 'Image':
-                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
+                return (<ImageCard navigation={navigation} imagePost={p} key={count++} />)
             case 'Audio':
-                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)
+                return (<AudioCard navigation={navigation} audioPost={p} key={count++} />)
             default:
                 return
         }
@@ -66,14 +107,14 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
 
     return (
-        <View style={{ flexDirection: 'column', marginBottom: 0, paddingBottom: 0 }}>
+        <View style={{ flexDirection: 'column', marginBottom: 0, paddingBottom: 0, width: "97%" }}>
 
 
-            <ScrollView style={{ marginBottom: 80, paddingTop: 15 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+            <ScrollView style={{ marginBottom: 80, paddingTop: 15, marginHorizontal: 0 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 
                 {/* refactor navigation props later */}
 
-                {postsComponents}
+                {postsComponents ?? "No posts to see here yet!"}
 
 
                 {/* {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)} */}

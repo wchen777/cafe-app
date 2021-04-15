@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 
@@ -9,13 +9,15 @@ import "firebase/firestore";
 import { updateProfile } from '../../api/firebase/FirebaseAuth';
 import { signOut } from '../../api/firebase/FirebaseAuth'
 import { ScrollView } from 'react-native-gesture-handler';
+import { AuthContext } from '../../context/AuthContext'
 
 
-export default function EditProfile({ route, navigation}) {
+export default function EditProfile({ navigation }) {
     const lightOrange = '#ffdfc2'
-    let userData = route.params;
 
-    const [userDataC, setUserDataC] = useState(route.params)
+    const { userData, setUserData } = useContext(AuthContext)
+
+    const [userDataC, setUserDataC] = useState(userData)
 
     const getInitials = () => {
         return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
@@ -39,8 +41,8 @@ export default function EditProfile({ route, navigation}) {
 
     const editProfile = () => {
         updateProfile(userDataC);
-        // might have to set the state here
-        route.params = userDataC
+        console.log(userData)
+        setUserData(userDataC)
         navigation.goBack()
     }
 
@@ -113,7 +115,7 @@ export default function EditProfile({ route, navigation}) {
                                 autoCapitalize='none'
                                 autoCorrect={false}
                                 defaultValue={userData.twitter}
-                                onChangeText={twit => setUserDataC({ ...userDataC, twit: twit })}
+                                onChangeText={twitter => setUserDataC({ ...userDataC, twitter: twitter })}
                                 style={styles.input}
                             />
 

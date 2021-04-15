@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, DevSettings } from 'react-native'
+import React, { useEffect, useState, useContext } from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity, DevSettings, RefreshControl } from 'react-native'
 import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, ActionSheet } from 'react-native-ui-lib';
 import * as ImagePicker from 'expo-image-picker';
 import { Feather } from '@expo/vector-icons';
@@ -14,18 +14,35 @@ import ImageCard from '../../components/cards/ImageCard';
 import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
-import {updatePic} from '../../api/firebase/FirebaseAuth';
+import { updatePic } from '../../api/firebase/FirebaseAuth';
 
-//need to fix infinite rerender stuff/updating profile immediately 
+import { AuthContext } from '../../context/AuthContext'
 
-export default function MyProfileView({ navigation, userData, userPosts }) {
+
+
+export default function MyProfileView({ navigation }) {
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
-    const [profPic, setUserDataC] = useState(userData);
+    const [userPosts, setUserPosts] = useState()
 
+    const { userData, setUserData } = useContext(AuthContext)
 
+    async function queryPostsUsername(username) {
+        try {
+            let doc = await firebase
+                .firestore()
+                .collection("posts")
+                .where("username", "==", username)
+                .get()
 
+            let d = doc.docs.map(doc => doc.data());    
+            setUserPosts(d)
+
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 
 
     useEffect(() => {
@@ -34,16 +51,18 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                 <Text text60 color={Colors.orange30} >
                     @{userData.username} </Text>,
             headerRight: () =>
-                <TouchableOpacity onPress={() => navigation.navigate("EditProfile", userData)} >
+                <TouchableOpacity onPress={() => navigation.navigate("EditProfile")} >
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 25 }}>
                         <FontAwesome name="cog" size={24} color="#4d4d4d" />
                     </View>
                 </TouchableOpacity>
 
         });
-
-
     }, [navigation])
+
+    useEffect(() => {
+        queryPostsUsername(userData.username)
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -55,6 +74,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
             }
         })();
     }, []);
+
 
     const onPlaceholderPress = () => {
         if (showSheet) {
@@ -72,7 +92,8 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
         });
 
         if (!result.cancelled) {
-            setUserDataC({ ...profPic, pic: result.uri });
+            console.log(result.uri)
+            setUserData({ ...userData, pic: result.uri })
             updatePic(result.uri);
         }
 
@@ -85,15 +106,15 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
     }
 
     let count = 1;
-    userPosts.sort((p1, p2) => (p1.time < p2.time) ? 1: -1);
-    const postsComponents = userPosts.map((p) => {
+    userPosts?.sort((p1, p2) => (p1.time < p2.time) ? 1 : -1);
+    const postsComponents = userPosts?.map((p) => {
         switch (p.type) {
             case 'Text':
-                return (<TextCard  navigation={navigation} textPost = {p} key={count++}/>)
+                return (<TextCard navigation={navigation} textPost={p} key={count++} />)
             case 'Image':
-                return (<ImageCard  navigation={navigation} imagePost = {p} key={count++}/>)
+                return (<ImageCard navigation={navigation} imagePost={p} key={count++} />)
             case 'Audio':
-                return (<AudioCard  navigation={navigation} audioPost = {p} key={count++}/>)
+                return (<AudioCard navigation={navigation} audioPost={p} key={count++} />)
             default:
                 return
         }
@@ -129,7 +150,21 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                 />
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
-                    <Avatar size={150} label={getInitials()} labelColor={Colors.orange30} backgroundColor={lightOrange} onPress={() => onPlaceholderPress()} source={{uri: profPic.pic}} />
+                    {userData.pic === "" ?
+                        <Avatar
+                            size={150}
+                            label={getInitials()}
+                            labelColor={Colors.orange30}
+                            backgroundColor={lightOrange}
+                            onPress={() => onPlaceholderPress()}
+                            />
+                        :
+                        <Avatar
+                            size={150}
+                            onPress={() => onPlaceholderPress()}
+                            source={{ uri: userData.pic }} />
+                    }
+
 
                     <Text text50 color={Colors.grey10} marginT-20>
                         {userData.first} {userData.last}
@@ -142,7 +177,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                         style={{ marginBottom: 20, width: 350 }}
                         enableShadow={false}
                         marginT-15
-                        onPress={() => navigation.navigate("EditBio", userData)}
+                        onPress={() => navigation.navigate("EditBio")}
                     >
                         <View bg-white paddingH-10 style={{ flexDirection: 'column', justifyContent: 'space-between', minHeight: 120 }}>
 
@@ -152,7 +187,7 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                                <Feather name="edit" size={20} color="grey" onPress={() => navigation.navigate("EditBio", userData)} />
+                                <Feather name="edit" size={20} color="grey"/>
                             </View>
                         </View>
                     </Card>
@@ -184,13 +219,13 @@ export default function MyProfileView({ navigation, userData, userPosts }) {
 
                 </View>
 
-                <View style={{marginTop: 40}}>
-
-                {postsComponents}
+                <View marginT-45 marginH-8>
+                    {postsComponents}
                 </View>
 
 
 
+                <View style={{ marginTop: 40 }} />
 
             </ScrollView>
         </View>
