@@ -66,7 +66,7 @@ export async function registration({ email, password, username, last, first, ig,
     } 
 } */
 
-export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, bio }) {
+export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, bio, pic }) {
     try {
         const currentUser = firebase.auth().currentUser;
         const db = firebase.firestore();
@@ -81,6 +81,7 @@ export async function updateProfile({ email, password, username, last, first, ig
                 twitter: twitter,
                 portfolio: portfolio,
                 bio: bio,
+                pic: pic,
 
             });
 
