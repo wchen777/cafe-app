@@ -10,12 +10,16 @@ import "firebase/firestore";
 
 import { AuthContext } from '../../context/AuthContext'
 
-
 export default function ChatList({ navigation }) {
+    const lightOrange = '#ffdfc2'
 
     const { userData, setUserData } = useContext(AuthContext)
 
     const [othersData, setOthersData] = useState()
+
+    const getInitials = () => {
+        return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
+    }
 
 
     async function getUsersInfo() {
