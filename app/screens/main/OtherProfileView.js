@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, DevSettings } from 'react-native'
+import { ScrollView, StyleSheet, TouchableOpacity, DevSettings, RefreshControl } from 'react-native'
 import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer, ActionSheet } from 'react-native-ui-lib';
 import * as ImagePicker from 'expo-image-picker';
 import { Feather } from '@expo/vector-icons';
@@ -18,6 +18,13 @@ import { AuthContext } from '../../context/AuthContext'
 import InteractionButtons from '../../components/profile/InteractionButtons';
 
 
+const wait = timeout => {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+};
+
+
 export default function OtherProfileView({ navigation, route }) {
 
     const { username } = route.params
@@ -26,10 +33,18 @@ export default function OtherProfileView({ navigation, route }) {
     const lightOrange = '#ffdfc2'
 
     const { userData, setUserData } = useContext(AuthContext)
+    const [refreshing, setRefreshing] = React.useState(false);
 
 
     const [userDataO, setUserDataO] = useState({})
     const [userPosts, setUserPosts] = useState()
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        queryPostsUsername(username);
+        wait(1000).then(() => setRefreshing(false));
+
+    }, []);
 
     async function getUserInfo() {
         let doc = await firebase
@@ -111,7 +126,7 @@ export default function OtherProfileView({ navigation, route }) {
     return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
 
-            <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
+            <ScrollView style={{ marginBottom: 80, paddingTop: 15 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 
 
                 <View style={{ ...styles.centering, marginTop: 20 }}>
