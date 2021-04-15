@@ -27,11 +27,11 @@ import { getMainDefinition } from '@apollo/client/utilities';
 
 
 const httpLink = new HttpLink({
-  uri: 'https://ec2-3-14-84-22.us-east-2.compute.amazonaws.com/'
+  uri: 'http://ec2-3-14-84-22.us-east-2.compute.amazonaws.com/'
 });
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://ec2-3-14-84-22.us-east-2.compute.amazonaws.com/',
+  uri: 'ws://ec2-3-14-84-22.us-east-2.compute.amazonaws.com/graphql',
   options: {
     reconnect: true
   }
