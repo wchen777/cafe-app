@@ -71,7 +71,6 @@ export default function ImagePostContent({ setContent, content }) {
                             pickImage(active)
                         }
                     },
-                    { label: 'Take Image' },
                     { label: 'Cancel', onPress: () => setShowSheet(false) },
                     ]}
                     visible={showSheet}
