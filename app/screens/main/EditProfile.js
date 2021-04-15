@@ -10,6 +10,7 @@ import { updateProfile } from '../../api/firebase/FirebaseAuth';
 import { signOut } from '../../api/firebase/FirebaseAuth'
 import { ScrollView } from 'react-native-gesture-handler';
 import { AuthContext } from '../../context/AuthContext'
+import { FontAwesome } from '@expo/vector-icons';
 
 
 export default function EditProfile({ navigation }) {
@@ -122,6 +123,8 @@ export default function EditProfile({ navigation }) {
                         <Avatar
                             size={100}
                             source={{ uri: userDataC.pic }}
+                            badgeProps= {{label: <FontAwesome name="plus-square"/>, size: 'large'}}
+                            badgePosition= 'BOTTOM_RIGHT'
                             onPress={() => onPlaceholderPress()} />
                     }
 
