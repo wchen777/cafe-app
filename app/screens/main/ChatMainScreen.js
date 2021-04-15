@@ -32,7 +32,7 @@ const GET_MESSAGES = gql`
 // gql mutation to send a message 
 const SEND_MESSAGE = gql`
     mutation sendMessage($to: String! $from: String! $content: String!) {
-        sendMessage(to: $to, from: $from, content: $content) {
+        sendMessage(to: $to from: $from content: $content) {
             uuid from to content createdAt
         }
     }
@@ -72,7 +72,11 @@ export default function ChatMain({ route, navigation }) {
         onError: err => console.log(err)
     })
 
-    const { error, loading, data } = useQuery(GET_MESSAGES, { variables: { from: userData.username, to: usernameOther } })
+    const { error, loading, data } = useQuery(GET_MESSAGES,
+        {
+            variables: { from: userData.username, to: usernameOther },
+            fetchPolicy: "cache-and-network"
+        })
 
     // -------------------------------------------- //
 
@@ -83,23 +87,18 @@ export default function ChatMain({ route, navigation }) {
     // for when data updates, we first get our messages
     useEffect(() => {
         if (data) {
+            console.log(data.getMessages)
             setMessages(data.getMessages)
         }
-
-    }, [data])
+    }, [])
 
 
     useEffect(() => {
-        console.log("here")
         if (messageError) console.log(messageError, "error")
-   
+
         if (messageDataSub) {
             const message = messageDataSub.newMessage
             console.log(message)
-
-            // // otherUser is either the to or from of the message
-            // const otherUser = userData.username === message.to ? message.from : message.to
-
 
             setMessages([...messages, message])
         }
@@ -133,22 +132,18 @@ export default function ChatMain({ route, navigation }) {
         sendMessage({ variables: newMsg })
     }
 
-
+    // console.log(messages)
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }}>
 
-                <KeyboardAwareScrollView
+                {/* <KeyboardAwareScrollView
                     style={{ marginBottom: 40, flex: 1, flexDirection: 'column' }}
-                >
+                > */}
 
 
-                    <ScrollView>
-
-                        {msgsList[5]}
-                    </ScrollView>
-
+                <ScrollView style={{ flex: 1 }}>
                     <View marginH-10 row marginT-20>
                         <TextInput
                             ref={inputRef}
@@ -165,10 +160,15 @@ export default function ChatMain({ route, navigation }) {
 
                         </View>
                     </View>
+                    {msgsList}
+
+                </ScrollView>
 
 
 
-                </KeyboardAwareScrollView>
+
+
+                {/* </KeyboardAwareScrollView> */}
             </View>
 
 

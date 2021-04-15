@@ -7,6 +7,7 @@ module.exports = gql`
         from: String!
         to: String!
         createdAt: String!
+        _id: ID
     }
     type Query {
         getMessages(
