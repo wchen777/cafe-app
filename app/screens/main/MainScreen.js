@@ -4,7 +4,6 @@ import { View, Image, Text, TextField, TextArea, Button, Colors, ActionBar, Card
 import { FontAwesome } from '@expo/vector-icons';
 
 import * as firebase from 'firebase';
-import * as ScreenOrientation from 'expo-screen-orientation';
 
 import { signOut } from '../../api/firebase/FirebaseAuth';
 import ActionBarHome from '../../components/ActionBarHome';
@@ -65,14 +64,6 @@ export default function MainScreen({ navigation }) {
 
     useEffect(() => {
         getUsernames();
-    }, [])
-
-    async function changeScreenOrientation() {
-        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-    }
-
-    useEffect(() => {
-        changeScreenOrientation();
     }, [])
 
 

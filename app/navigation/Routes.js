@@ -10,6 +10,7 @@ import SplashScreen from '../screens/SplashScreen'
 import { AuthContext } from '../context/AuthContext'
 
 import * as firebase from 'firebase';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 
 export default function Routes() {
@@ -35,6 +36,14 @@ export default function Routes() {
         const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
         return subscriber; // unsubscribe on unmount
     }, []);
+
+    async function changeScreenOrientation() {
+        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    }
+
+    useEffect(() => {
+        changeScreenOrientation();
+    }, [])
 
 
     // splash/loading screen
