@@ -8,7 +8,7 @@ export default function AudioCard({ navigation, audioPost }) {
         <Card
             key={1}
             style={{ marginBottom: 20 }}
-            onPress={() => navigation.navigate('PostView')}
+            onPress={() => navigation.navigate('PostView', audioPost)}
             borderRadius={20}
             marginH-4
         >
