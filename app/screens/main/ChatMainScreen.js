@@ -135,7 +135,6 @@ export default function ChatMain({ route, navigation }) {
     // console.log(messages)
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }}>
 
                 {/* <KeyboardAwareScrollView
@@ -143,32 +142,35 @@ export default function ChatMain({ route, navigation }) {
                 > */}
 
 
-                <ScrollView style={{ flex: 1 }}>
-                    <View marginH-10 row marginT-20>
-                        <TextInput
-                            ref={inputRef}
-                            placeholder="Send a Message"
-                            style={styles.textInput}
-                            onSubmitEditing={() => submitText()}
-                            onChangeText={(t) => setTypeMessage(t)}
-                        />
+                 <ScrollView style={{ marginBottom: 10, paddingTop: 15 }}>
+                    {msgsList}
+                    <View style={{flexDirection: 'row', marginTop: 20, bottom: 0}} >
+                        <View>
+                            <TextInput
+                                ref={inputRef}
+                                placeholder="Send a Message"
+                                style={styles.textInput}
+                                onSubmitEditing={() => submitText()}
+                                onChangeText={(t) => setTypeMessage(t)}
+                            />
+                        </View>
 
                         <View marginT-8 marginL-13>
                             <TouchableOpacity onPress={() => submitText()}>
                                 <FontAwesome name="send" size={34} color="#FFB36C" />
                             </TouchableOpacity>
-
                         </View>
-                    </View>
-                    {msgsList}
 
-                </ScrollView>
+                    </View>
+
+                </ScrollView> 
 
                 {/* </KeyboardAwareScrollView> */}
             </View>
 
 
-        </TouchableWithoutFeedback>
+
+
     )
 }
 

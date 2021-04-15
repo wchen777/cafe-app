@@ -9,10 +9,11 @@ export default function CreatePatio({ navigation }) {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0  }}>
-                
-                <Text>
-                    Patio coming soon!
-                </Text>
+                <View style={{flexDirection:'row', justifyContent: 'center', marginTop: 20}}>
+                    <Text>
+                        Patio coming soon!
+                    </Text>
+                </View>
             </View>
 
 

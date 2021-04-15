@@ -53,14 +53,14 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
         }
     }
 
-    let topPosts = false;
+/*     let topPosts = false;
     const filterByValue = (value) => {
         if (value === 'All') {
             topPosts = false;
         } else {
             topPosts = true;
         }
-    }
+    } */
 
 
     async function getPosts() {
@@ -104,11 +104,11 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
     })
 
 
-    let data = [{
+/*     let data = [{
         value: 'Top Posts',
     }, {
         value: 'All',
-    }];
+    }]; */
 
     return (
         <View style={{ flexDirection: 'column', marginBottom: 0, paddingBottom: 0 }}>
@@ -120,12 +120,12 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
                         label="digital art"
                         color={setColor("digital art")}
                         outline={true}
-                        outlineColor={setColor("digital art")}
+                        outlineColor={setColor("Digital art")}
                         labelStyle={{ fontWeight: '600', fontSize: 15 }}
                         style={{ width: 120, height: 40, marginRight: 10, marginLeft: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("digital art")}
+                        onPress={() => filterCategory("Digital Art")}
                     />
                     <Button
                         backgroundColor="white"
@@ -135,86 +135,86 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
                         style={{ width: 100, height: 40, marginRight: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("painting")}
-                        color={setColor('painting')}
-                        outlineColor={setColor("painting")}
+                        onPress={() => filterCategory("Painting")}
+                        color={setColor('Painting')}
+                        outlineColor={setColor("Painting")}
                     />
                     <Button
                         backgroundColor="white"
                         label="design"
-                        color={setColor("design")}
+                        color={setColor("Design")}
                         outline={true}
-                        outlineColor={setColor("design")}
+                        outlineColor={setColor("Design")}
                         labelStyle={{ fontWeight: '600', fontSize: 15 }}
                         style={{ width: 100, height: 40, marginRight: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("design")}
+                        onPress={() => filterCategory("Design")}
                     />
                     <Button
                         backgroundColor="white"
                         label="photography"
-                        color={setColor("photography")}
+                        color={setColor("Photography")}
                         outline={true}
-                        outlineColor={setColor("photography")}
+                        outlineColor={setColor("Photography")}
                         labelStyle={{ fontWeight: '600', fontSize: 15 }}
                         style={{ width: 140, height: 40, marginRight: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("photography")}
+                        onPress={() => filterCategory("Photography")}
                     />
                     <Button
                         backgroundColor="white"
                         label="music"
-                        color={setColor("music")}
+                        color={setColor("Music")}
                         outline={true}
-                        outlineColor={setColor("music")}
+                        outlineColor={setColor("Music")}
                         labelStyle={{ fontWeight: '600', fontSize: 15 }}
                         style={{ width: 100, height: 40, marginRight: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("music")}
+                        onPress={() => filterCategory("Music")}
                     />
                     <Button
                         backgroundColor="white"
                         label="podcast"
-                        color={setColor("podcast")}
+                        color={setColor("Podcast")}
                         outline={true}
-                        outlineColor={setColor("podcast")}
+                        outlineColor={setColor("Podcast")}
                         labelStyle={{ fontWeight: '600', fontSize: 15 }}
                         style={{ width: 100, height: 40, marginRight: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("podcast")}
+                        onPress={() => filterCategory("Podcast")}
                     />
                     <Button
                         backgroundColor="white"
                         label="writing"
-                        color={setColor("writing")}
+                        color={setColor("Writing")}
                         outline={true}
-                        outlineColor={setColor("writing")}
+                        outlineColor={setColor("Writing")}
                         labelStyle={{ fontWeight: '600', fontSize: 15 }}
                         style={{ width: 100, height: 40, marginRight: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("writing")}
+                        onPress={() => filterCategory("Writing")}
                     />
                     <Button
                         backgroundColor="white"
                         label="commentary"
-                        color={setColor("commentary")}
+                        color={setColor("Commentary")}
                         outline={true}
-                        outlineColor={setColor("commentary")}
+                        outlineColor={setColor("Commentary")}
                         labelStyle={{ fontWeight: '600', fontSize: 15 }}
                         style={{ width: 140, height: 40, marginRight: 10 }}
                         borderRadius= {10}
                         enableShadow
-                        onPress={() => filterCategory("commentary")}
+                        onPress={() => filterCategory("Commentary")}
                     />
                     </ScrollView>
                 </View>
 
-                <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
+{/*                 <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
                 <Dropdown
                     label='Show'
                     value = 'All'
@@ -222,7 +222,7 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
                     width={250}
                     useNativeDriver
                 />
-                </View>
+                </View> */}
 
                 <View style={{marginTop: 20}} paddingH-10>
                     {postsComponents}
