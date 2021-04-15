@@ -121,7 +121,7 @@ export default function EditProfile({ navigation }) {
                         :
                         <Avatar
                             size={100}
-                            source={{ uri: userData.pic }}
+                            source={{ uri: userDataC.pic }}
                             onPress={() => onPlaceholderPress()} />
                     }
 
