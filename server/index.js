@@ -41,7 +41,7 @@ const server = new ApolloServer({
         return { db }
       }, });
 
-const PORT = 80;
+const PORT = 443;
 
 // The `listen` method launches a web server.
 server.listen({ port: PORT }).then(({ url }) => {

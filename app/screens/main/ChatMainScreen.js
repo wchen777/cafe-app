@@ -75,12 +75,12 @@ export default function ChatMain({ route, navigation }) {
     const { error, loading, data } = useQuery(GET_MESSAGES,
         {
             variables: { from: userData.username, to: usernameOther },
-            fetchPolicy: "cache-and-network"
+            // fetchPolicy: "cache-and-network"
         })
 
     // -------------------------------------------- //
 
-
+    console.log(error)
 
     const [messages, setMessages] = useState([])
 
