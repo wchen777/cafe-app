@@ -27,7 +27,7 @@ export default function App() {
 
     // Initialize Apollo Client
     const client = new ApolloClient({
-        uri: 'localhost:443/',
+        uri: 'http://localhost:443/',
         cache: new InMemoryCache()
     });
 

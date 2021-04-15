@@ -32,7 +32,7 @@ export async function registration({ email, password, username, last, first, ig,
                     pic: "",
                     chats: [],
                     liked: [],
-                    following: [],
+                    following: [username],
                     // followers: [],
                     id: currentUser.uid
                 });
@@ -41,7 +41,6 @@ export async function registration({ email, password, username, last, first, ig,
         }
     }
 }
-
 
 /* export async function registration({ email, password, username, last, first, ig, twitter, portfolio }) {
      try {

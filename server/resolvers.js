@@ -12,11 +12,13 @@ module.exports = {
     Query: {
         getMessages: async (parent, { to, from }, { db }) => {
             try {
-                
+                console.log("queried")
+                const usersList = [from, to]
+
                 // get messages that come from or are sent by either the to or from users
                 const query = { 
-                    "to" : { $in : [ to, from] },
-                    "from" : { $in : [ to, from] }
+                    "to" : { $in : usersList },
+                    "from" : { $in : usersList }
                 }
                 const projection = { "_id": 0 };
 
@@ -28,7 +30,6 @@ module.exports = {
                     .toArray()
                     .then(msgs => {
                         console.log(`Successfully found ${msgs.length} messages.`)
-                        msgs.forEach(console.log)
                         return msgs
                     })
                     .catch(err => console.error(`Failed to find messages: ${err}`))                

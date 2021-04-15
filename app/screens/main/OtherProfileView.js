@@ -87,7 +87,7 @@ export default function OtherProfileView({ navigation, route }) {
 
 
     const getInitials = () => {
-        return username.first.toUpperCase().charAt(0) + username.last.toUpperCase().charAt(0)
+        return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
     }
 
     let count = 1;

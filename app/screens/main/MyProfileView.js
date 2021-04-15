@@ -40,7 +40,7 @@ export default function MyProfileView({ navigation }) {
             setUserPosts(d)
 
         } catch (err) {
-            Alert.alert("Error in updating likes.", err.message);
+            console.log(err.message);
         }
     }
 

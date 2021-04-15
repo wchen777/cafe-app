@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ScrollView, RefreshControl } from 'react-native'
 import { View, Button, Text } from 'react-native-ui-lib';
 
@@ -9,7 +9,7 @@ import AudioCard from '../../components/cards/AudioCard';
 import TextCard from '../../components/cards/TextCard';
 
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
-import { getPosts } from '../../api/firebase/FirebasePosts'
+import { AuthContext } from '../../context/AuthContext'
 
 import Moment from 'moment';
 import * as firebase from 'firebase';
@@ -24,11 +24,33 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
+    const { userData, setUserData } = useContext(AuthContext)
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
+        getPostData()
+        getUserInfo()
+        wait(1000).then(() => setRefreshing(false));
 
-        wait(2000).then(() => setRefreshing(false));
     }, []);
+
+
+    async function getUserInfo() {
+        let currentUserUID = firebase.auth().currentUser.uid;
+        let doc = await firebase
+            .firestore()
+            .collection('users')
+            .doc(currentUserUID)
+            .get();
+
+        if (!doc.exists) {
+            console.log("no data found")
+        } else {
+            let dataObj = doc.data();
+            setUserData(dataObj)
+            // userData.current = dataObj
+        }
+    }
 
 
     useEffect(() => {
@@ -41,9 +63,12 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     // TODO: lazy loading and batch fetching and caching
     async function getPostData() {
+        console.log(userData.following)
+        console.log(userData)
         let doc = await firebase
             .firestore()
             .collection('posts')
+            .where("username", "in", userData.following)
             .get();
 
         let dataObj = doc.docs.map(doc => doc.data());
@@ -52,6 +77,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
     }
 
     useEffect(() => {
+        getUserInfo()
         getPostData()
     }, [])
 
@@ -88,7 +114,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
                 {/* refactor navigation props later */}
 
-                {postsComponents}
+                {postsComponents ?? "No posts to see here yet!"}
 
 
                 {/* {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)} */}

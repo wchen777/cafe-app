@@ -39,7 +39,7 @@ export default function MainScreen({ navigation }) {
             .get();
 
         if (!doc.exists) {
-            Alert.alert('No user data found!')
+            console.log("no user data found")
         } else {
             let dataObj = doc.data();
             setUserData(dataObj)
@@ -77,6 +77,7 @@ export default function MainScreen({ navigation }) {
                             navigation={navigation}
                             allPosts={allPosts}
                             setAllPosts={setAllPosts}
+                            getUserInfo={getUserInfo}
                             />
                     </View>
                 }

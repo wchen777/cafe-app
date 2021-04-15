@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
 import HeaderBack from '../../components/header/HeaderBack'
+import ChatList from '../../components/chat/ChatList';
 
 
 export default function ChatView({ navigation, usernames }) {
@@ -33,54 +34,6 @@ export default function ChatView({ navigation, usernames }) {
         )
     }
 
-    const orders = [
-        {
-            name: 'Amy Farha',
-            time: '3 hrs',
-            content: 'Hi! How are you?',
-            mediaUrl: 'https://gravatar.com/avatar/8668e1d18523ffc4b78a2d3c45420153?s=200&d=robohash&r=x'
-        },
-        {
-            name: 'Chris Jackson',
-            time: 'Yesterday',
-            content: 'What is up?',
-            mediaUrl: 'https://gravatar.com/avatar/8668e1d18523ffc4b78a2d3c45420153?s=200&d=robohash&r=x'
-        }
-    ]
-
-
-    function renderRow(row, id) {
-
-        return (
-            <View key={id} id={id}>
-                <ListItem
-                    activeBackgroundColor={Colors.dark60}
-                    activeOpacity={0.3}
-                    height={77.5}
-                    key={id}
-                >
-                    <ListItem.Part left marginH-10>
-                        <Avatar
-                            source={{ uri: row.mediaUrl }}
-                            style={styles.image}
-                            animate
-                        />
-                    </ListItem.Part>
-                    <ListItem.Part middle column containerStyle={[styles.border, { paddingRight: 17 }]}>
-                        <ListItem.Part containerStyle={{ marginBottom: 3 }}>
-                            <Text dark10 text70 style={{ flex: 1, marginRight: 10, fontWeight: 'bold' }} numberOfLines={1}>{row.name}</Text>
-                            <Text dark10 text70 style={{ marginTop: 2, fontSize: 12 }}>{row.time}</Text>
-                        </ListItem.Part>
-                        <ListItem.Part>
-                            <Text style={{ flex: 1, marginRight: 10 }} text90 dark40 numberOfLines={1}>{row.content}</Text>
-                        </ListItem.Part>
-                    </ListItem.Part>
-                </ListItem>
-            </View>
-        );
-    }
-
-
     return (
         <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} marginT-24>
@@ -93,7 +46,7 @@ export default function ChatView({ navigation, usernames }) {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ paddingHorizontal: 120 }} marginT-30>
+            <View style={{ paddingHorizontal: 120 }} marginV-30>
                 <Button
                     label={renderPatioButton()}
                     backgroundColor={orange}
@@ -105,16 +58,7 @@ export default function ChatView({ navigation, usernames }) {
                 />
             </View>
 
-
-            <View style={{ marginTop: 10 }}>
-                <FlatList
-                    data={orders}
-                    renderItem={({ item, index }) => renderRow(item, index)}
-                    keyExtractor={(item, index) => index.toString()}
-                />
-            </View>
-
-
+            <ChatList navigation={navigation}/>
         </View>
     )
 }
