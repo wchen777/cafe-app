@@ -18,6 +18,12 @@ import { updatePic } from '../../api/firebase/FirebaseAuth';
 
 import { AuthContext } from '../../context/AuthContext'
 
+const wait = timeout => {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+};
+
 
 
 export default function MyProfileView({ navigation }) {
@@ -25,8 +31,16 @@ export default function MyProfileView({ navigation }) {
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);
     const [userPosts, setUserPosts] = useState()
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const { userData, setUserData } = useContext(AuthContext)
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        queryPostsUsername(userData.username);
+        wait(1000).then(() => setRefreshing(false));
+
+    }, []);
 
     async function queryPostsUsername(username) {
         try {
@@ -127,7 +141,7 @@ export default function MyProfileView({ navigation }) {
     return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
 
-            <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
+            <ScrollView style={{ marginBottom: 80, paddingTop: 15 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 
                 <ActionSheet
                     title='Select Image'

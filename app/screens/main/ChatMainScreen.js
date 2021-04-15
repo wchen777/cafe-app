@@ -142,9 +142,9 @@ export default function ChatMain({ route, navigation }) {
                 > */}
 
 
-                 <ScrollView style={{ marginBottom: 10, paddingTop: 15 }}>
+                 <ScrollView style={{ marginBottom: 30, paddingTop: 15 }}>
                     {msgsList}
-                    <View style={{flexDirection: 'row', marginTop: 20, bottom: 0}} >
+                    <View style={{flexDirection: 'row', marginTop: 20, bottom: 0, marginLeft: 10}} >
                         <View>
                             <TextInput
                                 ref={inputRef}
