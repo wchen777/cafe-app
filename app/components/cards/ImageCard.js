@@ -48,7 +48,7 @@ export default function ImageCard({ navigation, imagePost }) {
                         {imagePost.likes} likes
                     </Text>
 
-                    <View ight>
+                    <View right>
                         <Text text90 color={Colors.grey50} marginT-10>
                             {imagePost.time}
                         </Text>

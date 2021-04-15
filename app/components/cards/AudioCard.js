@@ -45,6 +45,9 @@ export default function AudioCard({ navigation, audioPost }) {
                         label="Feature"
                     /> */}
                         {/* <Button text90 link iconSource={shareIcon} label="Share" /> */}
+                        <Text text90 color={Colors.grey50} marginT-10>
+                            {audioPost.time}
+                        </Text>
                     </View>
                 </View>
             </View>
