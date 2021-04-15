@@ -50,8 +50,18 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
         }
     }
 
+    let topPosts = false;
+    const filterByValue = (value) => {
+        if (value === 'All') {
+            topPosts = false;
+        } else {
+            topPosts = true;
+        }
+    }
+
     let count = 1;
-    const postsComponents = allPosts.map((p) => {
+    const postsComponents = 
+    allPosts.map((p) => {
         switch (p.category.toLowerCase()) {
             case selectedCategory:
                 if (selectedCategory === 'painting') {
@@ -79,6 +89,8 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
 
     let data = [{
         value: 'Top Posts',
+    }, {
+        value: 'All',
     }];
 
     return (
@@ -187,9 +199,13 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
 
                 <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
                 <Dropdown
-                    label='Filter by'
+                    label='Show'
+                    value = 'All'
                     data={data}
                     width={250}
+                    onChangeText={(value, index, data) => filterByValue(value)}
+                    
+                    
                 />
                 </View>
 

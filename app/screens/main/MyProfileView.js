@@ -16,10 +16,9 @@ import TextCard from '../../components/cards/TextCard';
 
 import {updatePic} from '../../api/firebase/FirebaseAuth';
 
-
+//need to fix infinite rerender stuff/updating profile immediately 
 
 export default function MyProfileView({ navigation, userData, userPosts }) {
-    console.log(userData);
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
     const [showSheet, setShowSheet] = useState(false);

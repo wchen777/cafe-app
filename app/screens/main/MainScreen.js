@@ -17,7 +17,7 @@ export default function MainScreen({ navigation }) {
 
     const [allPosts, setAllPosts] = useState([])
 
-    const userData = useRef()
+    const [userData, setUserData] = useState([])
 
     const [userPosts, setUserPosts] = useState([])
 
@@ -43,7 +43,7 @@ export default function MainScreen({ navigation }) {
             Alert.alert('No user data found!')
         } else {
             let dataObj = doc.data();
-            userData.current = dataObj
+            setUserData(dataObj);
         }
     }
 
@@ -66,19 +66,19 @@ export default function MainScreen({ navigation }) {
         let dataObj = doc.docs.map(doc => doc.data());
 
         setAllPosts(dataObj)
-        setUserPosts(allPosts.filter(post => post.username == userData.current.username));
+        setUserPosts(allPosts.filter(post => post.username == userData.username));
     }
 
     useEffect(() => {
-        getPostData()
+        getPostData();
     }, [])
 
     useEffect(() => {
         getUserInfo();
-    }, [userData])
+    }, [])
 
     useEffect(() => {
-        getUsernames()
+        getUsernames();
     }, [])
 
 
@@ -92,7 +92,7 @@ export default function MainScreen({ navigation }) {
                     </View>
                 }
 
-                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData.current} userPosts={userPosts}/>}
+                {selectedPage === "Profile" && <MyProfileView navigation={navigation} userData={userData} setUserData={setUserData} userPosts={userPosts}/>}
 
                 {selectedPage === "Explore" && 
                     <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>

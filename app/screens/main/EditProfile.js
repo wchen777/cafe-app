@@ -11,10 +11,9 @@ import { signOut } from '../../api/firebase/FirebaseAuth'
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-export default function EditProfile({ route, navigation }) {
+export default function EditProfile({ route, navigation}) {
     const lightOrange = '#ffdfc2'
     let userData = route.params;
-    console.log(userData)
 
     const [userDataC, setUserDataC] = useState(route.params)
 
@@ -61,7 +60,7 @@ export default function EditProfile({ route, navigation }) {
 
                             <Text text70 dark10 marginB-15 marginT-20>
                                 First Name
-                        </Text>
+                            </Text>
                             <TextInput
                                 placeholder="First Name"
                                 autoCapitalize='none'
@@ -73,7 +72,7 @@ export default function EditProfile({ route, navigation }) {
 
                             <Text text70 dark10 marginB-15 marginT-20>
                                 Last Name
-                        </Text>
+                            </Text>
                             <TextInput
                                 placeholder="Last Name"
                                 autoCapitalize='none'
@@ -85,7 +84,7 @@ export default function EditProfile({ route, navigation }) {
 
                             <Text text70 dark10 marginB-15 marginT-20>
                                 Portfolio URL
-                        </Text>
+                            </Text>
                             <TextInput
                                 placeholder="my-portfolio.com"
                                 autoCapitalize='none'
@@ -96,7 +95,7 @@ export default function EditProfile({ route, navigation }) {
                             />
                             <Text text70 dark10 marginB-15 marginT-20>
                                 Instagram
-                        </Text>
+                            </Text>
                             <TextInput
                                 placeholder="my-portfolio.com"
                                 autoCapitalize='none'
@@ -108,7 +107,7 @@ export default function EditProfile({ route, navigation }) {
 
                             <Text text70 dark10 marginB-15 marginT-20>
                                 Twitter
-                        </Text>
+                            </Text>
                             <TextInput
                                 placeholder="my-portfolio.com"
                                 autoCapitalize='none'
