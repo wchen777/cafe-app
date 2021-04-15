@@ -39,10 +39,7 @@ export default function ChatView({ navigation, usernames }) {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} marginT-24>
                 <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 30 }}>My Chats </Text>
                 <TouchableOpacity onPress={() => navigation.navigate("SearchUsers", {usernames: usernames})}>
-                    <FontAwesome name="search" size={24} color="#4d4d4d" style={{ marginTop: 8, marginLeft: 110 }} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <FontAwesome name="ellipsis-h" size={24} color="#4d4d4d" style={{ marginTop: 8, marginRight: 30 }} />
+                    <FontAwesome name="search" size={24} color="#4d4d4d" style={{ marginTop: 8, marginLeft: 110, marginRight: 20 }} />
                 </TouchableOpacity>
             </View>
 

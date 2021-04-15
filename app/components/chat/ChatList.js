@@ -75,10 +75,6 @@ export default function ChatList({ navigation }) {
                             <Text dark10 text70 style={{ flex: 1, marginRight: 10, fontWeight: 'bold' }} numberOfLines={1}>
                                 {u.first} {u.last}
                             </Text>
-                            <Text dark10 text70 style={{ marginTop: 2, fontSize: 12 }}>placeholder-time</Text>
-                        </ListItem.Part>
-                        <ListItem.Part>
-                            <Text style={{ flex: 1, marginRight: 10 }} text90 dark40 numberOfLines={1}>Placeholder, latest message not implemented</Text>
                         </ListItem.Part>
                     </ListItem.Part>
                 </ListItem>

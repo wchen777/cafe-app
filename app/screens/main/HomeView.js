@@ -63,7 +63,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     // TODO: lazy loading and batch fetching and caching
     async function getPostData() {
-        console.log(userData.following)
+        //console.log(userData.following)
         //console.log(userData)
         let doc = await firebase
             .firestore()
@@ -72,7 +72,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
             .get();
 
         let dataObj = doc.docs.map(doc => doc.data());
-        console.log(dataObj);
+        //console.log(dataObj);
 
         setAllPosts(dataObj)
         console.log(allPosts);
