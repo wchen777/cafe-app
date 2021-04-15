@@ -7,27 +7,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import * as firebase from "firebase";
 import "firebase/firestore";
 
-import { gql, useSubscription, useLazyQuery, useMutation } from '@apollo/client'
 
 import { AuthContext } from '../../context/AuthContext'
-
-
-// // gql subscription on new messages
-// const NEW_MESSAGE = gql`
-//     subscription newMessage{
-//         newMessage{
-//             uuid from to content createdAt
-//         }
-//     }
-// `
-// // gql query to get all messages from a certain user
-// const GET_MESSAGES = gql`
-//     query getMessages($from: [String]! $to: String!){
-//         getMessages(from: $from to: $to){
-//             uuid from to content createdAt
-//         }
-//     }
-// `
 
 
 export default function ChatList({ navigation }) {
@@ -35,52 +16,6 @@ export default function ChatList({ navigation }) {
     const { userData, setUserData } = useContext(AuthContext)
 
     const [othersData, setOthersData] = useState()
-
-
-    // --------------GQL stuff -------------
-
-    // const [messages, setMessages] = useState({})
-
-    // const { data: messageData, error: messageError } = useSubscription(NEW_MESSAGE)
-    // // get existing messages from user, call query
-    // const [getMessages, { loading: messagesLoading, data: messagesData }] = useLazyQuery(GET_MESSAGES)
-
-    // // if we got messages
-    // useEffect(() => {
-    //     if (messagesData) {
-    //         console.log("here")
-    //         let sortedMessagesByUser = {}
-    //         // sort all messages into which user's conversation it is
-    //         for (let msg of messagesData) {
-    //             const otherU = msg.to === userData.username ? msg.from : msg.to
-    //             let currMsgs = sortedMessagesByUser[otherU] ?? []
-    //             sortedMessagesByUser = {...sortedMessagesByUser, [otherU]: [...currMsgs, msg]}
-    //         }
-
-    //         setMessages(sortedMessagesByUser)
-    //     }
-    // }, [])
-
-
-    // useEffect(() => {
-    //     if (messageError) console.log(messageError)
-
-    //     if (messageData) {
-    //         const message = messageData.newMessage
-    //         // otherUser is either the to or from of the message
-    //         const otherUser = userData.username === message.to ? message.from : message.to
-
-
-    //         // dispatch({ type: 'ADD_MESSAGE', payload: {
-    //         //     username: otherUser,
-    //         //     message: message
-    //         // }})
-    //     }
-    // }, [messageError, messageData])
-
-    // console.log(messages)
-
-    // ---------------------------------- //
 
 
     async function getUsersInfo() {

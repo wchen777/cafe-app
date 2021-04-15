@@ -59,6 +59,8 @@ module.exports = {
                     if (err) console.log(err);
                 });
 
+                console.log("sent message")
+
                 // fire subscription whenever new message is published for listener
                 pubsub.publish('NEW_MESSAGE', { newMessage: message })
 

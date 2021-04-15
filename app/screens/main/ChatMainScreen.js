@@ -10,11 +10,12 @@ import OtherMessage from '../../components/chat/OtherMessage';
 
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesome } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // gql subscription on new messages
 const NEW_MESSAGE = gql`
-    subscription newMessage{
-        newMessage{
+    subscription newMessage($username: String!){
+        newMessage(username: $username){
             uuid from to content createdAt
         }
     }
@@ -23,6 +24,15 @@ const NEW_MESSAGE = gql`
 const GET_MESSAGES = gql`
     query getMessages($from: String! $to: String!){
         getMessages(from: $from to: $to){
+            uuid from to content createdAt
+        }
+    }
+`
+
+// gql mutation to send a message 
+const SEND_MESSAGE = gql`
+    mutation sendMessage($to: String! $from: String! $content: String!) {
+        sendMessage(to: $to, from: $from, content: $content) {
             uuid from to content createdAt
         }
     }
@@ -48,12 +58,29 @@ export default function ChatMain({ route, navigation }) {
         });
 
     }, [navigation])
+
+
+
     const { userData, setUserData } = useContext(AuthContext)
+
+
+    // ------------ GQL HOOKS --------------------- //
+
+    const { data: messageDataSub, error: messageError } = useSubscription(NEW_MESSAGE, { variables: { username: userData.username } })
+
+    const [sendMessage] = useMutation(SEND_MESSAGE, {
+        onError: err => console.log(err)
+    })
 
     const { error, loading, data } = useQuery(GET_MESSAGES, { variables: { from: userData.username, to: usernameOther } })
 
+    // -------------------------------------------- //
+
+
+
     const [messages, setMessages] = useState([])
 
+    // for when data updates, we first get our messages
     useEffect(() => {
         if (data) {
             setMessages(data.getMessages)
@@ -61,9 +88,25 @@ export default function ChatMain({ route, navigation }) {
 
     }, [data])
 
-    // console.log("data", data)
 
-    console.log("messages", messages)
+    useEffect(() => {
+        console.log("here")
+        if (messageError) console.log(messageError, "error")
+   
+        if (messageDataSub) {
+            const message = messageDataSub.newMessage
+            console.log(message)
+
+            // // otherUser is either the to or from of the message
+            // const otherUser = userData.username === message.to ? message.from : message.to
+
+
+            setMessages([...messages, message])
+        }
+    }, [messageError, messageDataSub])
+
+
+    // console.log("messages", messages)
 
     const msgsList = messages?.slice().sort((m1, m2) => { return m1.createdAt > m2.createdAt ? 1 : -1 }).map((msg) => {
         if (msg.to === userData.username) {
@@ -74,59 +117,56 @@ export default function ChatMain({ route, navigation }) {
     })
 
     const submitText = () => {
+        if (typeMessage === "") return
 
         let newMsg = {
             content: typeMessage,
             to: usernameOther,
             from: userData.username,
-            uuid: uuidv4(),
-            createdAt: new Date().toISOString()
         }
+
         inputRef.current.clear()
         setTypeMessage("")
-        setMessages([...messages, newMsg])
+
+
+        // send the message via mutation
+        sendMessage({ variables: newMsg })
     }
 
-    
+
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }}>
 
                 <KeyboardAwareScrollView
-                    behavior="padding"
-                    style={{ marginBottom: 20 }}
+                    style={{ marginBottom: 40, flex: 1, flexDirection: 'column' }}
                 >
-                    <View>
 
 
-                        <View style={{ flexDirection: 'column' }} marginT-10>
-                            {msgsList}
-                        </View>
-                        {/* <Text marginV-40>
-                                asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd
-                            </Text> */}
+                    <ScrollView>
 
+                        {msgsList[5]}
+                    </ScrollView>
 
+                    <View marginH-10 row marginT-20>
+                        <TextInput
+                            ref={inputRef}
+                            placeholder="Send a Message"
+                            style={styles.textInput}
+                            onSubmitEditing={() => submitText()}
+                            onChangeText={(t) => setTypeMessage(t)}
+                        />
 
-
-
-                        <View marginH-10 row marginT-20>
-                            <TextInput 
-                                ref={inputRef}
-                                placeholder="Send a Message" 
-                                style={styles.textInput} 
-                                onSubmitEditing={() => submitText()}
-                                onChangeText={(t) => setTypeMessage(t)}
-                                />
-                                
-                            <View marginT-10 marginL-13>
+                        <View marginT-8 marginL-13>
+                            <TouchableOpacity onPress={() => submitText()}>
                                 <FontAwesome name="send" size={34} color="#FFB36C" />
-                            </View>
+                            </TouchableOpacity>
+
                         </View>
-
-
                     </View>
+
+
 
                 </KeyboardAwareScrollView>
             </View>
@@ -139,7 +179,7 @@ export default function ChatMain({ route, navigation }) {
 const styles = StyleSheet.create({
 
     textInput: {
-        height: 60,
+        height: 52,
         marginBottom: 36,
         minWidth: "80%",
         backgroundColor: "#ffffff",
