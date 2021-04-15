@@ -29,7 +29,6 @@ const wait = timeout => {
 export default function MyProfileView({ navigation }) {
     const orange = '#FFB36C'
     const lightOrange = '#ffdfc2'
-    const [showSheet, setShowSheet] = useState(false);
     const [userPosts, setUserPosts] = useState()
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -38,6 +37,7 @@ export default function MyProfileView({ navigation }) {
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         queryPostsUsername(userData.username);
+        console.log(userData);
         wait(1000).then(() => setRefreshing(false));
 
     }, []);
@@ -78,42 +78,6 @@ export default function MyProfileView({ navigation }) {
         queryPostsUsername(userData.username)
     }, [])
 
-    useEffect(() => {
-        (async () => {
-            if (Platform.OS !== 'web') {
-                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-                if (status !== 'granted') {
-                    alert('Sorry, we need camera roll permissions to make this work!');
-                }
-            }
-        })();
-    }, []);
-
-
-    const onPlaceholderPress = () => {
-        if (showSheet) {
-            setShowSheet(!showSheet)
-        }
-        setShowSheet(!showSheet)
-    }
-
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            // aspect: [4, 3],
-            quality: 1,
-        });
-
-        if (!result.cancelled) {
-            console.log(result.uri)
-            setUserData({ ...userData, pic: result.uri })
-            updatePic(result.uri);
-        }
-
-        setShowSheet(false)
-    };
-
 
     const getInitials = () => {
         return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
@@ -143,26 +107,6 @@ export default function MyProfileView({ navigation }) {
 
             <ScrollView style={{ marginBottom: 80, paddingTop: 15 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 
-                <ActionSheet
-                    title='Select Image'
-                    message='Image'
-                    cancelButtonIndex={3}
-                    useNativeIOS={false}
-                    options={[{
-                        label: 'Upload Image from Camera Roll', onPress: () => {
-                            pickImage()
-                        }
-                    },
-                    { label: 'Cancel', onPress: () => setShowSheet(false) },
-                    ]}
-                    visible={showSheet}
-                    // onDismiss={() => setTimeout(() => { if (!imgActive) {
-                    //     console.log(imgActive)
-                    //     setShowSheet(false)
-                    // }}, 1000)}
-                    containerStyle={{ paddingBottom: 25 }}
-                />
-
                 <View style={{ ...styles.centering, marginTop: 20 }}>
                     {userData.pic === "" ?
                         <Avatar
@@ -170,12 +114,10 @@ export default function MyProfileView({ navigation }) {
                             label={getInitials()}
                             labelColor={Colors.orange30}
                             backgroundColor={lightOrange}
-                            onPress={() => onPlaceholderPress()}
                             />
                         :
                         <Avatar
                             size={150}
-                            onPress={() => onPlaceholderPress()}
                             source={{ uri: userData.pic }} />
                     }
 
