@@ -8,8 +8,10 @@ import TextCard from '../../components/cards/TextCard';
 
 import HeaderBarLogo from '../../components/header/HeaderBarLogo'
 import { AuthContext } from '../../context/AuthContext'
+import { Foundation } from '@expo/vector-icons';
 
 import * as firebase from 'firebase';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const wait = timeout => {
   return new Promise(resolve => {
@@ -54,7 +56,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
     navigation.setOptions({
       headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
       headerBackImage: () => <HeaderBack />,
-      headerRight: ""
+      headerRight: () => <TouchableOpacity><Foundation name="refresh" size={30} color="#FFB36C" style={{ marginRight: 30 }} onPress={onRefresh} /></TouchableOpacity>
     });
   })
 
@@ -114,8 +116,8 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
         {/* refactor navigation props later */}
 
         {postsComponents.length == 0 ?
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }} marginT-10>
-            <Text> No posts to see here yet! </Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }} marginT-10 padding-20>
+            <Text > No posts to see here yet! </Text>
           </View>
           : postsComponents}
 
