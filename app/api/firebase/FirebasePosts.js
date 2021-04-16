@@ -7,7 +7,7 @@ import 'firebase/storage';
 
 /* Text */
 
-export async function createTextPost({ title, description, type, category, content, username, time, likes, id }) {
+export async function createTextPost({ title, description, type, category, content, username, time, likes, id, comments }) {
     try {
         const db = firebase.firestore();
         db.collection("posts")
@@ -23,6 +23,7 @@ export async function createTextPost({ title, description, type, category, conte
                 time: time,
                 likes: likes,
                 id: id,
+                comments: comments,
             });
     } catch (err) {
         Alert.alert("Could not create post right now.", err.message);
@@ -205,6 +206,20 @@ export async function updateLikes(id, likes) {
 
     } catch (err) {
         Alert.alert("Error in updating likes.", err.message);
+    }
+}
+
+export async function updateComments(id, comments) {
+    try {
+        const db = firebase.firestore();
+        db.collection("posts")
+            .doc(id)
+            .update({
+                comments: comments,
+            });
+
+    } catch (err) {
+        Alert.alert("Error in updating comments.", err.message);
     }
 }
 
