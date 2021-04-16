@@ -63,7 +63,7 @@ export default function ImageInfo({ setInfo, info }) {
 
                 <RadioButton value="Photography" label="Photography" marginB-9 color={Colors.green20}/>
 
-                <RadioButton value="Other" label="Other" marginB-9 color={Colors.green20}/>
+                <RadioButton value="Other (Image)" label="Other" marginB-9 color={Colors.green20}/>
 
             </RadioGroup>
 

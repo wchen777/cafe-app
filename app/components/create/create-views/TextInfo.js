@@ -61,7 +61,7 @@ export default function TextInfo({ setInfo, info }) {
                     <RadioButton value="Commentary" label="Commentary" marginB-9 color={Colors.red20}/>
 
 
-                    <RadioButton value="Other" label="Other" marginB-9 color={Colors.red20}/>
+                    <RadioButton value="Other (Text)" label="Other" marginB-9 color={Colors.red20}/>
 
 
                 </RadioGroup>

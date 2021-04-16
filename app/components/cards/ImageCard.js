@@ -9,6 +9,12 @@ const testImage = 'https://images.fineartamerica.com/images/artworkimages/medium
 // NEED TO CACHE IMAGES LATER, LOADING IS VERY SLOW
 
 export default function ImageCard({ navigation, imagePost }) {
+    let imagePostCategory;
+    if (imagePost.category === 'Other (Image)') {
+        imagePostCategory = 'Other'
+    } else {
+        imagePostCategory = imagePost.category
+    }
 
     return (
 
@@ -36,7 +42,7 @@ export default function ImageCard({ navigation, imagePost }) {
                         @{imagePost.username}
                     </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.green30}>{imagePost.category.toLowerCase()} </Text>
+                    <Text text70 color={Colors.green30}>{imagePostCategory.toLowerCase()} </Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginV-15>

@@ -3,6 +3,12 @@ import { View, Text, Colors, Card } from 'react-native-ui-lib';
 
 
 export default function AudioCard({ navigation, audioPost }) {
+    let audioPostCategory;
+    if (audioPost.category === 'Other (Audio)') {
+        audioPostCategory = 'Other'
+    } else {
+        audioPostCategory = audioPost.category
+    }
     return (
 
         <Card
@@ -23,7 +29,7 @@ export default function AudioCard({ navigation, audioPost }) {
                         @{audioPost.username}
                     </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.blue30}>{audioPost.category.toLowerCase()} </Text>
+                    <Text text70 color={Colors.blue30}>{audioPostCategory.toLowerCase()} </Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginV-15>

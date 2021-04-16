@@ -3,6 +3,13 @@ import { View, Text, Colors, Card } from 'react-native-ui-lib';
 
 //use map here or no?
 export default function TextCard({ navigation, textPost}) {
+    let textPostCategory;
+    if (textPost.category === 'Other (Text)') {
+        textPostCategory = 'Other'
+    } else {
+        textPostCategory = textPost.category
+    }
+
     return (
         <Card
             key={1}
@@ -22,7 +29,7 @@ export default function TextCard({ navigation, textPost}) {
                         @{textPost.username}
                     </Text>
                     <Text text60 color={Colors.grey10}> | </Text>
-                    <Text text70 color={Colors.red30}>{textPost.category.toLowerCase()} </Text>
+                    <Text text70 color={Colors.red30}>{textPostCategory.toLowerCase()} </Text>
                 </View>
 
                 <Text text70 color={Colors.grey10} marginV-15>

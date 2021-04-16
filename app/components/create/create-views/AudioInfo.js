@@ -59,7 +59,7 @@ export default function AudioInfo({ setInfo, info }) {
 
                 <RadioButton value="Podcast" label="Podcast" marginB-9 color={Colors.green20}/>
 
-                <RadioButton value="Other" label="Other" marginB-9 color={Colors.green20}/>
+                <RadioButton value="Other (Audio)" label="Other" marginB-9 color={Colors.green20}/>
 
             </RadioGroup>
 

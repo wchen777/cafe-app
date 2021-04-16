@@ -27,23 +27,6 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
 
   const filterCategory = (category) => {
     setSelectedCategory(category)
-    // if (category === "Painting") {
-    //     setSelectedCategory("Painting");
-    // } else if (category === "Digital Art") {
-    //     setSelectedCategory("Digital Art");
-    // } else if (category === "Design") {
-    //     setSelectedCategory("Design");
-    // } else if (category === "Photography") {
-    //     setSelectedCategory("Photography");
-    // } else if (category === "Music") {
-    //     setSelectedCategory("Music");
-    // } else if (category === "Podcast") {
-    //     setSelectedCategory("Podcast");
-    // } else if (category === "Writing") {
-    //     setSelectedCategory("Writing");
-    // } else if (category === "Commentary") {
-    //     setSelectedCategory("Commentary");
-    // }
   }
 
   const setColor = (category) => {
@@ -54,22 +37,23 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
     }
   }
 
-  /*     let topPosts = false;
-      const filterByValue = (value) => {
-          if (value === 'All') {
-              topPosts = false;
-          } else {
-              topPosts = true;
-          }
-      } */
-
 
   async function getPosts() {
-    let doc = await firebase
+    let doc;
+    if (selectedCategory == 'Other') {
+      let filterArray = ["Other (Text)", "Other (Image)", "Other (Audio)"];
+      doc = await firebase 
+        .firestore()
+        .collection('posts')
+        .where("category", "in", filterArray)
+        .get()
+    } else {
+      doc = await firebase
       .firestore()
       .collection('posts')
       .where("category", "==", selectedCategory)
       .get();
+    }
 
     let dataObj = doc.docs.map(doc => doc.data());
     setFilteredPosts(dataObj);
@@ -99,6 +83,12 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
           return (<TextCard navigation={navigation} textPost={p} key={count++} />);
         case 'Commentary':
           return (<TextCard navigation={navigation} textPost={p} key={count++} />);
+        case 'Other (Text)':
+          return (<TextCard navigation={navigation} textPost={p} key={count++} />);
+        case 'Other (Image)':
+          return (<ImageCard navigation={navigation} textPost={p} key={count++} />);
+        case 'Other (Audio)':
+          return (<AudioCard navigation={navigation} audioPost={p} key={count++} />);
         default:
           return
       }
@@ -211,6 +201,18 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
               borderRadius={10}
               enableShadow
               onPress={() => filterCategory("Commentary")}
+            />
+            <Button
+              backgroundColor="white"
+              label="other"
+              color={setColor("Other")}
+              outline={true}
+              outlineColor={setColor("Other")}
+              labelStyle={{ fontWeight: '600', fontSize: 15 }}
+              style={{ width: 100, height: 40, marginRight: 10 }}
+              borderRadius={10}
+              enableShadow
+              onPress={() => filterCategory("Other")}
             />
           </ScrollView>
         </View>
