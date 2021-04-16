@@ -12,12 +12,9 @@ import Moment from 'moment';
 
 
 export default function PostViewScreen({ navigation, route }) {
-    const userData = useRef()
     const [post, setPostDataC] = useState(route.params);
-    const [comment, setComment] = useState(null);
     //const {userData, setUserData} = useContext(AuthContext);
     let numberOfLikes = post.likes;
-    let postComments = post.comments;
     const carousel = useRef(null)
 
     const windowWidth = Dimensions.get('window').width;
@@ -29,68 +26,12 @@ export default function PostViewScreen({ navigation, route }) {
         }
     }
 
-    async function getUserInfo() {
-        let currentUserUID = firebase.auth().currentUser.uid;
-        let doc = await firebase
-            .firestore()
-            .collection('users')
-            .doc(currentUserUID)
-            .get();
-
-        if (!doc.exists) {
-            console.log("no data found")
-        } else {
-            let dataObj = doc.data();
-            userData.current = dataObj
-        }
-
-    }
-
-    useEffect(() => {
-        getUserInfo()
-    }, [userData])
-
     const editLikes = () => {
         numberOfLikes++;
         setPostDataC({ ...post, likes: numberOfLikes });
         updateLikes(post.id, numberOfLikes);
         // might have to set the state here
         route.params = post;
-    }
-
-     const addComment = (comment) => {
-        postComments.push({
-            "username": userData.current.username,
-            "time": Moment().format('MMMM Do YYYY, h:mm:ss a'),
-            "comment": comment, 
-        });
-        setPostDataC({ ...post, comments: postComments });
-        updateComments(post.id, postComments);
-    }
-
-    function renderRow(u, id) {
-
-        return (
-            <View key={id} id={id}>
-                <ListItem
-                    activeBackgroundColor={Colors.dark60}
-                    activeOpacity={0.3}
-                    height={80.5}
-                    key={id}
-                >
-                    <ListItem.Part middle column containerStyle={[styles.border, {paddingRight: 17}]}>
-                    <View backgroundColor="white" style={{flexDirection: 'column', marginLeft: 20 }}>
-                    <ListItem.Part containerStyle={{marginBottom: 3}}>
-                        <Text dark10 text70 style={{marginTop: 2}}>@{u.username}    {u.comment}</Text>
-                        </ListItem.Part>
-                        <ListItem.Part>
-                        <Text style={{flex: 1}} text90 dark40 numberOfLines={1}>{u.time}</Text>
-                        </ListItem.Part>
-                    </View>
-                    </ListItem.Part>
-                </ListItem>
-            </View>
-        );
     }
 
     return (
@@ -206,40 +147,6 @@ export default function PostViewScreen({ navigation, route }) {
                             </View>
                         </TouchableOpacity>
                     </View>
-
-{/*                 <View style={{marginTop: 30}}>
-                    <Text text60 color={Colors.grey10} fontSize={20} style={{ width: 350 }} color={Colors.orange30}> Comments </Text>
-                </View>
-
-                <View style={{marginTop: 10, width: '100%' }}>
-                    <FlatList
-                        data={postComments}
-                        renderItem={({ item, index }) => renderRow(item, index)}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View>
-
-                <View>
-                    <Text text70 dark10 marginB-15 marginT-20>
-                        Add a comment
-                    </Text>
-                    <TextInput
-                        placeholder="comment"
-                        autoCorrect={false}
-                        onChangeText={comment => setComment(comment)}
-                        style={styles.input}
-                    />
-                </View>
-                <View>
-                <Button
-                            backgroundColor="#FFB36C"
-                            label="Comment"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 40, marginBottom: 40}}
-                            enableShadow
-                            onPress={() => addComment(comment)}
-                />
-                </View> */}
 
 
             </View>
