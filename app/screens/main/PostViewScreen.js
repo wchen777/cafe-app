@@ -34,6 +34,13 @@ export default function PostViewScreen({ navigation, route }) {
         route.params = post;
     }
 
+    let postCategory;
+    if (post.category === 'Other (Text)' || 'Other (Image)' || 'Other (Audio)') {
+        postCategory = 'Other'
+    } else {
+        postCategory = post.category;
+    }
+
     return (
         <ScrollView>
             <View style={styles.container} >
@@ -58,7 +65,7 @@ export default function PostViewScreen({ navigation, route }) {
                     <Text text70>
                         category:
                 </Text>
-                    <Text text70 color={Colors.green30} marginL-4>{post.category.toLowerCase()} </Text>
+                    <Text text70 color={Colors.green30} marginL-4>{postCategory.toLowerCase()} </Text>
                 </View>
 
 
