@@ -68,8 +68,26 @@ export default function PostViewScreen({ navigation, route }) {
                     </Text>
                 </View>
 
+                <View style={{flexDirection: 'row', width: 350, marginTop: 10, marginBottom: 10}}>
 
-                <View marginV-20>
+                <TouchableOpacity onPress={() => editLikes()}>
+                    <View row>
+                        <FontAwesome name="heart-o" size={35} color="#4d4d4d" />
+                        <Text text90 color={"#4d4d4d"} marginT-10 style={{ fontSize: 15, paddingTop: 6 }} marginL-4>
+                            x{post.likes}
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('CommentView', post)}>
+                    <View style={{marginLeft: 20}}>
+                        <FontAwesome name="comment" size={35} color="#4d4d4d" />
+                    </View>
+                </TouchableOpacity>
+                </View>
+
+
+                <View marginV-15>
                     <Text text70 style={{ width: 350 }}>
                         <Text text60 color={Colors.grey10} fontSize={20}> Description: </Text>
                         {post.description}
@@ -129,24 +147,6 @@ export default function PostViewScreen({ navigation, route }) {
                     </Carousel>
 
                 }
-
-                    <View style={{flexDirection: 'row', width: 350, marginTop: 20, marginBottom: 40}}>
-
-                        <TouchableOpacity onPress={() => editLikes()}>
-                            <View row>
-                                <FontAwesome name="heart-o" size={35} color="#4d4d4d" />
-                                <Text text90 color={"#4d4d4d"} marginT-10 style={{ fontSize: 15, paddingTop: 6 }} marginL-4>
-                                    x{post.likes}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => navigation.navigate('CommentView', post)}>
-                            <View style={{marginLeft: 20}}>
-                                <FontAwesome name="comment" size={35} color="#4d4d4d" />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
 
 
             </View>
