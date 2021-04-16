@@ -119,6 +119,8 @@ export default function EditProfile({ navigation }) {
                             label={getInitials()}
                             labelColor={Colors.orange30}
                             backgroundColor={lightOrange}
+                            badgeProps= {{label: "+", size: 'large', borderWidth: 0.0, backgroundColor: orange}}
+                            badgePosition= 'BOTTOM_RIGHT'
                             onPress={() => onPlaceholderPress()}
                             />
                         :

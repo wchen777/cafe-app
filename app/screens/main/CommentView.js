@@ -83,11 +83,10 @@ export default function CommentView({ navigation, route }) {
 
         <View style={{marginTop: 10, width: '100%' }}>
         <FlatList
-            data={postComments}
-            renderItem={({ item, index }) => renderRow(item, index)}
-            keyExtractor={(item, index) => index.toString()}
-        />
-    </View>
+                  data={postComments}
+                  renderItem={({ item, index }) => renderRow(item, index)}
+                  keyExtractor={(item, index) => index.toString()}/>
+        </View>
 
     <View style={{flexDirection: 'row', marginTop: 20, bottom: 0, marginHorizontal: 10}} >
                         <View>
@@ -109,6 +108,8 @@ export default function CommentView({ navigation, route }) {
 
     </View>
     </ScrollView>
+   
+   
     )
 }
 
