@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Colors, Card } from 'react-native-ui-lib';
 
 //use map here or no?
-export default function TextCard({ navigation, textPost }) {
+export default function TextCard({ navigation, textPost}) {
     return (
         <Card
             key={1}

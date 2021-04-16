@@ -4,6 +4,7 @@ import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer }
 
 import MainScreen from '../screens/main/MainScreen'
 import PostViewScreen from '../screens/main/PostViewScreen'
+import CommentViewScreen from '../screens/main/CommentView'
 import EditProfileScreen from '../screens/main/EditProfile'
 import EditBioScreen from '../screens/main/EditBio'
 import HeaderBarLogo from '../components/header/HeaderBarLogo'
@@ -31,6 +32,14 @@ export default function AuthStack() {
             <Stack.Screen
                 name='PostView'
                 component={PostViewScreen}
+                options={{
+                    headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
+                    headerTintColor: "orange", headerBackImage: () => <HeaderBack />
+                }}
+            />
+            <Stack.Screen
+                name='CommentView'
+                component={CommentViewScreen}
                 options={{
                     headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
                     headerTintColor: "orange", headerBackImage: () => <HeaderBack />
