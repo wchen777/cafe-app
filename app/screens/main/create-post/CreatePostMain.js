@@ -52,7 +52,6 @@ export default function CreatePostMain({ navigation }) {
             let dataObj = doc.data();
             // setUserData(dataObj)
             userData.current = dataObj
-            console.log(userData);
         }
     }
 
@@ -77,6 +76,7 @@ export default function CreatePostMain({ navigation }) {
             username: userData.current.username, 
             content: content,
             likes: 0, 
+            comments: [],
             time: Moment().format('MMMM Do YYYY, h:mm:ss a'),
             id: uuidv4(),
         }

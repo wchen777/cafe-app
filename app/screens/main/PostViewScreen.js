@@ -1,17 +1,23 @@
-import React, { useRef, useState } from 'react'
-import { StyleSheet, Touchable, DevSettings } from 'react-native';
-import { View, Text, Colors, Carousel, Spacings, AnimatedImage } from 'react-native-ui-lib';
+import React, { useRef, useState, useContext, useEffect } from 'react'
+import { StyleSheet, Touchable, DevSettings, TextInput, FlatList } from 'react-native';
+import { View, Text, Colors, Carousel, Spacings, AnimatedImage, Button, ListItem } from 'react-native-ui-lib';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity, Image, Dimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
-import { updateLikes } from '../../api/firebase/FirebasePosts';
+import { updateLikes, updateComments } from '../../api/firebase/FirebasePosts';
 import { number } from 'prop-types';
+import * as firebase from 'firebase';
+import { AuthContext } from '../../context/AuthContext'
+import Moment from 'moment';
 
 
 export default function PostViewScreen({ navigation, route }) {
+    const userData = useRef()
     const [post, setPostDataC] = useState(route.params);
-    console.log(post);
+    const [comment, setComment] = useState(null);
+    //const {userData, setUserData} = useContext(AuthContext);
     let numberOfLikes = post.likes;
+    let postComments = post.comments;
     const carousel = useRef(null)
 
     const windowWidth = Dimensions.get('window').width;
@@ -23,12 +29,68 @@ export default function PostViewScreen({ navigation, route }) {
         }
     }
 
+    async function getUserInfo() {
+        let currentUserUID = firebase.auth().currentUser.uid;
+        let doc = await firebase
+            .firestore()
+            .collection('users')
+            .doc(currentUserUID)
+            .get();
+
+        if (!doc.exists) {
+            console.log("no data found")
+        } else {
+            let dataObj = doc.data();
+            userData.current = dataObj
+        }
+
+    }
+
+    useEffect(() => {
+        getUserInfo()
+    }, [userData])
+
     const editLikes = () => {
         numberOfLikes++;
         setPostDataC({ ...post, likes: numberOfLikes });
         updateLikes(post.id, numberOfLikes);
         // might have to set the state here
         route.params = post;
+    }
+
+     const addComment = (comment) => {
+        postComments.push({
+            "username": userData.current.username,
+            "time": Moment().format('MMMM Do YYYY, h:mm:ss a'),
+            "comment": comment, 
+        });
+        setPostDataC({ ...post, comments: postComments });
+        updateComments(post.id, postComments);
+    }
+
+    function renderRow(u, id) {
+
+        return (
+            <View key={id} id={id}>
+                <ListItem
+                    activeBackgroundColor={Colors.dark60}
+                    activeOpacity={0.3}
+                    height={80.5}
+                    key={id}
+                >
+                    <ListItem.Part middle column containerStyle={[styles.border, {paddingRight: 17}]}>
+                    <View backgroundColor="white" style={{flexDirection: 'column', marginLeft: 20 }}>
+                    <ListItem.Part containerStyle={{marginBottom: 3}}>
+                        <Text dark10 text70 style={{marginTop: 2}}>@{u.username}    {u.comment}</Text>
+                        </ListItem.Part>
+                        <ListItem.Part>
+                        <Text style={{flex: 1}} text90 dark40 numberOfLines={1}>{u.time}</Text>
+                        </ListItem.Part>
+                    </View>
+                    </ListItem.Part>
+                </ListItem>
+            </View>
+        );
     }
 
     return (
@@ -60,15 +122,7 @@ export default function PostViewScreen({ navigation, route }) {
 
 
                 <View row marginT-20 padding-10>
-                    <TouchableOpacity onPress={() => editLikes()}>
-                        <View row>
-                            <FontAwesome name="heart-o" size={35} color="#4d4d4d" />
-                            <Text text90 color={"#4d4d4d"} marginT-10 style={{ fontSize: 15, paddingTop: 6 }} marginL-4>
-                                x{post.likes}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <Text text80 marginL-25 marginT-10 color={"#4d4d4d"}>
+                    <Text text80 marginT-10 color={"#4d4d4d"}>
                         On <Text text70BO >{post.time}</Text>
                     </Text>
                 </View>
@@ -135,6 +189,59 @@ export default function PostViewScreen({ navigation, route }) {
 
                 }
 
+                    <View style={{flexDirection: 'row', width: 350, marginTop: 20, marginBottom: 40}}>
+
+                        <TouchableOpacity onPress={() => editLikes()}>
+                            <View row>
+                                <FontAwesome name="heart-o" size={35} color="#4d4d4d" />
+                                <Text text90 color={"#4d4d4d"} marginT-10 style={{ fontSize: 15, paddingTop: 6 }} marginL-4>
+                                    x{post.likes}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => navigation.navigate('CommentView', post)}>
+                            <View style={{marginLeft: 20}}>
+                                <FontAwesome name="comment" size={35} color="#4d4d4d" />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+{/*                 <View style={{marginTop: 30}}>
+                    <Text text60 color={Colors.grey10} fontSize={20} style={{ width: 350 }} color={Colors.orange30}> Comments </Text>
+                </View>
+
+                <View style={{marginTop: 10, width: '100%' }}>
+                    <FlatList
+                        data={postComments}
+                        renderItem={({ item, index }) => renderRow(item, index)}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+
+                <View>
+                    <Text text70 dark10 marginB-15 marginT-20>
+                        Add a comment
+                    </Text>
+                    <TextInput
+                        placeholder="comment"
+                        autoCorrect={false}
+                        onChangeText={comment => setComment(comment)}
+                        style={styles.input}
+                    />
+                </View>
+                <View>
+                <Button
+                            backgroundColor="#FFB36C"
+                            label="Comment"
+                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
+                            style={{ width: 145, marginTop: 40, marginBottom: 40}}
+                            enableShadow
+                            onPress={() => addComment(comment)}
+                />
+                </View> */}
+
+
             </View>
         </ScrollView>
     )
@@ -145,4 +252,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
+    input: {
+        height: 40,
+        width: 320,
+        borderWidth: 1,
+        borderColor: Colors.dark60,
+        borderRadius: 20,
+        paddingLeft: 10
+    },
+    border: {
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderColor: Colors.dark70,
+    }
 });
