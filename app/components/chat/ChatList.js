@@ -17,8 +17,8 @@ export default function ChatList({ navigation }) {
 
     const [othersData, setOthersData] = useState()
 
-    const getInitials = () => {
-        return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
+    const getInitials = (u) => {
+        return u.first.toUpperCase().charAt(0) + u.last.toUpperCase().charAt(0)
     }
 
 
@@ -46,7 +46,6 @@ export default function ChatList({ navigation }) {
 
 
     function renderRow(u, id) {
-
         return (
             <TouchableOpacity key={id} id={id} onPress={() => navigation.navigate("ChatMain", {usernameOther: u.username})}>
                 <ListItem
@@ -59,7 +58,7 @@ export default function ChatList({ navigation }) {
                         {u.pic === "" ?
                             <Avatar
                                 style={styles.image}
-                                label={getInitials()}
+                                label={getInitials(u)}
                                 labelColor={Colors.orange30}
                                 animate
                                 backgroundColor={lightOrange} />

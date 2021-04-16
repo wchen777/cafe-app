@@ -26,16 +26,16 @@ export default function AudioCard({ navigation, audioPost }) {
                     <Text text70 color={Colors.blue30}>{audioPost.category.toLowerCase()} </Text>
                 </View>
 
-                <Text text70 color={Colors.grey10} marginT-10>
+                <Text text70 color={Colors.grey10} marginV-15>
                     {audioPost.description.length > 280 ? audioPost.description.substring(0, 280) : audioPost.description}
                 </Text>
 
-                <View>
+                <View row style={{justifyContent: 'space-between'}}>
                     <Text text90 color={Colors.grey50} marginT-10>
-                        {audioPost.likes} likes
+                        {audioPost.likes} likes 
                     </Text>
 
-                    <View row right>
+                    <View right>
 
                         {/* <Button
                         style={{ marginRight: 10 }}

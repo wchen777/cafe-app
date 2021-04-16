@@ -10,10 +10,12 @@ import { updateProfile } from '../../api/firebase/FirebaseAuth';
 import { signOut } from '../../api/firebase/FirebaseAuth'
 import { ScrollView } from 'react-native-gesture-handler';
 import { AuthContext } from '../../context/AuthContext'
+import { updatePic } from '../../api/firebase/FirebaseAuth'
 
 
 export default function EditProfile({ navigation }) {
     const lightOrange = '#ffdfc2'
+    const orange = '#FFB36C'
 
     const { userData, setUserData } = useContext(AuthContext)
 
@@ -43,6 +45,7 @@ export default function EditProfile({ navigation }) {
         if (!result.cancelled) {
             console.log(result.uri)
             setUserDataC({ ...userDataC, pic: result.uri })
+            updatePic(result.uri)
         }
 
         setShowSheet(false)
@@ -122,7 +125,7 @@ export default function EditProfile({ navigation }) {
                         <Avatar
                             size={100}
                             source={{ uri: userDataC.pic }}
-                            badgeProps= {{label: "+", size: 'large', borderWidth: 0.0}}
+                            badgeProps= {{label: "+", size: 'large', borderWidth: 0.0, backgroundColor: orange}}
                             badgePosition= 'BOTTOM_RIGHT'
                             onPress={() => onPlaceholderPress()} />
                     }

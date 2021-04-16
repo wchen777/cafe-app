@@ -59,10 +59,10 @@ export default function CommentView({ navigation, route }) {
                 >
                     <ListItem.Part middle column containerStyle={[styles.border, {paddingRight: 17}]}>
                     <View backgroundColor="white" style={{flexDirection: 'column', marginLeft: 20 }}>
-                    <ListItem.Part containerStyle={{marginBottom: 3}}>
-                        <Text dark10 text70 style={{marginTop: 2}}><Text color={Colors.orange30}>@{u.username}</Text>    {u.comment}</Text>
+                    <ListItem.Part containerStyle={{marginBottom: 3}} marginV-10>
+                        <Text dark10 text70 style={{marginTop: 2}}><Text color={Colors.orange30} text60>@{u.username}</Text>    {u.comment}</Text>
                         </ListItem.Part>
-                        <ListItem.Part>
+                        <ListItem.Part marginV-10>
                         <Text style={{flex: 1}} text90 dark40 numberOfLines={1}>{u.time}</Text>
                         </ListItem.Part>
                     </View>
@@ -89,7 +89,7 @@ export default function CommentView({ navigation, route }) {
         />
     </View>
 
-    <View style={{flexDirection: 'row', marginTop: 20, bottom: 0, marginLeft: 10}} >
+    <View style={{flexDirection: 'row', marginTop: 20, bottom: 0, marginHorizontal: 10}} >
                         <View>
                             <TextInput
                                 placeholder="comment"
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10
     },
     border: {
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: Colors.dark70,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: Colors.dark60,
     },
     textInput: {
         height: 52,

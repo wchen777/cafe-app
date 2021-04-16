@@ -39,7 +39,7 @@ export default function ImageCard({ navigation, imagePost }) {
                     <Text text70 color={Colors.green30}>{imagePost.category.toLowerCase()} </Text>
                 </View>
 
-                <Text text70 color={Colors.grey10} marginT-10>
+                <Text text70 color={Colors.grey10} marginV-15>
                     {imagePost.description.length > 280 ? imagePost.description.substring(0, 280) : imagePost.description}
                 </Text>
 

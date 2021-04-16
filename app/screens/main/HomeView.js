@@ -79,8 +79,8 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
     }
 
     useEffect(() => {
-        getUserInfo()
-        getPostData()
+        // getUserInfo()
+        // getPostData()
     }, [])
 
     // function filterPosts(posts) {
@@ -116,7 +116,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
                 {/* refactor navigation props later */}
 
-                {postsComponents ?? "No posts to see here yet!"}
+                {postsComponents.length == 0 ? <Text> No posts to see here yet! </Text> : postsComponents } 
 
 
                 {/* {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)} */}

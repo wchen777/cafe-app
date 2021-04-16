@@ -25,7 +25,7 @@ export default function TextCard({ navigation, textPost}) {
                     <Text text70 color={Colors.red30}>{textPost.category.toLowerCase()} </Text>
                 </View>
 
-                <Text text70 color={Colors.grey10} marginT-10>
+                <Text text70 color={Colors.grey10} marginV-15>
                     {textPost.description.length > 280 ? textPost.description.substring(0, 280): textPost.description}
                 </Text>
 

@@ -42,10 +42,28 @@ export default function MainScreen({ navigation }) {
             console.log("no user data found")
         } else {
             let dataObj = doc.data();
+            console.log(dataObj)
             setUserData(dataObj)
+            getPostData(dataObj.following)
             // userData.current = dataObj
         }
     }
+
+    async function getPostData(following) {
+      //console.log(userData.following)
+      //console.log(userData)
+      let doc = await firebase
+          .firestore()
+          .collection('posts')
+          .where("username", "in", userData.following ?? following)
+          .get();
+
+      let dataObj = doc.docs.map(doc => doc.data());
+      //console.log(dataObj);
+
+      setAllPosts(dataObj)
+      console.log(allPosts);
+  }
 
     // TODO: refactor later, without loading into local mem for scalability
     async function getUsernames() {
@@ -59,7 +77,7 @@ export default function MainScreen({ navigation }) {
     }
 
     useEffect(() => {
-        getUserInfo();
+        getUserInfo()
     }, [])
 
     useEffect(() => {
