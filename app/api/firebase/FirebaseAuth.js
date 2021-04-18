@@ -17,6 +17,9 @@ export async function registration({ email, password, username, last, first, ig,
             await firebase.auth().createUserWithEmailAndPassword(email, password);
             const currentUser = firebase.auth().currentUser;
 
+            currentUser.sendEmailVerification();
+            Alert.alert("A verification was sent to your email. Please verify your account.");
+
             const db = firebase.firestore();
             db.collection("users")
                 .doc(currentUser.uid)
@@ -132,12 +135,16 @@ export async function updatePic(pic) {
 
 export async function signIn({ email, password }) {
     try {
-        await firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password);
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        const currentUser = firebase.auth().currentUser;
+        if (!currentUser.emailVerified) {
+            Alert.alert("Please verify your email.");
+        }
     } catch (err) {
         Alert.alert("Error in account sign in.", err.message);
     }
+
+    
 }
 
 export async function signOut() {
