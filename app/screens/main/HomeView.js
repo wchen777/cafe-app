@@ -27,7 +27,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        console.log("asdhfjla;sdkfjal;sdfjklas;")
         getPostData()
         getUserInfo()
         wait(1000).then(() => setRefreshing(false));
@@ -47,7 +46,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
         } else {
             let dataObj = doc.data();
             setUserData(dataObj)
-            // userData.current = dataObj
         }
     }
 
@@ -64,8 +62,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     // TODO: lazy loading and batch fetching and caching
     async function getPostData() {
-        //console.log(userData.following)
-        //console.log(userData)
         let doc = await firebase
             .firestore()
             .collection('posts')
@@ -73,24 +69,14 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
             .get();
 
         let dataObj = doc.docs.map(doc => doc.data());
-        //console.log(dataObj);
 
-        setAllPosts(dataObj)
-        console.log(allPosts);
+        setAllPosts(dataObj);
     }
 
     useEffect(() => {
         // getUserInfo()
         // getPostData()
     }, [])
-
-    // function filterPosts(posts) {
-    //     imagePosts = posts.filter(post => post.type == 'Image');
-    //     audioPosts = posts.filter(post => post.type == 'Audio');
-    //     textPosts = posts.filter(post => post.type == 'Text');
-    // }
-
-    // filterPosts(allPosts);
 
     // TODO: need to cache these
     let count = 1;
@@ -122,9 +108,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
                         <Text > No posts to see here yet! </Text>
                     </View>
                     : postsComponents}
-
-
-                {/* {textPosts.map((post) => <TextCard  navigation={navigation} textPost = {post}/>)} */}
 
                 {/* whitespace block */}
                 <View style={{ height: 40 }} />

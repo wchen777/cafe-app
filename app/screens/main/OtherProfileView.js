@@ -91,8 +91,6 @@ export default function OtherProfileView({ navigation, route }) {
         }
     }
 
-    console.log(userDataO)
-
     // load all user posts
     useEffect(() => {
 

@@ -36,7 +36,6 @@ export async function registration({ email, password, username, last, first, ig,
                     chats: [],
                     liked: [],
                     following: [username],
-                    // followers: [],
                     id: currentUser.uid
                 });
         } catch (err) {
@@ -44,30 +43,6 @@ export async function registration({ email, password, username, last, first, ig,
         }
     }
 }
-
-/* export async function registration({ email, password, username, last, first, ig, twitter, portfolio }) {
-     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const currentUser = firebase.auth().currentUser;
-  
-      const db = firebase.firestore();
-      db.collection("users")
-        .doc(currentUser.uid)
-        .set({
-          email: currentUser.email,
-          last: last,
-          first: first,
-          username: username,
-          ig: ig ?? "",
-          twitter: twitter ?? "",
-          portfolio: portfolio ?? "",
-          bio: "",
-          pic: "",
-        });
-    } catch (err) {
-      Alert.alert("Error in account registration.", err.message);
-    } 
-} */
 
 export async function updateProfile({ email, password, username, last, first, ig, twitter, portfolio, bio, pic }) {
     try {
@@ -96,7 +71,6 @@ export async function updateProfile({ email, password, username, last, first, ig
 
 export async function updatePic(pic) {
     try {
-        console.log(pic)
         const currentUser = firebase.auth().currentUser;
         const db = firebase.firestore();
 
