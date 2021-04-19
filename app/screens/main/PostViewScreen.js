@@ -13,7 +13,6 @@ import Moment from 'moment';
 
 export default function PostViewScreen({ navigation, route }) {
     const [post, setPostDataC] = useState(route.params);
-    //const {userData, setUserData} = useContext(AuthContext);
     let numberOfLikes = post.likes;
     const carousel = useRef(null)
 
@@ -30,7 +29,6 @@ export default function PostViewScreen({ navigation, route }) {
         numberOfLikes++;
         setPostDataC({ ...post, likes: numberOfLikes });
         updateLikes(post.id, numberOfLikes);
-        // might have to set the state here
         route.params = post;
     }
 

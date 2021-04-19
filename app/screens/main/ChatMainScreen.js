@@ -103,8 +103,6 @@ export default function ChatMain({ route, navigation }) {
     }, [messageError, messageDataSub])
 
 
-    // console.log("messages", messages)
-
     let count = 0
     const msgsList = messages?.slice().sort((m1, m2) => { return m1.createdAt > m2.createdAt ? 1 : -1 }).map((msg) => {
         if (msg.to === userData.username) {
