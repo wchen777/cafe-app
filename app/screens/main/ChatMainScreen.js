@@ -86,7 +86,6 @@ export default function ChatMain({ route, navigation }) {
     // for when data updates, we first get our messages
     useEffect(() => {
         if (data) {
-            console.log(data.getMessages)
             setMessages(data.getMessages)
         }
     }, [])

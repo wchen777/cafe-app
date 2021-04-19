@@ -12,6 +12,9 @@ import Moment from 'moment';
 
 export default function CommentView({ navigation, route }) {
     const userData = useRef();
+
+    const inputRef = useRef()
+
     const [post, setPostDataC] = useState(route.params);
     const [comment, setComment] = useState(null);
     let postComments = post.comments;
@@ -38,13 +41,21 @@ export default function CommentView({ navigation, route }) {
     }, [userData])
 
     const addComment = (comment) => {
-        postComments.push({
+        let comm = {
             "username": userData.current.username,
             "time": Moment().format('MMMM Do YYYY, h:mm:ss a'),
-            "comment": comment, 
-        });
+            "comment": comment,
+        }
+        if (!postComments) {
+            postComments = [comm]
+        } else {
+            postComments.push(comm);
+        }
+
         setPostDataC({ ...post, comments: postComments });
         updateComments(post.id, postComments);
+        setComment("")
+        inputRef.current.clear()
     }
 
     function renderRow(u, id) {
@@ -57,15 +68,15 @@ export default function CommentView({ navigation, route }) {
                     height={80.5}
                     key={id}
                 >
-                    <ListItem.Part middle column containerStyle={[styles.border, {paddingRight: 17}]}>
-                    <View backgroundColor="white" style={{flexDirection: 'column', marginLeft: 20 }}>
-                    <ListItem.Part containerStyle={{marginBottom: 3}} marginV-10>
-                        <Text dark10 text70 style={{marginTop: 2}}><Text color={Colors.orange30} text60>@{u.username}</Text>    {u.comment}</Text>
-                        </ListItem.Part>
-                        <ListItem.Part marginV-10>
-                        <Text style={{flex: 1}} text90 dark40 numberOfLines={1}>{u.time}</Text>
-                        </ListItem.Part>
-                    </View>
+                    <ListItem.Part middle column containerStyle={[styles.border, { paddingRight: 17 }]}>
+                        <View backgroundColor="white" style={{ flexDirection: 'column', marginLeft: 20 }}>
+                            <ListItem.Part containerStyle={{ marginBottom: 3 }} marginV-10>
+                                <Text dark10 text70 style={{ marginTop: 2 }}><Text color={Colors.orange30} text60>@{u.username}</Text>    {u.comment}</Text>
+                            </ListItem.Part>
+                            <ListItem.Part marginV-10>
+                                <Text style={{ flex: 1 }} text90 dark40 numberOfLines={1}>{u.time}</Text>
+                            </ListItem.Part>
+                        </View>
                     </ListItem.Part>
                 </ListItem>
             </View>
@@ -75,41 +86,43 @@ export default function CommentView({ navigation, route }) {
     return (
 
         <ScrollView>
-        <View style={styles.container} >
+            <View style={styles.container} >
 
-        <View style={{marginTop: 30}}>
+                <View style={{ marginTop: 30 }}>
                     <Text text60 color={Colors.grey10} fontSize={20} style={{ width: 350 }}> Comments </Text>
                 </View>
 
-        <View style={{marginTop: 10, width: '100%' }}>
-        <FlatList
-                  data={postComments}
-                  renderItem={({ item, index }) => renderRow(item, index)}
-                  keyExtractor={(item, index) => index.toString()}/>
-        </View>
+                <View style={{ marginTop: 10, width: '100%' }}>
+                    <FlatList
+                        data={postComments}
+                        renderItem={({ item, index }) => renderRow(item, index)}
+                        keyExtractor={(item, index) => index.toString()} />
+                </View>
 
-    <View style={{flexDirection: 'row', marginTop: 20, bottom: 0, marginHorizontal: 10}} >
-                        <View>
-                            <TextInput
-                                placeholder="comment"
-                                style={styles.textInput}
-                                autoCorrect={false}
-                                onChangeText={comment => setComment(comment)}
-                            />
-                        </View>
+                <View style={{ flexDirection: 'row', marginTop: 20, bottom: 0, marginHorizontal: 10 }} >
+                    <View>
+                        <TextInput
+                            ref={inputRef}
+                            placeholder="comment"
+                            style={styles.textInput}
+                            autoCorrect={false}
+                            onChangeText={comment => setComment(comment)}
+                            onSubmitEditing={() => addComment(comment)}
+                        />
+                    </View>
 
-                        <View marginT-8 marginL-13>
-                            <TouchableOpacity onPress={() => addComment(comment)}>
-                                <FontAwesome name="send" size={34} color="#FFB36C" />
-                            </TouchableOpacity>
-                        </View>
+                    <View marginT-8 marginL-13>
+                        <TouchableOpacity onPress={() => addComment(comment)}>
+                            <FontAwesome name="send" size={34} color="#FFB36C" />
+                        </TouchableOpacity>
+                    </View>
 
-    </View>
+                </View>
 
-    </View>
-    </ScrollView>
-   
-   
+            </View>
+        </ScrollView>
+
+
     )
 }
 
