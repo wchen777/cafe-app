@@ -16,6 +16,7 @@ import OtherProfileView from '../screens/main/OtherProfileView'
 
 import { CardStyleInterpolators } from '@react-navigation/stack'
 import ChatMain from '../screens/main/ChatMainScreen'
+import ViewFollowing from '../screens/main/ViewFollowing'
 
 
 const Stack = createStackNavigator();
@@ -108,6 +109,15 @@ export default function AuthStack() {
             <Stack.Screen
                 name='ChatMain'
                 component={ChatMain}
+                options={{
+                    headerShown: true,
+                    headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,
+                    headerTitle: <HeaderBarLogo />,
+                }}
+            />
+            <Stack.Screen
+                name='ViewFollowing'
+                component={ViewFollowing}
                 options={{
                     headerShown: true,
                     headerBackTitleVisible: false, headerBackImage: () => <HeaderBack />,

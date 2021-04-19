@@ -37,7 +37,6 @@ export default function MyProfileView({ navigation }) {
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         queryPostsUsername(userData.username);
-        console.log(userData);
         wait(1000).then(() => setRefreshing(false));
 
     }, []);
@@ -50,7 +49,7 @@ export default function MyProfileView({ navigation }) {
                 .where("username", "==", username)
                 .get()
 
-            let d = doc.docs.map(doc => doc.data());    
+            let d = doc.docs.map(doc => doc.data());
             setUserPosts(d)
 
         } catch (err) {
@@ -114,7 +113,7 @@ export default function MyProfileView({ navigation }) {
                             label={getInitials()}
                             labelColor={Colors.orange30}
                             backgroundColor={lightOrange}
-                            />
+                        />
                         :
                         <Avatar
                             size={150}
@@ -126,6 +125,12 @@ export default function MyProfileView({ navigation }) {
                         {userData.first} {userData.last}
                     </Text>
                 </View>
+
+                <TouchableOpacity onPress={() => navigation.navigate('ViewFollowing', {followings: userData.following, user: userData.username})}>
+                    <View marginV-28 center>
+                        <Text text60 color={Colors.orange30}> Following: {!userData.following ? "" : userData.following.length - 1} </Text>
+                    </View>
+                </TouchableOpacity>
 
                 <View style={styles.centering}>
                     <Card
@@ -143,7 +148,7 @@ export default function MyProfileView({ navigation }) {
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }} marginB-15>
-                                <Feather name="edit" size={20} color="grey"/>
+                                <Feather name="edit" size={20} color="grey" />
                             </View>
                         </View>
                     </Card>

@@ -91,6 +91,7 @@ export default function OtherProfileView({ navigation, route }) {
         }
     }
 
+    console.log(userDataO)
 
     // load all user posts
     useEffect(() => {
@@ -147,6 +148,12 @@ export default function OtherProfileView({ navigation, route }) {
                 </View>
 
                 { userData.username !== username && <InteractionButtons otherUsername={username} otherID={userDataO.id}/> }
+
+                <TouchableOpacity onPress={() => navigation.navigate('ViewFollowing', {followings: userDataO?.following, user: userDataO.username})}>
+                    <View marginV-10 center>
+                        <Text text60 color={Colors.orange30}> Following: {!userData.following ? "" : userDataO?.following?.length - 1} </Text>
+                    </View>
+                </TouchableOpacity>
 
                 <View style={styles.centering}>
                     <Card
