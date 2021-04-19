@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, Colors, Card } from 'react-native-ui-lib';
 
-//use map here or no?
 export default function TextCard({ navigation, textPost}) {
     let textPostCategory;
     if (textPost.category === 'Other (Text)') {
