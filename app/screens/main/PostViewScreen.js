@@ -35,10 +35,19 @@ export default function PostViewScreen({ navigation, route }) {
     }
 
     let postCategory;
-    if (post.category === 'Other (Text)' || 'Other (Image)' || 'Other (Audio)') {
+    if ((post.category === 'Other (Text)') || (post.category === 'Other (Image)') || (post.category === 'Other (Audio)')) {
         postCategory = 'Other'
     } else {
         postCategory = post.category;
+    }
+
+    let categoryColor;
+    if ((post.category === 'Photography') || (post.category === 'Digital Art') || (post.category === 'Design') || (post.category === 'Painting') || (post.category === 'Other (Image)')) {
+        categoryColor = Colors.green30;
+    } else if ((post.category === 'Music') || (post.category === 'Podcast') || (post.category === 'Other (Audio)')) {
+        categoryColor  = Colors.blue30;
+    } else {
+        categoryColor  = Colors.red30;
     }
 
     return (
@@ -65,7 +74,7 @@ export default function PostViewScreen({ navigation, route }) {
                     <Text text70>
                         category:
                 </Text>
-                    <Text text70 color={Colors.green30} marginL-4>{postCategory.toLowerCase()} </Text>
+                    <Text text70 color={categoryColor} marginL-4>{postCategory.toLowerCase()} </Text>
                 </View>
 
 
