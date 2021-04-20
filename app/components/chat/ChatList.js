@@ -31,11 +31,6 @@ export default function ChatList({ navigation }) {
 
     let dataObj = doc.docs.map(d => d.data());
     setOthersData(dataObj)
-
-
-    // let uNames = dataObj.map(d => d.username)
-    // // get messages from the list of usernames retrived from the database call
-    // getMessages({ variables: { to: userData.username, from: uNames}})
   }
 
   // get all user data for all other users that are in the user's chat list
