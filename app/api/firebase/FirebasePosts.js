@@ -38,18 +38,12 @@ async function uploadImgStorage(imageURI, imagesDB, id, count, dbFirestore) {
     const splitArr = imageURI.split("/")
     let newURI = splitArr[splitArr.length - 1]
 
-    console.log(newURI)
-
     // get db path to image
     const imageRef = imagesDB.ref(newURI)
-
-    console.log("asfasdf", imageRef)
 
     // comvert image to blob
     const response = await fetch(imageURI);
     const blob = await response.blob();
-
-    console.log("here")
 
     // insert blob into db and return the download path
     await imageRef.put(blob).on(firebase.storage.TaskEvent.STATE_CHANGED, (snap) => {
@@ -126,18 +120,12 @@ async function uploadAudioStorage(audioURI, audioDB, id, dbFirestore) {
     const splitArr = audioURI.split("/")
     let newURI = splitArr[splitArr.length - 1]
 
-    console.log(newURI)
-
     // get db path to image
     const audioRef = audioDB.ref(newURI)
-
-    console.log("asfasdf", imageRef)
 
     // comvert image to blob
     const response = await fetch(audioURI);
     const blob = await response.blob();
-
-    console.log("here")
 
     let urlRes
     // insert blob into db and return the download path
