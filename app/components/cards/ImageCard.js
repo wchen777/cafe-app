@@ -1,13 +1,6 @@
 import React from 'react'
 import { View, Text, Colors, Card, AnimatedImage } from 'react-native-ui-lib';
 
-
-const testImage2 = '../../assets/monet1.jpeg'
-const testImage = 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/irises-in-monets-garden-at-giverny-claude-monet.jpg'
-
-
-// NEED TO CACHE IMAGES LATER, LOADING IS VERY SLOW
-
 export default function ImageCard({ navigation, imagePost }) {
     let imagePostCategory;
     if (imagePost.category === 'Other (Image)') {

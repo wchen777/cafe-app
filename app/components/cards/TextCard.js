@@ -41,15 +41,6 @@ export default function TextCard({ navigation, textPost}) {
                     </Text>
 
                     <View right>
-
-                        {/* <Button
-                                style={{ marginRight: 10 }}
-                                text90
-                                link
-                                iconSource={featureIcon}
-                                label="Feature"
-                            /> */}
-                        {/* <Button text90 link iconSource={shareIcon} label="Share" /> */}
                         <Text text90 color={Colors.grey50} marginT-10>
                             {textPost.time}
                         </Text>
