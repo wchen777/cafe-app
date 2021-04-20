@@ -56,18 +56,7 @@ export default function ActionBarHome({ selectedPage, setSelectedPage, navigatio
                 </TouchableWithoutFeedback>
 
             </View>
-
-
-
         </View>
-
-
-
-
-
-        // <ActionBar actions={[{}]} centered style={{paddingTop: 0, borderRadius: 20, shadowColor: 'grey'}}> 
-
-        // </ActionBar>
 
     )
 }
