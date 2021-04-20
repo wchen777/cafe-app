@@ -58,7 +58,6 @@ export default function OtherProfileView({ navigation, route }) {
         } else {
             let dataObj = doc.docs[0].data();
             setUserDataO(dataObj)
-            // userData.current = dataObj
         }
     }
 
@@ -119,8 +118,6 @@ export default function OtherProfileView({ navigation, route }) {
         }
     })
 
-
-    // TODO: Break this up into components
 
     return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>

@@ -217,16 +217,6 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
           </ScrollView>
         </View>
 
-        {/*                 <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
-                <Dropdown
-                    label='Show'
-                    value = 'All'
-                    data={data}
-                    width={250}
-                    useNativeDriver
-                />
-                </View> */}
-
         <View style={{ marginTop: 20 }} paddingH-10>
           {postsComponents.length == 0 ?
             <View style={{ flexDirection: 'row', justifyContent: 'center'}} marginT-10>

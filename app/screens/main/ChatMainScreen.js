@@ -8,7 +8,6 @@ import { AuthContext } from '../../context/AuthContext'
 import MyMessage from '../../components/chat/MyMessage';
 import OtherMessage from '../../components/chat/OtherMessage';
 
-import { v4 as uuidv4 } from 'uuid';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -96,7 +95,6 @@ export default function ChatMain({ route, navigation }) {
 
         if (messageDataSub) {
             const message = messageDataSub.newMessage
-            console.log(message)
 
             setMessages([...messages, message])
         }
@@ -134,11 +132,6 @@ export default function ChatMain({ route, navigation }) {
     return (
             <View style={{ flex: 1, backgroundColor: '#FFFDFC', marginBottom: 0, paddingBottom: 0, padding: 0, margin: 0 }}>
 
-                {/* <KeyboardAwareScrollView
-                    style={{ marginBottom: 40, flex: 1, flexDirection: 'column' }}
-                > */}
-
-
                  <ScrollView style={{ marginBottom: 30, paddingTop: 15 }}>
                     {msgsList}
                     <View style={{flexDirection: 'row', marginTop: 20, bottom: 0, marginLeft: 10}} >
@@ -161,8 +154,6 @@ export default function ChatMain({ route, navigation }) {
                     </View>
 
                 </ScrollView> 
-
-                {/* </KeyboardAwareScrollView> */}
             </View>
 
 

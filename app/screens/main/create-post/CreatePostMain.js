@@ -28,8 +28,6 @@ export default function CreatePostMain({ navigation }) {
     const [metaInfo, setMetaInfo] = useState({})
 
     const [showToast, setShowToast] = useState(false)
-
-    // not needed right now?
     const { user } = useContext(AuthContext)
 
     // ------------------ temporary copy ---------------
@@ -37,7 +35,6 @@ export default function CreatePostMain({ navigation }) {
     const userData = useRef()
 
     let currentUserUID = firebase.auth().currentUser.uid;
-    // const [userData, setUserData] = useState({});
 
     async function getUserInfo() {
         let doc = await firebase
@@ -50,7 +47,6 @@ export default function CreatePostMain({ navigation }) {
             Alert.alert('No user data found!')
         } else {
             let dataObj = doc.data();
-            // setUserData(dataObj)
             userData.current = dataObj
         }
     }
@@ -86,7 +82,6 @@ export default function CreatePostMain({ navigation }) {
                 break;
             case "Image":
                 createImagePost(post)
-                console.log(post.likes);
                 break;
             case "Audio":
                 createAudioPost(post)
@@ -95,8 +90,6 @@ export default function CreatePostMain({ navigation }) {
                 break;
         }
    
-        // setTimeout(setShowToast(true), 3000)
-        // setShowToast(false)
         navigation.goBack()
     }
 
@@ -132,13 +125,6 @@ export default function CreatePostMain({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
             <View style={{ flex: 1, flexDirection: 'column', alignContent: 'center' }}>
-                {/* <Toast
-                    position={'top'}
-                    backgroundColor={'#FFB36C'}
-                    visible={showToast}
-                    message="Thanks for posting!"
-                    autoDismiss={3000}
-                /> */}
 
                 <View style={{ width: "100%", maxHeight: 100 }}>
                     <Wizard testID={'create-post.wizard'} activeIndex={index.active} onActiveIndexChanged={onActiveIndexChanged}>

@@ -29,7 +29,6 @@ export default function MainScreen({ navigation }) {
 
 
     let currentUserUID = firebase.auth().currentUser.uid;
-    // const [userData, setUserData] = useState({});
 
     async function getUserInfo() {
         let doc = await firebase
@@ -42,16 +41,12 @@ export default function MainScreen({ navigation }) {
             console.log("no user data found")
         } else {
             let dataObj = doc.data();
-            console.log(dataObj)
             setUserData(dataObj)
             getPostData(dataObj.following)
-            // userData.current = dataObj
         }
     }
 
     async function getPostData(following) {
-      //console.log(userData.following)
-      //console.log(userData)
       let doc = await firebase
           .firestore()
           .collection('posts')
@@ -59,13 +54,10 @@ export default function MainScreen({ navigation }) {
           .get();
 
       let dataObj = doc.docs.map(doc => doc.data());
-      //console.log(dataObj);
 
       setAllPosts(dataObj)
-      console.log(allPosts);
   }
 
-    // TODO: refactor later, without loading into local mem for scalability
     async function getUsernames() {
         let doc = await firebase
             .firestore()

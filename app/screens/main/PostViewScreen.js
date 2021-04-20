@@ -134,9 +134,6 @@ export default function PostViewScreen({ navigation, route }) {
                         pageControlProps={{ onPagePress: (index) => onPagePress(index) }}
                     >
 
-                        {/* can refactor this entire carousel into a component, also each image */}
-
-                        {/* add click to view, fix carousel bug */}
                         {post["0"] &&
                             <TouchableOpacity>
                                 <AnimatedImage source={{ uri: post["0"] }} style={{ width: w, height: h, alignSelf: 'center' }} animationDuration={150} />

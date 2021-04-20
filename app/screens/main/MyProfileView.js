@@ -99,8 +99,6 @@ export default function MyProfileView({ navigation }) {
 
 
 
-    // TODO: Break this up into components
-
     return (
         <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
 

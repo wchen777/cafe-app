@@ -38,34 +38,16 @@ export default function EditProfile({ navigation }) {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            // aspect: [4, 3],
             quality: 1,
         });
 
         if (!result.cancelled) {
-            console.log(result.uri)
             setUserDataC({ ...userDataC, pic: result.uri })
             updatePic(result.uri)
         }
 
         setShowSheet(false)
     };
-
-    // const changeFirst = (first) => {
-    //     userData.first = first;
-    // }
-
-    // const changeLast = (last) => {
-    //     userData.last = last;
-    // }
-
-    // const changePortfolio = (portfolio) => {
-    //     userData.portfolio = portfolio;
-    // }
-
-    // const changeBio = (bio) => {
-    //     userData.bio = bio;
-    // }
 
     useEffect(() => {
         (async () => {
@@ -80,9 +62,7 @@ export default function EditProfile({ navigation }) {
 
     const editProfile = () => {
         updateProfile(userDataC);
-        console.log(userData)
         setUserData(userDataC)
-        console.log(userData);
         navigation.goBack()
     }
 
@@ -104,10 +84,6 @@ export default function EditProfile({ navigation }) {
                         { label: 'Cancel', onPress: () => setShowSheet(false) },
                         ]}
                         visible={showSheet}
-                        // onDismiss={() => setTimeout(() => { if (!imgActive) {
-                        //     console.log(imgActive)
-                        //     setShowSheet(false)
-                        // }}, 1000)}
                         containerStyle={{ paddingBottom: 25 }}
                 />
                 <View style={{ flexDirection: 'column', margin: 0, padding: 0 }}>
@@ -194,23 +170,6 @@ export default function EditProfile({ navigation }) {
                                 onChangeText={twitter => setUserDataC({ ...userDataC, twitter: twitter })}
                                 style={styles.input}
                             />
-
-                            {/* <Text text70 dark10 marginB-15 marginT-20>
-                            Bio
-                        </Text>
-                        <TextInput
-                            placeholder="Bio"
-                            autoCorrect={false}
-                            onChangeText={bio => changeBio(bio)}
-                            style={{
-                                height: 40,
-                                width: 220,
-                                borderWidth: 1,
-                                borderColor: Colors.dark60,
-                                borderRadius: 20,
-                                paddingLeft: 10
-                            }}
-                        /> */}
 
                         </View>
 

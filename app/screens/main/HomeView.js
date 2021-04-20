@@ -60,7 +60,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
         });
     })
 
-    // TODO: lazy loading and batch fetching and caching
     async function getPostData() {
         let doc = await firebase
             .firestore()
@@ -74,11 +73,8 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
     }
 
     useEffect(() => {
-        // getUserInfo()
-        // getPostData()
     }, [])
 
-    // TODO: need to cache these
     let count = 1;
     allPosts.sort((p1, p2) => (p1.time < p2.time) ? 1 : -1);
     const postsComponents = allPosts.map((p) => {
@@ -100,8 +96,6 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
 
             <ScrollView style={{ marginBottom: 80, paddingTop: 15, marginHorizontal: 0 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-
-                {/* refactor navigation props later */}
 
                 {postsComponents.length == 0 ?
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }} marginT-10 padding-20>
