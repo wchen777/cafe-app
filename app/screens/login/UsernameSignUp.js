@@ -13,10 +13,7 @@ export default function UsernameSignUp({ navigation, route }) {
 
 
     const onSignUp = () => {
-
-        // TODO: validation, password encryption, password hiding
         registration(authData)
-
     }
 
     return (

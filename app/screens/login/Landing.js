@@ -10,8 +10,6 @@ export default function Landing({ navigation }) {
 
     const onLogin = () => {
 
-        // TODO: validation for email stuff, can create a separate js file for validation functions
-
         signIn(login)
     }
 
@@ -22,7 +20,6 @@ export default function Landing({ navigation }) {
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 150 }}>
                         <Image style={{ width: 120, height: 100 }} source={require('../../img/logo.jpg')} />
                     </View>
-                    {/* <Text text40 style={{ marginTop: 30 }}>Cafe Logo Here</Text> */}
                     <Text text70  dark10 marginB-15 marginT-50>
                         Email
                 </Text>

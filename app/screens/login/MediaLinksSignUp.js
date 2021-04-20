@@ -4,21 +4,10 @@ import { StyleSheet } from 'react-native';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
-import { registration } from '../../api/firebase/FirebaseAuth'
-
 
 export default function MediaLinksSignUp({ navigation, route }) {
 
     const [authData, setAuthData] = useState(route.params)
-
-    console.log(authData)
-
-    const onSignUp = () => {
-
-        // TODO: validation, password encryption, password hiding
-        registration(authData)
-        
-    }
 
 
     return (
@@ -61,34 +50,6 @@ export default function MediaLinksSignUp({ navigation, route }) {
                             autoCorrect={false} 
                             onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })}/>
                     </View>
-                    
-                    {/* <Text text70 dark10 marginB-15 marginT-20>
-                        Extra Links
-                    </Text>
-
-                    <View
-                        style={styles.input}
-                    >
-                        <TextArea placeholder="extra-link.com" autoCapitalize="none"
-                            autoCorrect={false} 
-                            onChangeText={extra1 => setAuthData({ ...authData, extra1: extra1 })}/>
-                    </View>
-
-                    <View
-                        style={{ ...styles.input, marginTop: 20 }}
-                    >
-                        <TextArea placeholder="extra-link.com" autoCapitalize="none"
-                            autoCorrect={false} 
-                            onChangeText={extra2 => setAuthData({ ...authData, extra2: extra2 })}/>
-                    </View>
-
-                    <View
-                        style={{ ...styles.input, marginTop: 20 }}
-                    >
-                        <TextArea placeholder="extra-link.com" autoCapitalize='none'
-                            autoCorrect={false} 
-                            onChangeText={extra3 => setAuthData({ ...authData, extra3: extra3 })}/>
-                    </View> */}
 
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <Button

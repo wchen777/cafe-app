@@ -25,8 +25,6 @@ export default function SignUpInitial({ navigation }) {
         }
     }
 
-    console.log(initialAuth)
-
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
@@ -67,22 +65,6 @@ export default function SignUpInitial({ navigation }) {
                             paddingLeft: 10
                         }}
                     />
-                    {/* <Text text70 dark10 marginB-15 marginT-15>
-                    Date of Birth
-                </Text>
-                <View
-                    style={{
-                        height: 40,
-                        width: 220,
-                        borderWidth: 1,
-                        borderColor: Colors.dark60,
-                        borderRadius: 20,
-                        paddingLeft: 10
-                    }}
-                >
-                    <TextArea placeholder="mm/dd/yy"
-                    onChangeText={(email) => setInitialAuth({...initialAuth, email: email})}/>
-                </View> */}
                     <Text text70 dark10 marginB-15 marginT-15>
                         <Text style={{ color: 'red' }}>*</Text> Email
                     </Text>
