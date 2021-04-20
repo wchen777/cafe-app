@@ -14,5 +14,4 @@ Nicole:
 - Implemented the Explore View page. 
 - Worked on the UI and the implementation of comments on each individual post. 
 - Worked on the implementation of likes on each individual post. 
-- Implemented the Audio post feature of allowing users to record audio on their device (right now, they can't actually post the audio).
 - Coded the UI of the Chat page. 
