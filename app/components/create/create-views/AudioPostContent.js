@@ -71,29 +71,6 @@ export default function AudioPostContent({ setContent }) {
     return (
         <TouchableWithoutFeedback marginT-13 onPress={Keyboard.dismiss}>
             <View>
-
-{/*                 <ActionSheet
-                        title='Select Audio'
-                        message='Audio'
-                        cancelButtonIndex={3}
-                        useNativeIOS={false}
-                        options={[{
-                            label: 'Upload Audio from Phone', onPress: () => {
-                                pickAudio(active)
-                            }
-                        },
-                        { label: 'Record Audio' },
-                        { label: 'Cancel', onPress: () => setShowSheet(false) },
-                        ]}
-                        visible={showSheet}
-                        // onDismiss={() => setTimeout(() => { if (!imgActive) {
-                        //     console.log(imgActive)
-                        //     setShowSheet(false)
-                        // }}, 1000)}
-                        containerStyle={{ paddingBottom: 25 }}
-                /> */}
-
-
                 <Text text40 style={{ textAlign: 'center', fontSize: 25, marginTop: 50 }}
                         marginB-13>
                         <Text
@@ -104,16 +81,6 @@ export default function AudioPostContent({ setContent }) {
                         </Text>
                         Upload audio:
                 </Text>
-
-{/*                 <TouchableOpacity onPress={() => onPlaceholderPress()}>
-                    <Image source={{ uri: content["first"] }} style={{ width: 340, height: 250, alignSelf: 'center' }} /> :
-                    <View style={styles.card} backgroundColor={Colors.grey50} key={0}>
-                        <Feather name="plus-circle" size={50} color="white" style={{ alignSelf: 'center' }} />
-                        <Text style={{ alignSelf: 'center' }} marginT-15 white text50>
-                            (Audio)
-                    </Text>
-                    </View>
-                </TouchableOpacity> */}
 
                 <View style={styles.container} marginT-20>
                     <Button
@@ -126,11 +93,6 @@ export default function AudioPostContent({ setContent }) {
                 <View style={styles.container} marginV-20 marginB-30>
                     <Button label="Play Audio" onPress={playSound} style={{ width: 200 }} />
                 </View> 
-
-
-
-
-
 
             </View>
         </TouchableWithoutFeedback>

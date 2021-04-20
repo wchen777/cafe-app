@@ -28,7 +28,6 @@ export default function ImagePostContent({ setContent, content }) {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            // aspect: [4, 3],
             quality: 1,
         });
 
@@ -39,9 +38,6 @@ export default function ImagePostContent({ setContent, content }) {
         setShowSheet(false)
     };
 
-
-    // const width = Dimensions.get('window').width
-
     const onPagePress = (index, prev) => {
         if (carousel && carousel.current) {
             carousel.current.goToPage(index, true);
@@ -50,7 +46,6 @@ export default function ImagePostContent({ setContent, content }) {
 
     const onPlaceholderPress = (i) => {
         setActive(i)
-        // weidtd bug here
         if (showSheet) {
             setShowSheet(!showSheet)
         }
@@ -74,10 +69,6 @@ export default function ImagePostContent({ setContent, content }) {
                     { label: 'Cancel', onPress: () => setShowSheet(false) },
                     ]}
                     visible={showSheet}
-                    // onDismiss={() => setTimeout(() => { if (!imgActive) {
-                    //     console.log(imgActive)
-                    //     setShowSheet(false)
-                    // }}, 1000)}
                     containerStyle={{ paddingBottom: 25 }}
                 />
 
@@ -97,7 +88,6 @@ export default function ImagePostContent({ setContent, content }) {
                     Images collection will be collapsed.</Text>
                 <Carousel
                     ref={carousel}
-                    // pageWidth={width}
                     allowAccessibleLayout
                     animated
                     pagingEnabled
@@ -109,14 +99,6 @@ export default function ImagePostContent({ setContent, content }) {
                     allowAccessibleLayout
                     pageControlProps={{ onPagePress: (index) => onPagePress(index) }}
                 >
-                    {/* {_.map([...Array(numberOfPagesShown)], (item, index) => (
-                        <Page
-                            style={{ backgroundColor: BACKGROUND_COLORS[index] }}
-                            key={index}
-                        >
-                            <Text margin-15>CARD {index}</Text>
-                        </Page>
-                    ))} */}
 
 
                     <TouchableOpacity onPress={() => onPlaceholderPress("first")}>

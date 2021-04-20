@@ -52,7 +52,6 @@ export default function AudioInfo({ setInfo, info }) {
                 Category:
             </Text>
 
-            {/* onValueChange={value => this.setState({ textSide: value })} */}
             <RadioGroup marginB-20 marginT-10 marginL-55 initialValue={info.category} onValueChange={value => setInfo({...info, category: value})}>
 
                 <RadioButton value="Music" label="Music" marginB-9 color={Colors.green20}/>
