@@ -6,17 +6,15 @@ import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
-import { signOut } from '../../api/firebase/FirebaseAuth'
 import * as firebase from "firebase";
 import "firebase/firestore";
 
-import ImageCard from '../../components/cards/ImageCard';
-import AudioCard from '../../components/cards/AudioCard';
-import TextCard from '../../components/cards/TextCard';
+import ImageCard from '../components/cards/ImageCard';
+import AudioCard from '../components/cards/AudioCard';
+import TextCard from '../components/cards/TextCard';
 
-import { updatePic } from '../../api/firebase/FirebaseAuth';
 
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../context/AuthContext'
 
 const wait = timeout => {
     return new Promise(resolve => {

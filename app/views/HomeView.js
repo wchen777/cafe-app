@@ -2,12 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import { ScrollView, RefreshControl } from 'react-native'
 import { View, Button, Text } from 'react-native-ui-lib';
 
-import ImageCard from '../../components/cards/ImageCard';
-import AudioCard from '../../components/cards/AudioCard';
-import TextCard from '../../components/cards/TextCard';
+import ImageCard from '../components/cards/ImageCard';
+import AudioCard from '../components/cards/AudioCard';
+import TextCard from '../components/cards/TextCard';
 
-import HeaderBarLogo from '../../components/header/HeaderBarLogo'
-import { AuthContext } from '../../context/AuthContext'
+import HeaderBarLogo from '../components/header/HeaderBarLogo'
+import { AuthContext } from '../context/AuthContext'
 import { Foundation } from '@expo/vector-icons';
 
 import * as firebase from 'firebase';

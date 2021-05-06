@@ -5,9 +5,9 @@ import { View, Button, Colors, Text, Card, TextArea, Constants, Drawer, ListItem
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-import HeaderBarLogo from '../../components/header/HeaderBarLogo'
-import HeaderBack from '../../components/header/HeaderBack'
-import ChatList from '../../components/chat/ChatList';
+import HeaderBarLogo from '../components/header/HeaderBarLogo'
+import HeaderBack from '../components/header/HeaderBack'
+import ChatList from '../components/chat/ChatList';
 
 
 export default function ChatView({ navigation, usernames }) {

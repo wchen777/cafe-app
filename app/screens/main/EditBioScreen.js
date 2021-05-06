@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-nativ
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 
 import { View, Button, Avatar, Colors, Text, Card, TextField, Constants, Drawer } from 'react-native-ui-lib';
-import { MainScreen } from '../main/MainScreen';
+import { MainScreen } from './MainScreen';
 import * as firebase from "firebase";
 import "firebase/firestore";
 import { updateProfile } from '../../api/firebase/FirebaseAuth';

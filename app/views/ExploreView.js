@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, RefreshControl } from 'react-native'
 import { View, Button, Text } from 'react-native-ui-lib';
-import HeaderBarLogo from '../../components/header/HeaderBarLogo'
+import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed';
 import * as firebase from 'firebase';
 
-import ImageCard from '../../components/cards/ImageCard';
-import AudioCard from '../../components/cards/AudioCard';
-import TextCard from '../../components/cards/TextCard';
+import ImageCard from '../components/cards/ImageCard';
+import AudioCard from '../components/cards/AudioCard';
+import TextCard from '../components/cards/TextCard';
 
 export default function ExploreView({ navigation, allPosts, setAllPosts, selectedCategory, setSelectedCategory }) {
 

@@ -4,9 +4,9 @@ import { View, Button, Avatar, Colors, Text, Card, TextArea, Constants, Drawer }
 
 import MainScreen from '../screens/main/MainScreen'
 import PostViewScreen from '../screens/main/PostViewScreen'
-import CommentViewScreen from '../screens/main/CommentView'
+import CommentViewScreen from '../screens/main/CommentsScreen'
 import EditProfileScreen from '../screens/main/EditProfile'
-import EditBioScreen from '../screens/main/EditBio'
+import EditBioScreen from '../screens/main/EditBioScreen'
 import HeaderBarLogo from '../components/header/HeaderBarLogo'
 import HeaderBack from '../components/header/HeaderBack'
 import CreatePostMain from '../screens/main/create-post/CreatePostMain';

@@ -5,12 +5,11 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import * as firebase from 'firebase';
 
-import { signOut } from '../../api/firebase/FirebaseAuth';
 import ActionBarHome from '../../components/ActionBarHome';
-import MyProfileView from './MyProfileView';
-import HomeView from './HomeView';
-import ChatView from './ChatView';
-import ExploreView from './ExploreView';
+import MyProfileView from '../../views/MyProfileView';
+import HomeView from '../../views/HomeView';
+import ChatView from '../../views/ChatView';
+import ExploreView from '../../views/ExploreView';
 
 import { AuthContext } from '../../context/AuthContext'
 
