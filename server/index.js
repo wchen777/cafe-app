@@ -11,7 +11,7 @@ const MongoClient = require('mongodb').MongoClient;
 // Resolvers define the technique for fetching the types defined in the
 // schema, map of functions which return data for the schema
  
-const resolvers = require('./resolvers')
+const resolvers = require('./resolvers/ChatResolvers')
 
 
 let db 
