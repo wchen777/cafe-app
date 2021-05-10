@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-  poster: {type: Schema.Types.ObjectId, ref: 'User'},
-	likes: {type: Number},
-  comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
+    poster: { type: Schema.Types.ObjectId, ref: 'User' },
+    likes: { type: Number },
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
 // Compile model from schema
 
-module.exports = mongoose.model('Post', PostSchema );
+module.exports = mongoose.model('Post', PostSchema);
