@@ -1,6 +1,7 @@
 const { ApolloServer, gql } = require('apollo-server');
 const { uri } = require('./mongoDB')
 const MongoClient = require('mongodb').MongoClient;
+const ContextMiddleware = require('./util/contextMiddleware');
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -13,35 +14,27 @@ const MongoClient = require('mongodb').MongoClient;
  
 const resolvers = require('./resolvers/resolvers')
 
+// graphql query syntax
+// query name {
+//   getMessages(to: "vision" from:"test-user"){
+//     uuid
+//    content
+//      from
+//          to
+//          createdAt
+//          _id
+//  }
+//  }
 
-let db 
+
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
 const server = new ApolloServer({ 
     typeDefs, 
     resolvers,
-    context: async () => {
-        if (!db) {
-          try {
-            const dbClient = new MongoClient(
-                uri,
-              {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-              }
-            )
-    
-            if (!dbClient.isConnected()) await dbClient.connect()
+    context: ContextMiddleware, });
 
-            db = dbClient.db('cafe-app') // database name
-          } catch (e) {
-            console.log('ERROR while connecting with graphql context (db)', e)
-          }
-        }
-        return { db }
-      }, });
-
-const PORT = 80;
+const PORT = 8080;
 
 // The `listen` method launches a web server.
 server.listen({ port: PORT }).then(({ url }) => {

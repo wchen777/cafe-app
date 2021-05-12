@@ -34,6 +34,7 @@ module.exports = gql`
         getUserByUsername(
             username: String!
         ): User!
+        testQuery: Message!
     }
     type Mutation{
         sendMessage(

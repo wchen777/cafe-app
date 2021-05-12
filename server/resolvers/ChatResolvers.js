@@ -10,11 +10,13 @@ const pubsub = new PubSub()
 
 module.exports = {
     Query: {
-        getMessages: async (parent, { to, from }, { db }) => {
+        getMessages: async (parent, { to, from }, { db, token }) => {
             try {
+                if(!token) {
+                    throw new AuthenticationError;
+                }
                 console.log("queried")
                 const usersList = [from, to]
-
                 // get messages that come from or are sent by either the to or from users
                 const query = { 
                     "to" : { $in : usersList },
@@ -35,6 +37,32 @@ module.exports = {
                     .catch(err => console.error(`Failed to find messages: ${err}`))                
 
                 return messages
+            } catch (err) {
+                console.log(err)
+                throw err
+            }
+        },
+        testQuery: async (parent, _ , { db, token }) => {
+            try {
+                // if(!token) {
+                //     throw new AuthenticationError;
+                // }
+                console.log('something at least')
+                console.log(token)
+                const query = { 
+                    "to" : "vision",
+                    "from" : "test-user"
+                }
+                const projection = { "_id": 0 };
+                const collection = db.collection("messages");
+                const messages = await collection.find(query, projection)
+                    .toArray()
+                    .then(msgs => {
+                        console.log(`Successfully found ${msgs.length} messages.`)
+                        return msgs
+                    })
+                    .catch(err => console.error(`Failed to find messages: ${err}`))
+                return messages[0]
             } catch (err) {
                 console.log(err)
                 throw err

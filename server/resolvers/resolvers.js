@@ -5,7 +5,7 @@ module.exports = {
         ...chatResolvers.Query
     },
     Mutation: {
-        ...chatResolvers.Query
+        ...chatResolvers.Mutation
     },
     Subscription: {
         ...chatResolvers.Subscription

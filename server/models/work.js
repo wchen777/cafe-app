@@ -15,4 +15,4 @@ const WorkSchema = new Schema({
 
 // Compile model from schema
 
-module.exports = mongoose.model('Post', WorkSchema);
+module.exports = mongoose.model('Work', WorkSchema);
