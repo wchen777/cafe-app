@@ -2,6 +2,8 @@ const { ApolloServer, gql } = require('apollo-server');
 const { uri } = require('./mongoDB')
 const MongoClient = require('mongodb').MongoClient;
 const ContextMiddleware = require('./util/contextMiddleware');
+const admin = require('firebase-admin')
+const serviceAccount = require('./config/cafe-social-network-firebase-adminsdk-n4dp7-9b3414aacb.json')
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -25,6 +27,12 @@ const resolvers = require('./resolvers/resolvers')
 //          _id
 //  }
 //  }
+
+// initialize backend service account to verify auth 
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://cafe-social-network-default-rtdb.firebaseio.com"
+  });
 
 
 // The ApolloServer constructor requires two parameters: your schema
