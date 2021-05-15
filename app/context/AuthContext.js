@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [userData, setUserData] = useState({})
+    const [authHeader, setAuthHeader] = useState()
 
 
     return (
@@ -16,7 +17,9 @@ export const AuthProvider = ({ children }) => {
                 user,
                 setUser,
                 userData,
-                setUserData
+                setUserData,
+                authHeader,
+                setAuthHeader
             }}
         >
             {children}

@@ -18,15 +18,24 @@ export default function Routes() {
 
     // refactor this somewhere else
 
-    const { user, setUser } = useContext(AuthContext);
+    const { user, setUser, setAuthHeader } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(true);
     const [initializing, setInitializing] = useState(true);
 
     // Handle user state changes
-    const onAuthStateChanged = (user) => {
+    const onAuthStateChanged = (usr) => {
 
-        setUser(user);
+        setUser(usr);
+
+        // set auth header in context
+        if (usr) {
+             firebase.auth().currentUser.getIdToken(true)
+                .then((token) => {
+                    setAuthHeader(token)
+                })
+        }
+
         if (initializing) setInitializing(false);
 
         setLoading(false);
