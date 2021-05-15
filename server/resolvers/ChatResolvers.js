@@ -10,9 +10,9 @@ const pubsub = new PubSub()
 
 module.exports = {
     Query: {
-        getMessages: async (parent, { to, from }, { db, token }) => {
+        getMessages: async (parent, { to, from }, { db, tokenValid }) => {
             try {
-                if(!token) {
+                if(!tokenValid) {
                     throw new AuthenticationError;
                 }
                 console.log("queried")
@@ -38,17 +38,18 @@ module.exports = {
 
                 return messages
             } catch (err) {
+                console.log("this caught the auth error");
                 console.log(err)
                 throw err
             }
         },
-        testQuery: async (parent, _ , { db, token }) => {
+        testQuery: async (parent, _ , { db, tokenValid }) => {
             try {
-                // if(!token) {
-                //     throw new AuthenticationError;
-                // }
-                console.log('something at least')
-                console.log(token)
+                if(!tokenValid) {
+                    console.log("did not pass authentication");
+                    throw new AuthenticationError;
+                }
+                console.log("passed validation");
                 const query = { 
                     "to" : "vision",
                     "from" : "test-user"
@@ -70,9 +71,11 @@ module.exports = {
         }
     },
     Mutation: {
-        sendMessage: async (parent, { to, from, content }, { db }) => {
+        sendMessage: async (parent, { to, from, content }, { db, tokenValid }) => {
             try {
-
+                if(!tokenValid) {
+                    throw new AuthenticationError;
+                }
                 // new message instance
                 const message = {
                     to: to,
@@ -118,7 +121,5 @@ module.exports = {
 
             })
         },
-
     }
-
 }

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors, ActionBar, Card } from 'react-native-ui-lib';
 import { gql, useSubscription, useQuery, useMutation } from '@apollo/client'
+import { AuthContext } from '../../../context/AuthContext';
 
 const GET_MESSAGES = gql`
     query getMessages{
@@ -16,14 +17,13 @@ const GET_MESSAGES = gql`
 `
 
 export default function CreatePatio({ navigation }) {
-
-
+    const {authHeader} = useContext(AuthContext);
 
     const { loading, data, error } = useQuery(GET_MESSAGES, {
         context: {
             headers: {
                 "Content-Type": "application/json",
-                "authorization": "123easdfw"
+                "authorization": `${authHeader}`
             }
         }
     })

@@ -3,7 +3,6 @@ const { gql } = require('apollo-server')
 module.exports = gql`
     type User {
         username: String!
-        password: String!
         id: String!
         first: String!
         last: String!
@@ -44,7 +43,6 @@ module.exports = gql`
         ): Message!
         registerUser(
             username: String!
-            password: String!
             first: String!
             last: String!
             email: String!
