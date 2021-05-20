@@ -10,12 +10,13 @@ module.exports = gql`
         ig: String
         portfolio: String 
         twitter: String
-        following: [String]!
-        followers: [String]!
-        liked: [String]!
-        chats: [String]!
+        following: [String]
+        followers: [String]
+        liked: [String]
+        chats: [String]
         bio: String
-        permissions: String!
+        pic: String
+        permissions: String
     }
     type Message{
         uuid: String!
@@ -50,6 +51,15 @@ module.exports = gql`
             portfolio: String 
             twitter: String
             permissions: String!
+        ): User!
+        editUserProfile(
+            username: String!
+            first: String
+            last: String
+            ig: String
+            portfolio: String
+            twitter: String
+            bio: String
         ): User!
     }
     type Subscription{

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 // Define schema
 const Schema = mongoose.Schema;
 
-const WorkSchema = new Schema({
+const CreationSchema = new Schema({
     type: { type: String, required: true, enum: ['text', 'audio', 'image',] },
     category: { type: String, required: true, enum: ['painting', 'photograph', 'abstract'] },
     author: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -15,4 +15,4 @@ const WorkSchema = new Schema({
 
 // Compile model from schema
 
-module.exports = mongoose.model('Work', WorkSchema);
+module.exports = mongoose.model('Creation', CreationSchema);

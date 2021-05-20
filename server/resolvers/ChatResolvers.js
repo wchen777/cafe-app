@@ -45,6 +45,7 @@ module.exports = {
         },
         testQuery: async (parent, _ , { db, tokenValid }) => {
             try {
+                
                 if(!tokenValid) {
                     console.log("did not pass authentication");
                     throw new AuthenticationError;
@@ -73,6 +74,7 @@ module.exports = {
     Mutation: {
         sendMessage: async (parent, { to, from, content }, { db, tokenValid }) => {
             try {
+
                 if(!tokenValid) {
                     throw new AuthenticationError;
                 }

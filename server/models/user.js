@@ -15,6 +15,7 @@ const UserSchema = new Schema({
     followers: [{ type: String, required: false }],
     liked: [{ type: String, required: false }],
     chats: [{ type: String, required: false }],
+    pic: { type: String, required: false },
     bio: { type: String, required: false },
     permissions: { type: String, required: true, enum: ['Admin', 'User', 'Creator'] },
 });
