@@ -67,7 +67,7 @@ module.exports = {
                 }
 
                 const filter = { username: data.username };
-                const update = _.omit(filter, 'username')
+                const update = _.omit(data, 'username')
 
                 console.log("update info", update)
 
@@ -82,7 +82,7 @@ module.exports = {
                 // throw err
             }
         },
-        followUser: async (_, data, { tokenValid }) => {
+        followHandler: async (_, { usernameSelf, usernameFollowed, isFollow }, { tokenValid }) => {
             try {
 
                 // auth check
@@ -90,17 +90,35 @@ module.exports = {
                     throw new AuthenticationError;
                 }
 
-                const filter = { username: data.username };
-                const update = _.omit(filter, 'username')
+                const selfFilter = { username: usernameSelf }
+                const followedFilter = { username: usernameFollowed }
 
-                console.log("update info", update)
+                // updating the followed or following list depending on the user
 
-                // update information is everything that is passed into data except the username
-                const updatedUser = await User.findOneAndUpdate(filter, update, {
+                // if following (not unfollowing, selfUser does not already follows the followedUser)
+                // then push the followed to the following list, 
+                // if unfollowing, pull
+                const selfUpdate =
+                    isFollow ?
+                        { $push: { following: usernameFollowed } } :
+                        { $pull: { following: usernameFollowed } }
+
+                // likewise with followed acc except with the followers list
+                const followedUpdate =
+                    isFollow ?
+                        { $push: { followers: usernameSelf } } :
+                        { $pull: { followers: usernameSelf } }
+
+                const selfUser = await User.findOneAndUpdate(selfFilter, selfUpdate, {
                     returnOriginal: false
                 })
 
-                return updatedUser
+                const selfUser = await User.findOneAndUpdate(followedFilter, followedUpdate, {
+                    returnOriginal: false
+                })
+
+
+                return selfUser
             } catch (err) {
                 console.log(err)
                 // throw err

@@ -61,9 +61,10 @@ module.exports = gql`
             twitter: String
             bio: String
         ): User!
-        followUser(
+        followHandler(
             usernameSelf: String!
             usernameFollowed: String!
+            isFollow: Boolean!
         ): User!
     }
     type Subscription {
