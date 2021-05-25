@@ -5,7 +5,6 @@ module.exports = {
     Query: {
         getUserByUsername: async (parent, { username }, { tokenValid }) => {
             try {
-                // TODO: register user logic with db model
 
                 // auth check
                 if (!tokenValid) {
@@ -13,7 +12,7 @@ module.exports = {
                 }
 
                 const user = await User.findOne({ username }).exec()
-                
+
                 return user
 
             } catch (err) {
@@ -25,12 +24,17 @@ module.exports = {
     Mutation: {
         registerUser: async (_, data, __) => {
             try {
-                // TODO: register user logic with db model
+
+                // look for the username first
                 User.find({ username: data.username })
                     .exec((err, users) => {
+
+                        // if user exists, throw a validation error
                         if (users.length > 0) {
                             throw new ValidationError;
                         }
+
+                        // create the user doc
                         const user = new User({
                             username: data.username,
                             first: data.first,
@@ -41,6 +45,8 @@ module.exports = {
                             twitter: data.twitter ?? "",
                             permissions: data.permissions,
                         });
+
+                        // save it
                         user.save(function (err) {
                             if (err) {
                                 throw err;
@@ -49,12 +55,35 @@ module.exports = {
                     })
             } catch (err) {
                 console.log(err)
-                // throw err
+                // throw err 
             }
         },
         editUserProfile: async (_, data, { tokenValid }) => {
             try {
-                // TODO: edit user info with db model
+
+                // auth check
+                if (!tokenValid) {
+                    throw new AuthenticationError;
+                }
+
+                const filter = { username: data.username };
+                const update = _.omit(filter, 'username')
+
+                console.log("update info", update)
+
+                // update information is everything that is passed into data except the username
+                const updatedUser = await User.findOneAndUpdate(filter, update, {
+                    returnOriginal: false
+                })
+
+                return updatedUser
+            } catch (err) {
+                console.log(err)
+                // throw err
+            }
+        },
+        followUser: async (_, data, { tokenValid }) => {
+            try {
 
                 // auth check
                 if (!tokenValid) {

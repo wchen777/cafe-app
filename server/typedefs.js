@@ -61,8 +61,12 @@ module.exports = gql`
             twitter: String
             bio: String
         ): User!
+        followUser(
+            usernameSelf: String!
+            usernameFollowed: String!
+        ): User!
     }
-    type Subscription{
+    type Subscription {
         newMessage(username: String!): Message!
     }
 `

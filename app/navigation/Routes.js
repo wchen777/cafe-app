@@ -15,9 +15,6 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 
 export default function Routes() {
 
-
-    // refactor this somewhere else
-
     const { user, setUser, setAuthHeader } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(true);
@@ -25,34 +22,36 @@ export default function Routes() {
 
     // Handle user state changes
     const onAuthStateChanged = (usr) => {
-
         setUser(usr);
-
-        // set auth header in context
-        if (usr) {
-             firebase.auth().currentUser.getIdToken(true)
-                .then((token) => {
-                    setAuthHeader(token)
-                })
-        }
 
         if (initializing) setInitializing(false);
 
         setLoading(false);
     }
 
+    // Handle token state changes
+    const onIdTokenChanged = (usr) => {
+        // set auth header in context
+        if (usr) {
+            firebase.auth().currentUser.getIdToken(true)
+            .then((token) => {
+                setAuthHeader(token)
+            })
+        }
+    }
+
+
     useEffect(() => {
-        const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
+        changeScreenOrientation();
+        const subscriberAuth = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+        const subscriberToken = firebase.auth().onIdTokenChanged(onIdTokenChanged);
+
+        return {subscriberAuth, subscriberToken }; // unsubscribe on unmount
     }, []);
 
     async function changeScreenOrientation() {
         await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     }
-
-    useEffect(() => {
-        changeScreenOrientation();
-    }, [])
 
 
     // splash/loading screen
