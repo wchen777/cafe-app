@@ -50,7 +50,7 @@ module.exports = gql`
             ig: String
             portfolio: String 
             twitter: String
-            permissions: String!
+            permissions: String
         ): User!
         editUserProfile(
             username: String!

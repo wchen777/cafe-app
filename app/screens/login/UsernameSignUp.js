@@ -1,19 +1,51 @@
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native';
+import { gql, useMutation } from '@apollo/client'
 
 import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
 import { registration } from '../../api/firebase/FirebaseAuth'
 
+const REGISTRATION = gql`
+    mutation registerUser(
+            $username: String!
+            $first: String!
+            $last: String!
+            $email: String!
+            $ig: String
+            $portfolio: String 
+            $twitter: String
+            $permissions: String){
+        registerUser(             
+                username: $username
+                first: $first
+                last: $last
+                email: $email
+                ig: $ig
+                portfolio: $portfolio
+                twitter: $twitter
+                permissions: $permissions
+            ){
+                username
+                id
+                first
+                last
+                email
+        }
+    }
+`
 
 export default function UsernameSignUp({ navigation, route }) {
 
     const [authData, setAuthData] = useState(route.params)
 
+    const [registerUserResolver, { data }] = useMutation(REGISTRATION);
+
 
     const onSignUp = () => {
         registration(authData)
+        registerUserResolver({variables: authData})
     }
 
     return (
