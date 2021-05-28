@@ -1,13 +1,17 @@
 const chatResolvers = require('./ChatResolvers')
+const userResolvers = require('./UserResolvers')
 
 module.exports = {
     Query: {
-        ...chatResolvers.Query
+        ...chatResolvers.Query,
+        ...userResolvers.Query
     },
     Mutation: {
-        ...chatResolvers.Mutation
+        ...chatResolvers.Mutation,
+        ...userResolvers.Mutation
     },
     Subscription: {
-        ...chatResolvers.Subscription
+        ...chatResolvers.Subscription,
+        ...userResolvers.Subscription,
     }
 }

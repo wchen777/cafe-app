@@ -3,7 +3,7 @@ const { gql } = require('apollo-server')
 module.exports = gql`
     type User {
         username: String!
-        id: String!
+        id: String
         first: String!
         last: String!
         email: String!
@@ -51,7 +51,7 @@ module.exports = gql`
             portfolio: String 
             twitter: String
             permissions: String
-        ): User!
+        ): User
         editUserProfile(
             username: String!
             first: String

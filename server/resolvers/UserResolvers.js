@@ -24,15 +24,22 @@ module.exports = {
     Mutation: {
         registerUser: async (_, data, __) => {
             try {
-
+                const filter = { $or: [ { username: data.username }, { email: data.email }]}
                 // look for the username first
-                User.find({ username: data.username })
+                const returnedUser = await User.find(filter)
                     .exec((err, users) => {
 
                         // if user exists, throw a validation error
                         if (users.length > 0) {
+                            console.log("dupe user")
+                            // TODO: FIX THIS VALIDATION ERROR
                             throw new ValidationError;
                         }
+
+                        const ig = data.ig ? data.ig : ""
+                        const portfolio = data.portfolio ? data.portfolio : ""
+                        const twitter = data.twitter ? data.twitter : ""
+                        const permissions = data.permissions ? data.permissions : "User"
 
                         // create the user doc
                         const user = new User({
@@ -40,10 +47,12 @@ module.exports = {
                             first: data.first,
                             last: data.last,
                             email: data.email,
-                            ig: data.ig ?? "",
-                            portfolio: data.portfolio ?? "",
-                            twitter: data.twitter ?? "",
-                            permissions: data.permissions,
+                            ig: ig,
+                            portfolio: portfolio,
+                            twitter: twitter,
+                            permissions: permissions,
+                            bio: "",
+                            pic: ""
                         });
 
                         // save it
@@ -52,10 +61,16 @@ module.exports = {
                                 throw err;
                             }
                         });
+
+                        // send back user object
+                        return user
                     })
+
+                return returnedUser
+
             } catch (err) {
                 console.log(err)
-                // throw err 
+                // TODO: GRAPHQL ERRORS FOR GRACEFUL HANDLING
             }
         },
         editUserProfile: async (_, data, { tokenValid }) => {
@@ -70,6 +85,8 @@ module.exports = {
                 const update = _.omit(data, 'username')
 
                 console.log("update info", update)
+
+                // TODO: ERROR CHECKING + VALIDATION
 
                 // update information is everything that is passed into data except the username
                 const updatedUser = await User.findOneAndUpdate(filter, update, {
@@ -113,7 +130,7 @@ module.exports = {
                     returnOriginal: false
                 })
 
-                const selfUser = await User.findOneAndUpdate(followedFilter, followedUpdate, {
+                const otherUser = await User.findOneAndUpdate(followedFilter, followedUpdate, {
                     returnOriginal: false
                 })
 

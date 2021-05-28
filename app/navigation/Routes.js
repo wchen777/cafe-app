@@ -44,10 +44,18 @@ export default function Routes() {
     useEffect(() => {
         changeScreenOrientation();
         const subscriberAuth = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+
+        return subscriberAuth; // unsubscribe on unmount
+    }, []);
+
+    useEffect(() => {
         const subscriberToken = firebase.auth().onIdTokenChanged(onIdTokenChanged);
 
-        return {subscriberAuth, subscriberToken }; // unsubscribe on unmount
-    }, []);
+        return subscriberToken; // unsubscribe on unmount
+
+    }, [])
+
+
 
     async function changeScreenOrientation() {
         await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);

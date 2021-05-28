@@ -32,6 +32,16 @@ const REGISTRATION = gql`
                 first
                 last
                 email
+                ig
+                portfolio
+                twitter
+                following
+                followers
+                liked
+                chats
+                bio 
+                pic 
+                permissions
         }
     }
 `
@@ -44,8 +54,12 @@ export default function UsernameSignUp({ navigation, route }) {
 
 
     const onSignUp = () => {
-        registration(authData)
         registerUserResolver({variables: authData})
+        console.log(authData)
+        console.log("post resolver")
+
+        registration(authData)
+        console.log("asdf here")
     }
 
     return (

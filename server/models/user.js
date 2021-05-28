@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
     username: { type: String, required: true },
-    id: { type: String, required: true },
+    id: { type: String, required: false },
     first: { type: String, required: true },
     last: { type: String, required: true },
     email: { type: String, required: true },
@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     chats: [{ type: String, required: false }],
     pic: { type: String, required: false },
     bio: { type: String, required: false },
-    permissions: { type: String, required: true, enum: ['Admin', 'User', 'Creator'] },
+    permissions: { type: String, required: false, enum: ['Admin', 'User', 'Creator'] },
 });
 
 // Compile model from schema
