@@ -50,16 +50,24 @@ export default function UsernameSignUp({ navigation, route }) {
 
     const [authData, setAuthData] = useState(route.params)
 
-    const [registerUserResolver, { data }] = useMutation(REGISTRATION);
+    // use gql mutation with errors
+    const [registerUserResolver, { data }] = useMutation(REGISTRATION, {
+        onError(err){
+            console.log(err.graphQLErrors[0].extensions.errors)
+        }
+    });
 
 
     const onSignUp = () => {
         registerUserResolver({variables: authData})
         console.log(authData)
         console.log("post resolver")
+        console.log(data)
 
         registration(authData)
         console.log("asdf here")
+
+
     }
 
     return (
