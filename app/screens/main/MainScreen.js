@@ -13,6 +13,30 @@ import ExploreView from '../../views/ExploreView';
 
 import { AuthContext } from '../../context/AuthContext'
 
+import { gql, useQuery, useLazyQuery } from '@apollo/client'
+
+const GET_USER_INFO = gql`
+    query getUserByUsername($email: String!){
+        getUserByUsername(email: $email){
+                username
+                id
+                first
+                last
+                email
+                ig
+                portfolio
+                twitter
+                following
+                followers
+                liked
+                chats
+                bio 
+                pic 
+                permissions
+        } 
+    }
+`
+
 
 export default function MainScreen({ navigation }) {
 
@@ -28,6 +52,23 @@ export default function MainScreen({ navigation }) {
 
 
     let currentUserUID = firebase.auth().currentUser.uid;
+    let currentUserEmail = firebase.auth().currentUser.email;
+
+    const emailVars = { email: currentUserEmail }
+
+
+    // TODO: GET POST DATA ONCOMPLETED, CREATE NEW FUNCTION
+    const { error, loading } = useQuery(GET_STUDENTS, {
+        variables: emailVars,
+        onCompleted: data => setUserData(dataObj),
+        onError: err => console.log(err)
+    })
+
+    const [queryUserInfo, { loading, data }] = useLazyQuery(GET_USER_INFO,
+        {
+            variables: emailVars,
+        });
+
 
     async function getUserInfo() {
         let doc = await firebase
@@ -46,34 +87,34 @@ export default function MainScreen({ navigation }) {
     }
 
     async function getPostData(following) {
-      let doc = await firebase
-          .firestore()
-          .collection('posts')
-          .where("username", "in", userData.following ?? following)
-          .get();
-
-      let dataObj = doc.docs.map(doc => doc.data());
-
-      setAllPosts(dataObj)
-  }
-
-    async function getUsernames() {
         let doc = await firebase
             .firestore()
-            .collection('users')
+            .collection('posts')
+            .where("username", "in", userData.following ?? following)
             .get();
 
         let dataObj = doc.docs.map(doc => doc.data());
-        setUsernames(dataObj.map(user => user.username));
+
+        setAllPosts(dataObj)
     }
+
+    // async function getUsernames() {
+    //     let doc = await firebase
+    //         .firestore()
+    //         .collection('users')
+    //         .get();
+
+    //     let dataObj = doc.docs.map(doc => doc.data());
+    //     setUsernames(dataObj.map(user => user.username));
+    // }
 
     useEffect(() => {
         getUserInfo()
     }, [])
 
-    useEffect(() => {
-        getUsernames();
-    }, [])
+    // useEffect(() => {
+    //     getUsernames();
+    // }, [])
 
 
     return (
@@ -87,7 +128,8 @@ export default function MainScreen({ navigation }) {
                             allPosts={allPosts}
                             setAllPosts={setAllPosts}
                             getUserInfo={getUserInfo}
-                            />
+                            queryUserInfo={queryUserInfo}
+                        />
                     </View>
                 }
 

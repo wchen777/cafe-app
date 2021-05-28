@@ -55,7 +55,7 @@ export default function ChatView({ navigation, usernames }) {
                 />
             </View>
 
-            <ChatList navigation={navigation}/>
+            {/* <ChatList navigation={navigation}/> */}
         </View>
     )
 }

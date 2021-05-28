@@ -19,7 +19,7 @@ const wait = timeout => {
     });
 };
 
-export default function HomeView({ navigation, allPosts, setAllPosts }) {
+export default function HomeView({ navigation, allPosts, setAllPosts, queryUserInfo }) {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -27,8 +27,11 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
+
+        // THIS IS PASSED IN AS A GQL USELAZYQUERY
+        queryUserInfo()
+        
         getPostData()
-        getUserInfo()
         wait(1000).then(() => setRefreshing(false));
     }, []);
 
@@ -72,8 +75,8 @@ export default function HomeView({ navigation, allPosts, setAllPosts }) {
         setAllPosts(dataObj);
     }
 
-    useEffect(() => {
-    }, [])
+    // useEffect(() => {
+    // }, [])
 
     let count = 1;
     allPosts.sort((p1, p2) => (p1.time < p2.time) ? 1 : -1);

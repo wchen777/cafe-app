@@ -11,88 +11,88 @@ import TextCard from '../components/cards/TextCard';
 
 export default function ExploreView({ navigation, allPosts, setAllPosts, selectedCategory, setSelectedCategory }) {
 
-  const orange = '#FFB36C';
-  const black = '#000000';
+//   const orange = '#FFB36C';
+//   const black = '#000000';
 
-  const [filteredPosts, setFilteredPosts] = useState([])
-
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
-      headerBackImage: () => <HeaderBack />,
-      headerRight: ""
-    });
-  })
-
-  const filterCategory = (category) => {
-    setSelectedCategory(category)
-  }
-
-  const setColor = (category) => {
-    if (selectedCategory === category) {
-      return orange;
-    } else {
-      return black;
-    }
-  }
+//   const [filteredPosts, setFilteredPosts] = useState([])
 
 
-  async function getPosts() {
-    let doc;
-    if (selectedCategory == 'Other') {
-      let filterArray = ["Other (Text)", "Other (Image)", "Other (Audio)"];
-      doc = await firebase 
-        .firestore()
-        .collection('posts')
-        .where("category", "in", filterArray)
-        .get()
-    } else {
-      doc = await firebase
-      .firestore()
-      .collection('posts')
-      .where("category", "==", selectedCategory)
-      .get();
-    }
+//   useEffect(() => {
+//     navigation.setOptions({
+//       headerShown: true, headerTitle: <HeaderBarLogo />, headerBackTitleVisible: false,
+//       headerBackImage: () => <HeaderBack />,
+//       headerRight: ""
+//     });
+//   })
 
-    let dataObj = doc.docs.map(doc => doc.data());
-    setFilteredPosts(dataObj);
-  }
+//   const filterCategory = (category) => {
+//     setSelectedCategory(category)
+//   }
 
-  useEffect(() => {
-    getPosts()
-  }, [selectedCategory])
+//   const setColor = (category) => {
+//     if (selectedCategory === category) {
+//       return orange;
+//     } else {
+//       return black;
+//     }
+//   }
 
-  let count = 1;
-  const postsComponents =
-    filteredPosts.map((p) => {
-      switch (p.category) {
-        case 'Painting':
-          return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
-        case 'Digital Art':
-          return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
-        case 'Design':
-          return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
-        case 'Photography':
-          return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
-        case 'Music':
-          return (<AudioCard navigation={navigation} audioPost={p} key={count++} />);
-        case 'Podcast':
-          return (<AudioCard navigation={navigation} audioPost={p} key={count++} />);
-        case 'Writing':
-          return (<TextCard navigation={navigation} textPost={p} key={count++} />);
-        case 'Commentary':
-          return (<TextCard navigation={navigation} textPost={p} key={count++} />);
-        case 'Other (Text)':
-          return (<TextCard navigation={navigation} textPost={p} key={count++} />);
-        case 'Other (Image)':
-          return (<ImageCard navigation={navigation} textPost={p} key={count++} />);
-        case 'Other (Audio)':
-          return (<AudioCard navigation={navigation} audioPost={p} key={count++} />);
-        default:
-          return
-      }
-    })
+
+//   async function getPosts() {
+//     let doc;
+//     if (selectedCategory == 'Other') {
+//       let filterArray = ["Other (Text)", "Other (Image)", "Other (Audio)"];
+//       doc = await firebase 
+//         .firestore()
+//         .collection('posts')
+//         .where("category", "in", filterArray)
+//         .get()
+//     } else {
+//       doc = await firebase
+//       .firestore()
+//       .collection('posts')
+//       .where("category", "==", selectedCategory)
+//       .get();
+//     }
+
+//     let dataObj = doc.docs.map(doc => doc.data());
+//     setFilteredPosts(dataObj);
+//   }
+
+//   useEffect(() => {
+//     getPosts()
+//   }, [selectedCategory])
+
+//   let count = 1;
+//   const postsComponents =
+//     filteredPosts.map((p) => {
+//       switch (p.category) {
+//         case 'Painting':
+//           return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
+//         case 'Digital Art':
+//           return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
+//         case 'Design':
+//           return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
+//         case 'Photography':
+//           return (<ImageCard navigation={navigation} imagePost={p} key={count++} />);
+//         case 'Music':
+//           return (<AudioCard navigation={navigation} audioPost={p} key={count++} />);
+//         case 'Podcast':
+//           return (<AudioCard navigation={navigation} audioPost={p} key={count++} />);
+//         case 'Writing':
+//           return (<TextCard navigation={navigation} textPost={p} key={count++} />);
+//         case 'Commentary':
+//           return (<TextCard navigation={navigation} textPost={p} key={count++} />);
+//         case 'Other (Text)':
+//           return (<TextCard navigation={navigation} textPost={p} key={count++} />);
+//         case 'Other (Image)':
+//           return (<ImageCard navigation={navigation} textPost={p} key={count++} />);
+//         case 'Other (Audio)':
+//           return (<AudioCard navigation={navigation} audioPost={p} key={count++} />);
+//         default:
+//           return
+//       }
+//     })
 
 
   /*     let data = [{
@@ -103,7 +103,7 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
 
   return (
     <View style={{ flexDirection: 'column', marginBottom: 0, paddingBottom: 0 }}>
-      <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
+      {/* <ScrollView style={{ marginBottom: 80, paddingTop: 15 }}>
         <View style={{ flexDirection: 'row', marginTop: 10 }}>
           <ScrollView horizontal={true} indicatorStyle='white'>
             <Button
@@ -226,7 +226,7 @@ export default function ExploreView({ navigation, allPosts, setAllPosts, selecte
         </View>
 
 
-      </ScrollView>
+      </ScrollView> */}
     </View>
 
 

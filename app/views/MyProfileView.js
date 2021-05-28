@@ -34,26 +34,26 @@ export default function MyProfileView({ navigation }) {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        queryPostsUsername(userData.username);
+        // queryPostsUsername(userData.username);
         wait(1000).then(() => setRefreshing(false));
 
     }, []);
 
-    async function queryPostsUsername(username) {
-        try {
-            let doc = await firebase
-                .firestore()
-                .collection("posts")
-                .where("username", "==", username)
-                .get()
+    // async function queryPostsUsername(username) {
+    //     try {
+    //         let doc = await firebase
+    //             .firestore()
+    //             .collection("posts")
+    //             .where("username", "==", username)
+    //             .get()
 
-            let d = doc.docs.map(doc => doc.data());
-            setUserPosts(d)
+    //         let d = doc.docs.map(doc => doc.data());
+    //         setUserPosts(d)
 
-        } catch (err) {
-            console.log(err.message);
-        }
-    }
+    //     } catch (err) {
+    //         console.log(err.message);
+    //     }
+    // }
 
 
     useEffect(() => {
@@ -71,9 +71,9 @@ export default function MyProfileView({ navigation }) {
         });
     }, [navigation])
 
-    useEffect(() => {
-        queryPostsUsername(userData.username)
-    }, [])
+    // useEffect(() => {
+    //     queryPostsUsername(userData.username)
+    // }, [])
 
 
     const getInitials = () => {

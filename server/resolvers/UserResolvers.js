@@ -20,6 +20,23 @@ module.exports = {
                 // throw err
             }
         },
+        getUserByEmail: async (parent, { email }, { tokenValid }) => {
+            try {
+
+                // auth check
+                if (!tokenValid) {
+                    throw new AuthenticationError;
+                }
+
+                const user = await User.findOne({ email }).exec()
+
+                return user
+
+            } catch (err) {
+                console.log(err)
+                // throw err
+            }
+        },
     },
     Mutation: {
         registerUser: async (_, data, __) => {
