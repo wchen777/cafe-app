@@ -62,6 +62,7 @@ module.exports = gql`
             ig: String
             portfolio: String
             twitter: String
+            pic: String
             bio: String
         ): User!
         followHandler(

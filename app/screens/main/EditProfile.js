@@ -11,17 +11,71 @@ import { signOut } from '../../api/firebase/FirebaseAuth'
 import { ScrollView } from 'react-native-gesture-handler';
 import { AuthContext } from '../../context/AuthContext'
 import { updatePic } from '../../api/firebase/FirebaseAuth'
+import { gql, useMutation } from '@apollo/client'
 
+const EDIT_PROFILE = gql`
+    mutation editUserProfile(
+            $username: String!
+            $first: String
+            $last: String
+            $ig: String
+            $portfolio: String 
+            $twitter: String
+            $bio: String
+            $pic: String){
+        editUserProfile(             
+                username: $username
+                first: $first
+                last: $last
+                ig: $ig
+                portfolio: $portfolio
+                twitter: $twitter
+                bio: $bio
+                pic: $pic
+            ){
+                username
+                id
+                first
+                last
+                email
+                ig
+                portfolio
+                twitter
+                following
+                followers
+                liked
+                chats
+                bio 
+                pic 
+                permissions
+        }
+    }
+`
 
 export default function EditProfile({ navigation }) {
     const lightOrange = '#ffdfc2'
-    const orange = '#FFB36C'
+    const orange = '#f79a43'
 
-    const { userData, setUserData } = useContext(AuthContext)
+    const { userData, setUserData, authHeader } = useContext(AuthContext)
 
-    const [userDataC, setUserDataC] = useState(userData)
+    const [userDataC, setUserDataC] = useState({})
+    console.log("copy", userDataC)
 
     const [showSheet, setShowSheet] = useState(false);
+
+
+    const [editUserProfileResolver, { data }] = useMutation(EDIT_PROFILE, {
+        variables: {...userDataC, username: userData.username},
+        onError(err){
+            console.log(err.graphQLErrors[0].extensions.errors)
+        },
+        context: {
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": authHeader
+            }
+        }
+    });
 
     const getInitials = () => {
         return userData.first.toUpperCase().charAt(0) + userData.last.toUpperCase().charAt(0)
@@ -61,8 +115,8 @@ export default function EditProfile({ navigation }) {
     }, []);
 
     const editProfile = () => {
-        updateProfile(userDataC);
-        setUserData(userDataC)
+        editUserProfileResolver()
+        setUserData({...userData, ...userDataC})
         navigation.goBack()
     }
 
@@ -112,7 +166,7 @@ export default function EditProfile({ navigation }) {
 
 
 
-                            <Text text70 dark10 marginB-15 marginT-20>
+                            <Text text70 dark10 marginB-6 marginT-12>
                                 First Name
                             </Text>
                             <TextInput
@@ -124,7 +178,7 @@ export default function EditProfile({ navigation }) {
                                 style={styles.input}
                             />
 
-                            <Text text70 dark10 marginB-15 marginT-20>
+                            <Text text70 dark10 marginB-6 marginT-12>
                                 Last Name
                             </Text>
                             <TextInput
@@ -136,7 +190,7 @@ export default function EditProfile({ navigation }) {
                                 style={styles.input}
                             />
 
-                            <Text text70 dark10 marginB-15 marginT-20>
+                            <Text text70 dark10 marginB-6 marginT-12>
                                 Portfolio URL
                             </Text>
                             <TextInput
@@ -147,7 +201,7 @@ export default function EditProfile({ navigation }) {
                                 onChangeText={portfolio => setUserDataC({ ...userDataC, portfolio: portfolio })}
                                 style={styles.input}
                             />
-                            <Text text70 dark10 marginB-15 marginT-20>
+                            <Text text70 dark10 marginB-6 marginT-12>
                                 Instagram
                             </Text>
                             <TextInput
@@ -159,7 +213,7 @@ export default function EditProfile({ navigation }) {
                                 style={styles.input}
                             />
 
-                            <Text text70 dark10 marginB-15 marginT-20>
+                            <Text text70 dark10 marginB-6 marginT-12>
                                 Twitter
                             </Text>
                             <TextInput
@@ -175,18 +229,22 @@ export default function EditProfile({ navigation }) {
 
 
                         <Button
-                            backgroundColor="#FFB36C"
                             label="Save Edits"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 30 }}
+                            backgroundColor={orange}
+                            borderRadius={10}
+                            labelStyle={{ fontWeight: '600', fontSize: 17 }}
+                            style={{ width: 200, marginTop: 30 }}
                             enableShadow
                             onPress={() => editProfile()}
                         />
                         <Button
-                            backgroundColor="#FFB36C"
+                            backgroundColor={'rgba(52, 52, 52, 0.0)'}
+                            outlineColor={orange}
+                            borderRadius={10}
+                            outlineWidth={1}
                             label="Sign Out"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 20 }}
+                            labelStyle={{ fontWeight: '600', fontSize: 17, color: orange }}
+                            style={{ width: 200, marginTop: 20 }}
                             onPress={() => signOut()}
                             enableShadow
                         />
@@ -210,11 +268,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center'
     }, input: {
-        height: 40,
-        width: 220,
+        height: 50,
+        width: 250,
         borderWidth: 1,
         borderColor: Colors.dark60,
-        borderRadius: 20,
-        paddingLeft: 10
+        borderRadius: 10,
+        paddingLeft: 10,
     }
 });

@@ -32,6 +32,8 @@ export default function MyProfileView({ navigation }) {
 
     const { userData, setUserData } = useContext(AuthContext)
 
+    console.log("home user data", userData)
+    
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         // queryPostsUsername(userData.username);

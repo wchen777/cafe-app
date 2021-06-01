@@ -81,8 +81,12 @@ export default function MainScreen({ navigation }) {
                 }
             }
         });
+    const queryRefresh = () => {
+        queryUserInfo()
+        setUserData(data.getUserByEmail)
+    }
 
-    console.log(data)
+   
 
     async function getUserInfo() {
         let doc = await firebase
@@ -141,7 +145,7 @@ export default function MainScreen({ navigation }) {
                             navigation={navigation}
                             allPosts={allPosts}
                             setAllPosts={setAllPosts}
-                            queryUserInfo={queryUserInfo}
+                            queryUserInfo={queryRefresh}
                         />
                     </View>
                 }

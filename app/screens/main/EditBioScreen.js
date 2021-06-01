@@ -9,16 +9,71 @@ import "firebase/firestore";
 import { updateProfile } from '../../api/firebase/FirebaseAuth';
 
 import { AuthContext } from '../../context/AuthContext'
+import { gql, useMutation } from '@apollo/client'
+
+
+const EDIT_PROFILE = gql`
+    mutation editUserProfile(
+            $username: String!
+            $first: String
+            $last: String
+            $ig: String
+            $portfolio: String 
+            $twitter: String
+            $bio: String
+            $pic: String){
+        editUserProfile(             
+                username: $username
+                first: $first
+                last: $last
+                ig: $ig
+                portfolio: $portfolio
+                twitter: $twitter
+                bio: $bio
+                pic: $pic
+            ){
+                username
+                id
+                first
+                last
+                email
+                ig
+                portfolio
+                twitter
+                following
+                followers
+                liked
+                chats
+                bio 
+                pic 
+                permissions
+        }
+    }
+`
 
 export default function EditBio({ route, navigation }) {
-    const lightOrange = '#ffdfc2'
-
-    const { userData, setUserData } = useContext(AuthContext)
+    const orange = '#f79a43'
 
     const [userDataC, setUserDataC] = useState(userData)
 
+    const { userData, setUserData, authHeader } = useContext(AuthContext)
+
+    const [editUserProfileResolver, { data }] = useMutation(EDIT_PROFILE, {
+        variables: userDataC,
+        onError(err){
+            console.log(err.graphQLErrors[0].extensions.errors)
+        },
+        context: {
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": authHeader
+            }
+        }
+    });
+
     const editBio = () => {
-        updateProfile(userDataC);
+        // updateProfile(userDataC);
+        editUserProfileResolver(userDataC)
         setUserData(userDataC)
         navigation.goBack()
     }
@@ -43,10 +98,11 @@ export default function EditBio({ route, navigation }) {
 
 
                         <Button
-                            backgroundColor="#FFB36C"
+                            backgroundColor={orange}
+                            borderRadius={10}
+                            labelStyle={{ fontWeight: '600', fontSize: 17 }}
+                            style={{ width: 200, marginTop: 30 }}
                             label="Save Bio"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 30 }}
                             enableShadow
                             onPress={() => editBio()}
                         />

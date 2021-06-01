@@ -92,22 +92,20 @@ module.exports = {
         },
         editUserProfile: async (_, data, { tokenValid }) => {
             try {
-
+                console.log("hit", data)
                 // auth check
                 if (!tokenValid) {
                     throw new AuthenticationError;
                 }
 
                 const filter = { username: data.username };
-                const update = _.omit(data, 'username')
-
-                console.log("update info", update)
 
                 // TODO: ERROR CHECKING + VALIDATION
 
                 // update information is everything that is passed into data except the username
-                const updatedUser = await User.findOneAndUpdate(filter, update, {
-                    returnOriginal: false
+                const updatedUser = await User.findOneAndUpdate(filter, data, {
+                    returnOriginal: false,
+                    useFindAndModify: false
                 })
 
                 return updatedUser
