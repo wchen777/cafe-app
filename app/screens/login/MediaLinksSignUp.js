@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
 
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
-import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
+import { Keyboard, TouchableWithoutFeedback, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { View, Image, Text, TextField, TextInput, TextArea, Button, Colors } from 'react-native-ui-lib';
 
 
 export default function MediaLinksSignUp({ navigation, route }) {
 
     const [authData, setAuthData] = useState(route.params)
 
+    const orange = '#f79a43'
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -24,7 +24,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     >
                         <TextArea placeholder="ig-username" autoCapitalize="none"
                             autoCorrect={false}
-                            onChangeText={ig => setAuthData({ ...authData, ig: ig })}/>
+                            onChangeText={ig => setAuthData({ ...authData, ig: ig })} />
                     </View>
                     <Text text70 dark10 marginB-15 marginT-20>
                         Twitter
@@ -32,10 +32,12 @@ export default function MediaLinksSignUp({ navigation, route }) {
 
 
                     <View
-                        style={styles.input}
                     >
-                        <TextArea placeholder="twitter-handle" autoCapitalize="none"
+                        <TextArea
+                            placeholder="twitter-handle"
+                            autoCapitalize="none"
                             autoCorrect={false}
+                            style={styles.input}
                             onChangeText={twitter => setAuthData({ ...authData, twitter: twitter })} />
                     </View>
 
@@ -46,9 +48,11 @@ export default function MediaLinksSignUp({ navigation, route }) {
                     <View
                         style={styles.input}
                     >
-                        <TextArea placeholder="my-portfolio.com" autoCapitalize="none"
-                            autoCorrect={false} 
-                            onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })}/>
+                        <TextInput
+                            placeholder="my-portfolio.com"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })} />
                     </View>
 
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
