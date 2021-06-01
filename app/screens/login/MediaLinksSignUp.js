@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { Keyboard, TouchableWithoutFeedback, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import { View, Image, Text, TextField, TextInput, TextArea, Button, Colors } from 'react-native-ui-lib';
+import { Keyboard, TouchableWithoutFeedback, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native'
+import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
 
 
 export default function MediaLinksSignUp({ navigation, route }) {
@@ -19,11 +19,11 @@ export default function MediaLinksSignUp({ navigation, route }) {
                         Instagram
                 </Text>
 
-                    <View
-                        style={styles.input}
-                    >
-                        <TextArea placeholder="ig-username" autoCapitalize="none"
+                    <View>
+                        <TextInput 
+                            placeholder="ig-username" autoCapitalize="none"
                             autoCorrect={false}
+                            style={styles.inputStyle}
                             onChangeText={ig => setAuthData({ ...authData, ig: ig })} />
                     </View>
                     <Text text70 dark10 marginB-15 marginT-20>
@@ -31,13 +31,12 @@ export default function MediaLinksSignUp({ navigation, route }) {
                 </Text>
 
 
-                    <View
-                    >
-                        <TextArea
+                    <View>
+                        <TextInput
                             placeholder="twitter-handle"
                             autoCapitalize="none"
                             autoCorrect={false}
-                            style={styles.input}
+                            style={styles.inputStyle}
                             onChangeText={twitter => setAuthData({ ...authData, twitter: twitter })} />
                     </View>
 
@@ -45,30 +44,33 @@ export default function MediaLinksSignUp({ navigation, route }) {
                         Portfolio URL
                 </Text>
 
-                    <View
-                        style={styles.input}
-                    >
+                    <View>
                         <TextInput
                             placeholder="my-portfolio.com"
                             autoCapitalize="none"
                             autoCorrect={false}
+                            style={styles.inputStyle}
                             onChangeText={portfolio => setAuthData({ ...authData, portfolio: portfolio })} />
                     </View>
 
-                    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} marginT-20>
                         <Button
-                            backgroundColor="#FFB36C"
+                            backgroundColor={orange}
                             label="Continue"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 170, marginTop: 30 }}
+                            borderRadius={10}
+                            labelStyle={{ fontWeight: '600', fontSize: 17 }}
+                            style={{ width: 200, marginTop: 30 }}
                             onPress={() => navigation.navigate("UsernameSignUp", authData)}
                             enableShadow
                         />
                         <Button
-                            backgroundColor="#FFB36C"
                             label="Back"
-                            labelStyle={{ fontWeight: '600', fontSize: 20 }}
-                            style={{ width: 145, marginTop: 20 }}
+                            backgroundColor="#FFFDFC"
+                            outlineColor={orange}
+                            borderRadius={10}
+                            outlineWidth={1}
+                            labelStyle={{ fontWeight: '600', fontSize: 17, color: orange }}
+                            style={{ width: 200, marginTop: 30 }}
                             onPress={() => navigation.goBack()}
                             enableShadow
                         />
@@ -81,12 +83,12 @@ export default function MediaLinksSignUp({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        width: 220,
+    inputStyle: {
+        height: 50,
+        width: 250,
         borderWidth: 1,
         borderColor: Colors.dark60,
-        borderRadius: 20,
-        paddingLeft: 10
+        borderRadius: 10,
+        paddingLeft: 10,
     },
 });
