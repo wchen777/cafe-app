@@ -68,7 +68,7 @@ export default function Landing({ navigation }) {
                             labelStyle={{ fontWeight: '600', fontSize: 17, color: orange }}
                             text30
                             borderRadius={10}
-                            style={{ width: 200, marginTop: 30, paddingTop: 0, paddingBottom: 0,  }}
+                            style={{ width: 200, marginTop: 20, paddingTop: 0, paddingBottom: 0,  }}
                             onPress={() => navigation.navigate("SignUp")}
                             enableShadow
                         />

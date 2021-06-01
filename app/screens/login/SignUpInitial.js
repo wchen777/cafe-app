@@ -116,7 +116,7 @@ export default function SignUpInitial({ navigation }) {
                                 outlineWidth={1}
                                 label="Back"
                                 labelStyle={{ fontWeight: '600', fontSize: 17, color: orange }}
-                                style={{ width: 200, marginTop: 30 }}
+                                style={{ width: 200, marginTop: 20 }}
                                 onPress={() => navigation.goBack()}
                                 enableShadow
                             />

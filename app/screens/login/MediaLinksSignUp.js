@@ -14,7 +14,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
                 <View style={{ flexDirection: 'column' }}>
-                    <Text text40 style={{ textAlign: 'center', fontSize: 30, marginTop: 70 }}>Media Links</Text>
+                    <Text text40 style={{ textAlign: 'center', fontSize: 30, marginTop: 120 }}>Media Links</Text>
                     <Text text70 dark10 marginB-15 marginT-30>
                         Instagram
                 </Text>
@@ -70,7 +70,7 @@ export default function MediaLinksSignUp({ navigation, route }) {
                             borderRadius={10}
                             outlineWidth={1}
                             labelStyle={{ fontWeight: '600', fontSize: 17, color: orange }}
-                            style={{ width: 200, marginTop: 30 }}
+                            style={{ width: 200, marginTop: 20 }}
                             onPress={() => navigation.goBack()}
                             enableShadow
                         />
