@@ -16,8 +16,8 @@ import { AuthContext } from '../../context/AuthContext'
 import { gql, useQuery, useLazyQuery } from '@apollo/client'
 
 const GET_USER_INFO = gql`
-    query getUserByUsername($email: String!){
-        getUserByUsername(email: $email){
+    query getUserByEmail($email: String!){
+        getUserByEmail(email: $email){
                 username
                 id
                 first
@@ -42,7 +42,7 @@ export default function MainScreen({ navigation }) {
 
     const [allPosts, setAllPosts] = useState([])
 
-    const { userData, setUserData } = useContext(AuthContext)
+    const { userData, setUserData, authHeader } = useContext(AuthContext)
 
     const [selectedPage, setSelectedPage] = useState('Home')
 
@@ -56,19 +56,33 @@ export default function MainScreen({ navigation }) {
 
     const emailVars = { email: currentUserEmail }
 
-
     // TODO: GET POST DATA ONCOMPLETED, CREATE NEW FUNCTION
-    const { error, loading } = useQuery(GET_STUDENTS, {
+    const { error, loadingQuery } = useQuery(GET_USER_INFO, {
         variables: emailVars,
-        onCompleted: data => setUserData(dataObj),
+        context: {
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": authHeader
+            }
+        },
+        onCompleted: data => {
+            setUserData(data.getUserByEmail)
+        },
         onError: err => console.log(err)
     })
 
-    const [queryUserInfo, { loading, data }] = useLazyQuery(GET_USER_INFO,
+    const [queryUserInfo, { loadingLazy, data }] = useLazyQuery(GET_USER_INFO,
         {
             variables: emailVars,
+            context: {
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": authHeader
+                }
+            }
         });
 
+    console.log(data)
 
     async function getUserInfo() {
         let doc = await firebase
@@ -108,9 +122,9 @@ export default function MainScreen({ navigation }) {
     //     setUsernames(dataObj.map(user => user.username));
     // }
 
-    useEffect(() => {
-        getUserInfo()
-    }, [])
+    // useEffect(() => {
+    //     getUserInfo()
+    // }, [])
 
     // useEffect(() => {
     //     getUsernames();
@@ -127,7 +141,6 @@ export default function MainScreen({ navigation }) {
                             navigation={navigation}
                             allPosts={allPosts}
                             setAllPosts={setAllPosts}
-                            getUserInfo={getUserInfo}
                             queryUserInfo={queryUserInfo}
                         />
                     </View>

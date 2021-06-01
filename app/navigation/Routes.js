@@ -20,10 +20,22 @@ export default function Routes() {
     const [loading, setLoading] = useState(true);
     const [initializing, setInitializing] = useState(true);
 
+    const setTokenHandler = () => {
+        firebase.auth().currentUser.getIdToken(true)
+            .then((token) => {
+                console.log("settoken", token)
+                setAuthHeader(token)
+            })
+    }
+
     // Handle user state changes
     const onAuthStateChanged = (usr) => {
         setUser(usr);
 
+        if (usr) {
+           setTokenHandler() 
+        }
+        
         if (initializing) setInitializing(false);
 
         setLoading(false);
@@ -33,10 +45,7 @@ export default function Routes() {
     const onIdTokenChanged = (usr) => {
         // set auth header in context
         if (usr) {
-            firebase.auth().currentUser.getIdToken(true)
-            .then((token) => {
-                setAuthHeader(token)
-            })
+            setTokenHandler()
         }
     }
 
@@ -67,7 +76,7 @@ export default function Routes() {
         return <SplashScreen />;
     }
 
-    
+
     return (
         <NavigationContainer>
 

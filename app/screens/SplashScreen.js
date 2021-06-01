@@ -1,12 +1,16 @@
 import React from 'react'
 import { Fontisto } from '@expo/vector-icons';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { View } from 'react-native-ui-lib';
 
 export default function SplashScreen() {
     return (
         <View style={styles.container} >
-            <Fontisto name="coffeescript" size={50} color="orange" />
+            <Image 
+                source={require('../assets/logo-small.png')} 
+                style={{ width: 65, height: 65 }}
+                />
+
         </View>
     )
 }

@@ -67,7 +67,6 @@ export default function UsernameSignUp({ navigation, route }) {
         registration(authData)
         console.log("asdf here")
 
-
     }
 
     return (

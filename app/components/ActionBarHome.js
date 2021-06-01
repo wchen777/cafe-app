@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default function ActionBarHome({ selectedPage, setSelectedPage, navigation }) {
-    const orange = '#FFB36C'
+    const orange = '#ffa126'
     const grey = '#d6d6d6'
 
     const setColor = (menu) => {

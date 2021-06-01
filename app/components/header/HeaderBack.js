@@ -4,10 +4,10 @@ import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 
 
-export default function HeaderBarLogo() {
+export default function HeaderBarBack() {
   return (
     <View style={styles.icon} >
-      <Ionicons name="ios-arrow-back" size={35} color="#FFB36C" />
+      <Ionicons name="ios-arrow-back" size={35} color="#F79517" />
     </View>
 
   )

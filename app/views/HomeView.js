@@ -31,7 +31,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts, queryUserI
         // THIS IS PASSED IN AS A GQL USELAZYQUERY
         queryUserInfo()
         
-        getPostData()
+        // getPostData()
         wait(1000).then(() => setRefreshing(false));
     }, []);
 
@@ -59,7 +59,7 @@ export default function HomeView({ navigation, allPosts, setAllPosts, queryUserI
             headerBackImage: () => <HeaderBack />,
             headerRight: () => <TouchableOpacity onPress={() => {
                 onRefresh()
-            }} ><Foundation name="refresh" size={30} color="#FFB36C" style={{ marginRight: 30 }} /></TouchableOpacity>
+            }} ><Foundation name="refresh" size={30} color="#ffa126" style={{ marginRight: 30 }} /></TouchableOpacity>
         });
     })
 

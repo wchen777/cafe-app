@@ -18,7 +18,7 @@ export default function Landing({ navigation }) {
             <View style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}>
                 <View style={{ flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 150 }}>
-                        <Image style={{ width: 120, height: 100 }} source={require('../../img/logo.jpg')} />
+                        <Image style={{ width: 150, height: 150 }} source={require('../../assets/logo-full.png')} />
                     </View>
                     <Text text70  dark10 marginB-15 marginT-50>
                         Email
