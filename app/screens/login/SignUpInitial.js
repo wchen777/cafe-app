@@ -8,25 +8,74 @@ export default function SignUpInitial({ navigation }) {
 
     const orange = '#f79a43'
 
-    const [initialAuth, setInitialAuth] = useState({})
+    const [firstMessage, setFirstMessage] = useState(<Text></Text>);
+    const [lastMessage, setLastMessage] = useState(<Text></Text>);
+    const [emailMessage, setEmailMessage] = useState(<Text></Text>)
+    const [passwordMessage, setPasswordMessage] = useState(<Text></Text>);
+    const [confirmPasswordMessage, setConfirmPasswordMessage] = useState(<Text></Text>);
+    const [initialAuth, setInitialAuth] = useState(<Text></Text>);
+
 
     const initialValidation = () => {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let error = false;
+        if (!initialAuth.first) {
+            setFirstMessage(<Text style={{ color: 'red' }}>Please Enter A First Name</Text>);
+            error = true;
+        } 
+        else {
+            setFirstMessage(<Text></Text>);
+        }
 
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!initialAuth.last) {
+            setLastMessage(<Text style={{ color: 'red' }}>Please Enter A Last Name</Text>);
+            error = true;
+        }
+        else {
+            setLastMessage(<Text></Text>);
+        }
 
-        if (!initialAuth.first || !initialAuth.last
-            || !initialAuth.email || !initialAuth.password || !initialAuth.confirmPassword) {
-            Alert.alert('Please fill out all required fields.');
-        } else if (!re.test(initialAuth.email)) {
-            Alert.alert('Invalid email address.');
-        } else if (initialAuth.password.length < 6) {
-            Alert.alert('Password needs to be longer than 6 characters.');
-        } else if (initialAuth.password !== initialAuth.confirmPassword) {
-            Alert.alert('Passwords do not match.');
-        } else {
+        if (!initialAuth.email) {
+            setEmailMessage(<Text style={{ color: 'red' }}>Please Enter An Email Address</Text>);
+            error = true;
+        }
+        else if (!re.test(initialAuth.email)) {
+            setEmailMessage(<Text style={{ color: 'red' }}>Please Enter A Valid Email Address</Text>);
+            error = true;
+        }
+        else {
+            setEmailMessage(<Text></Text>);
+        }
+
+        if (!initialAuth.password) {
+            setPasswordMessage(<Text style={{ color: 'red' }}>Please Enter A Password</Text>);
+            error = true;
+        }
+        else if (initialAuth.password.length < 6) {
+            setPasswordMessage(<Text style={{ color: 'red' }}>Password Must Be At Least 6 Characters ALong</Text>);
+            error = true;
+        }
+        else {
+            setPasswordMessage(<Text></Text>);
+        }
+
+        if (!initialAuth.confirmPassword) {
+            setConfirmPasswordMessage(<Text style={{ color: 'red' }}>Please Confirm Your Password</Text>);
+            error = true;
+        }
+        else if (initialAuth.password !== initialAuth.confirmPassword) {
+            setConfirmPasswordMessage(<Text style={{ color: 'red' }}>Passwords Must Match</Text>);
+            error = true;
+        }
+        else {
+            setConfirmPasswordMessage(<Text></Text>);
+        }
+
+        if (!error) {
             navigation.navigate("MediaLinks", initialAuth);
         }
     }
+
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -42,6 +91,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-20 marginR-10>
                             <Text style={{ color: 'red' }}>*</Text> First Name
                     </Text>
+                        {firstMessage}
                         <TextInput
                             placeholder="First Name"
                             autoCorrect={false}
@@ -52,7 +102,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Last Name
                     </Text>
-
+                        {lastMessage}
                         <TextInput
                             placeholder="Last Name"
                             autoCorrect={false}
@@ -62,7 +112,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Email
                     </Text>
-
+                        {emailMessage}
                         <TextInput
                             placeholder="Email"
                             autoCorrect={false}
@@ -73,7 +123,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Password
                     </Text>
-
+                        {passwordMessage}
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
@@ -87,7 +137,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Retype Password
                     </Text>
-
+                        {confirmPasswordMessage}
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
