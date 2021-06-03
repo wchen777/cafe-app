@@ -54,10 +54,17 @@ export default function UsernameSignUp({ navigation, route }) {
 
     // use gql mutation with errors
     const [registerUserResolver, { data }] = useMutation(REGISTRATION, {
-        onError(err){
-            console.log(err.graphQLErrors[0].extensions.errors)
+        onError(err) {
+            console.log(err, "error");
         }
-    });
+    },
+        {
+            onCompleted(data) {
+                console.log(data, "completed");
+                registration(authData)
+            }
+        }
+    );
 
 
     const onSignUp = () => {
@@ -65,10 +72,7 @@ export default function UsernameSignUp({ navigation, route }) {
         console.log(authData)
         console.log("post resolver")
         console.log(data)
-
-        registration(authData)
         console.log("asdf here")
-
     }
 
     return (

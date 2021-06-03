@@ -8,13 +8,14 @@ export default function SignUpInitial({ navigation }) {
 
     const orange = '#f79a43'
 
+    // move all the errors into its own json object
+    const [errors, setErrors] = useState({});
     const [firstMessage, setFirstMessage] = useState(<Text></Text>);
     const [lastMessage, setLastMessage] = useState(<Text></Text>);
     const [emailMessage, setEmailMessage] = useState(<Text></Text>)
     const [passwordMessage, setPasswordMessage] = useState(<Text></Text>);
     const [confirmPasswordMessage, setConfirmPasswordMessage] = useState(<Text></Text>);
-    const [initialAuth, setInitialAuth] = useState(<Text></Text>);
-
+    const [initialAuth, setInitialAuth] = useState({});
 
     const initialValidation = () => {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

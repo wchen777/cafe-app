@@ -17,7 +17,7 @@ module.exports = {
 
             } catch (err) {
                 console.log(err)
-                // throw err
+                throw err
             }
         },
         getUserByEmail: async (parent, { email }, { tokenValid }) => {
@@ -34,7 +34,7 @@ module.exports = {
 
             } catch (err) {
                 console.log(err)
-                // throw err
+                throw err
             }
         },
     },
@@ -87,6 +87,7 @@ module.exports = {
 
             } catch (err) {
                 console.log(err)
+                throw err
                 // TODO: GRAPHQL ERRORS FOR GRACEFUL HANDLING
             }
         },
@@ -111,7 +112,7 @@ module.exports = {
                 return updatedUser
             } catch (err) {
                 console.log(err)
-                // throw err
+                throw err
             }
         },
         followHandler: async (_, { usernameSelf, usernameFollowed, isFollow }, { tokenValid }) => {
@@ -153,7 +154,7 @@ module.exports = {
                 return selfUser
             } catch (err) {
                 console.log(err)
-                // throw err
+                throw err
             }
         },
     }
