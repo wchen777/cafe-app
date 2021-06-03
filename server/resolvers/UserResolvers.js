@@ -41,52 +41,51 @@ module.exports = {
     Mutation: {
         registerUser: async (_, data, __) => {
             try {
-                const filter = { $or: [ { username: data.username }, { email: data.email }]}
+                console.log(data.username, "username")
+                const filter = { $or: [{ username: data.username }, { email: data.email }] }
                 // look for the username first
-                const returnedUser = await User.find(filter)
-                    .exec((err, users) => {
+                const dupeUser = await User.findOne(filter)
 
-                        // if user exists, throw a validation error
-                        if (users.length > 0) {
-                            console.log("dupe user")
-                            // TODO: FIX THIS VALIDATION ERROR
-                            throw new ValidationError;
-                        }
+                console.log(dupeUser)
+                
+                // if we have a duplciate user name or email
+                if (dupeUser) {
+                    console.log("dupe user")
+                    // TODO: FIX THIS VALIDATION ERROR
+                    throw new ValidationError("an account with the same username or email address already exists")
+                }
 
-                        const ig = data.ig ? data.ig : ""
-                        const portfolio = data.portfolio ? data.portfolio : ""
-                        const twitter = data.twitter ? data.twitter : ""
-                        const permissions = data.permissions ? data.permissions : "User"
+                const ig = data.ig ? data.ig : ""
+                const portfolio = data.portfolio ? data.portfolio : ""
+                const twitter = data.twitter ? data.twitter : ""
+                const permissions = data.permissions ? data.permissions : "User"
 
-                        // create the user doc
-                        const user = new User({
-                            username: data.username,
-                            first: data.first,
-                            last: data.last,
-                            email: data.email,
-                            ig: ig,
-                            portfolio: portfolio,
-                            twitter: twitter,
-                            permissions: permissions,
-                            bio: "",
-                            pic: ""
-                        });
+                // create the user doc
+                const user = new User({
+                    username: data.username,
+                    first: data.first,
+                    last: data.last,
+                    email: data.email,
+                    ig: ig,
+                    portfolio: portfolio,
+                    twitter: twitter,
+                    permissions: permissions,
+                    bio: "",
+                    pic: ""
+                });
 
-                        // save it
-                        user.save(function (err) {
-                            if (err) {
-                                throw err;
-                            }
-                        });
+                // save it
+                user.save(function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                });
 
-                        // send back user object
-                        return user
-                    })
-
-                return returnedUser
+                // send back user object
+                return user
 
             } catch (err) {
-                console.log(err)
+                console.log(err, "caught error")
                 throw err
                 // TODO: GRAPHQL ERRORS FOR GRACEFUL HANDLING
             }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet } from 'react-native';
 import { gql, useMutation } from '@apollo/client'
 
-import { Keyboard, TouchableWithoutFeedback, TextInput } from 'react-native'
+import { Keyboard, TouchableWithoutFeedback, TextInput, Alert } from 'react-native'
 import { View, Image, Text, TextField, Button, Colors } from 'react-native-ui-lib';
 
 import { registration } from '../../api/firebase/FirebaseAuth'
@@ -53,26 +53,26 @@ export default function UsernameSignUp({ navigation, route }) {
     const [authData, setAuthData] = useState(route.params)
 
     // use gql mutation with errors
-    const [registerUserResolver, { data }] = useMutation(REGISTRATION, {
-        onError(err) {
-            console.log(err, "error");
-        }
-    },
+    const [registerUserResolver, { data }] = useMutation(REGISTRATION,
         {
+            onError(err) {
+                console.log(err)
+                Alert.alert("Account registration failed.", "An account exists with the same username or email.");
+            },
             onCompleted(data) {
                 console.log(data, "completed");
                 registration(authData)
             }
-        }
+        },
     );
 
 
     const onSignUp = () => {
-        registerUserResolver({variables: authData})
+        registerUserResolver({ variables: authData })
         console.log(authData)
-        console.log("post resolver")
-        console.log(data)
-        console.log("asdf here")
+        // console.log("post resolver")
+        // console.log(data)
+        // console.log("asdf here")
     }
 
     return (

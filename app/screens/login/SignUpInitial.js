@@ -9,6 +9,9 @@ export default function SignUpInitial({ navigation }) {
     const orange = '#f79a43'
 
     // move all the errors into its own json object
+    // ALSO, try and get rid of extra empty space between label and text input when errors are not present
+    // right now, i removed the empty space but the errors need to have a line break
+
     const [errors, setErrors] = useState({});
     const [firstMessage, setFirstMessage] = useState(<Text></Text>);
     const [lastMessage, setLastMessage] = useState(<Text></Text>);
@@ -23,7 +26,7 @@ export default function SignUpInitial({ navigation }) {
         if (!initialAuth.first) {
             setFirstMessage(<Text style={{ color: 'red' }}>Please Enter A First Name</Text>);
             error = true;
-        } 
+        }
         else {
             setFirstMessage(<Text></Text>);
         }
@@ -80,19 +83,20 @@ export default function SignUpInitial({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            
-            <KeyboardAvoidingView 
-                behavior={Platform.OS === "ios" ? "padding" : "height"} 
+
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', backgroundColor: '#FFFDFC' }}
-                >
-                <View style={{ flexDirection: 'column' }}>
+            >
+                <View style={{ flexDirection: 'column'}}>
                     <ScrollView>
                         <Text text40 style={{ textAlign: 'center', marginTop: 80, fontSize: 30 }}>Sign Up</Text>
 
                         <Text text70 dark10 marginB-15 marginT-20 marginR-10>
                             <Text style={{ color: 'red' }}>*</Text> First Name
-                    </Text>
-                        {firstMessage}
+                            {firstMessage}
+                        </Text>
+
                         <TextInput
                             placeholder="First Name"
                             autoCorrect={false}
@@ -102,8 +106,9 @@ export default function SignUpInitial({ navigation }) {
 
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Last Name
-                    </Text>
-                        {lastMessage}
+                            {lastMessage}
+                        </Text>
+
                         <TextInput
                             placeholder="Last Name"
                             autoCorrect={false}
@@ -112,8 +117,9 @@ export default function SignUpInitial({ navigation }) {
                         />
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Email
-                    </Text>
-                        {emailMessage}
+                            {emailMessage}
+                        </Text>
+
                         <TextInput
                             placeholder="Email"
                             autoCorrect={false}
@@ -123,8 +129,9 @@ export default function SignUpInitial({ navigation }) {
                         />
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Password
-                    </Text>
-                        {passwordMessage}
+                            {passwordMessage}
+                        </Text>
+
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
@@ -137,8 +144,9 @@ export default function SignUpInitial({ navigation }) {
 
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Retype Password
-                    </Text>
-                        {confirmPasswordMessage}
+                            {confirmPasswordMessage}
+                        </Text>
+
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
@@ -150,7 +158,7 @@ export default function SignUpInitial({ navigation }) {
                         />
 
 
-                        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: 50  }}>
                             <Button
                                 backgroundColor={orange}
                                 label="Continue"
