@@ -81,7 +81,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Last Name
                         </Text>
-                        {errors.lastMessage ? <Text style={{ color: 'red' }}>{errors.lastMessage}</Text> : <View></View>}
+                        {errors.lastMessage && <Text style={{ color: 'red' }}>{errors.lastMessage}</Text> }
                         <TextInput
                             placeholder="Last Name"
                             autoCorrect={false}
@@ -91,7 +91,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Email
                         </Text>
-                        {errors.emailMessage ? <Text style={{ color: 'red' }}>{errors.emailMessage}</Text> : <View></View>}
+                        {errors.emailMessage && <Text style={{ color: 'red' }}>{errors.emailMessage}</Text> }
                         <TextInput
                             placeholder="Email"
                             autoCorrect={false}
@@ -104,7 +104,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Password
                         </Text>
-                        {errors.passwordMessage ? <Text style={{ color: 'red' }}>{errors.passwordMessage}</Text> : <View></View>}
+                        {errors.passwordMessage && <Text style={{ color: 'red' }}>{errors.passwordMessage}</Text> }
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
@@ -118,7 +118,7 @@ export default function SignUpInitial({ navigation }) {
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Retype Password
                         </Text>
-                        {errors.confirmPasswordMessage ? <Text style={{ color: 'red' }}>{errors.confirmPasswordMessage}</Text> : <View></View>}
+                        {errors.confirmPasswordMessage && <Text style={{ color: 'red' }}>{errors.confirmPasswordMessage}</Text> }
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
