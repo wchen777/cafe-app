@@ -13,70 +13,45 @@ export default function SignUpInitial({ navigation }) {
     // right now, i removed the empty space but the errors need to have a line break
 
     const [errors, setErrors] = useState({});
-    const [firstMessage, setFirstMessage] = useState(<Text></Text>);
-    const [lastMessage, setLastMessage] = useState(<Text></Text>);
-    const [emailMessage, setEmailMessage] = useState(<Text></Text>)
-    const [passwordMessage, setPasswordMessage] = useState(<Text></Text>);
-    const [confirmPasswordMessage, setConfirmPasswordMessage] = useState(<Text></Text>);
     const [initialAuth, setInitialAuth] = useState({});
 
     const initialValidation = () => {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        let error = false;
+        let tempErrors = {};
         if (!initialAuth.first) {
-            setFirstMessage(<Text style={{ color: 'red' }}>Please Enter A First Name</Text>);
-            error = true;
-        }
-        else {
-            setFirstMessage(<Text></Text>);
+            tempErrors.firstMessage = "Please Enter A First Name";
         }
 
         if (!initialAuth.last) {
-            setLastMessage(<Text style={{ color: 'red' }}>Please Enter A Last Name</Text>);
-            error = true;
-        }
-        else {
-            setLastMessage(<Text></Text>);
+            tempErrors.lastMessage = "Please Enter A Last Name";
         }
 
         if (!initialAuth.email) {
-            setEmailMessage(<Text style={{ color: 'red' }}>Please Enter An Email Address</Text>);
-            error = true;
+            tempErrors.emailMessage = "Please Enter An Email";
         }
         else if (!re.test(initialAuth.email)) {
-            setEmailMessage(<Text style={{ color: 'red' }}>Please Enter A Valid Email Address</Text>);
-            error = true;
-        }
-        else {
-            setEmailMessage(<Text></Text>);
+            tempErrors.emailMessage = "Please Enter a VALID Email";
         }
 
         if (!initialAuth.password) {
-            setPasswordMessage(<Text style={{ color: 'red' }}>Please Enter A Password</Text>);
-            error = true;
+            tempErrors.passwordMessage = "Please Enter a Password";
         }
         else if (initialAuth.password.length < 6) {
-            setPasswordMessage(<Text style={{ color: 'red' }}>Password Must Be At Least 6 Characters ALong</Text>);
-            error = true;
-        }
-        else {
-            setPasswordMessage(<Text></Text>);
+            tempErrors.passwordMessage = "Password Must Be At Least 6 Characters Long";
         }
 
         if (!initialAuth.confirmPassword) {
-            setConfirmPasswordMessage(<Text style={{ color: 'red' }}>Please Confirm Your Password</Text>);
-            error = true;
+            tempErrors.confirmPasswordMessage = "Please Confirm Your Password";
         }
         else if (initialAuth.password !== initialAuth.confirmPassword) {
-            setConfirmPasswordMessage(<Text style={{ color: 'red' }}>Passwords Must Match</Text>);
-            error = true;
-        }
-        else {
-            setConfirmPasswordMessage(<Text></Text>);
+            tempErrors.confirmPasswordMessage = "Passwords Must Match";
         }
 
-        if (!error) {
+        if (!tempErrors) {
             navigation.navigate("MediaLinks", initialAuth);
+        } 
+        else {
+            setErrors(tempErrors);
         }
     }
 
@@ -94,9 +69,8 @@ export default function SignUpInitial({ navigation }) {
 
                         <Text text70 dark10 marginB-15 marginT-20 marginR-10>
                             <Text style={{ color: 'red' }}>*</Text> First Name
-                            {firstMessage}
                         </Text>
-
+                        {errors.firstMessage ? <Text style={{ color: 'red' }}>{errors.firstMessage}</Text> : <View></View>}
                         <TextInput
                             placeholder="First Name"
                             autoCorrect={false}
@@ -106,9 +80,8 @@ export default function SignUpInitial({ navigation }) {
 
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Last Name
-                            {lastMessage}
                         </Text>
-
+                        {errors.lastMessage ? <Text style={{ color: 'red' }}>{errors.lastMessage}</Text> : <View></View>}
                         <TextInput
                             placeholder="Last Name"
                             autoCorrect={false}
@@ -117,21 +90,21 @@ export default function SignUpInitial({ navigation }) {
                         />
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Email
-                            {emailMessage}
                         </Text>
-
+                        {errors.emailMessage ? <Text style={{ color: 'red' }}>{errors.emailMessage}</Text> : <View></View>}
                         <TextInput
                             placeholder="Email"
                             autoCorrect={false}
-                            keyboardType='email-address' textContentType='emailAddress' autoCapitalize='none'
+                            keyboardType='email-address' 
+                            textContentType='emailAddress' 
+                            autoCapitalize='none'
                             onChangeText={(email) => setInitialAuth({ ...initialAuth, email: email.trim() })}
                             style={styles.inputStyle}
                         />
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Password
-                            {passwordMessage}
                         </Text>
-
+                        {errors.passwordMessage ? <Text style={{ color: 'red' }}>{errors.passwordMessage}</Text> : <View></View>}
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
@@ -144,9 +117,8 @@ export default function SignUpInitial({ navigation }) {
 
                         <Text text70 dark10 marginB-15 marginT-15>
                             <Text style={{ color: 'red' }}>*</Text> Retype Password
-                            {confirmPasswordMessage}
                         </Text>
-
+                        {errors.confirmPasswordMessage ? <Text style={{ color: 'red' }}>{errors.confirmPasswordMessage}</Text> : <View></View>}
                         <TextInput
                             placeholder="********"
                             autoCapitalize='none'
