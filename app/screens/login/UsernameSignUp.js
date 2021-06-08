@@ -57,7 +57,7 @@ export default function UsernameSignUp({ navigation, route }) {
         {
             onError(err) {
                 console.log(err)
-                Alert.alert("Account registration failed.", "An account exists with the same username or email.");
+                Alert.alert("Account registration failed.", "An account exists with the same username.");
             },
             onCompleted(data) {
                 console.log(data, "completed");

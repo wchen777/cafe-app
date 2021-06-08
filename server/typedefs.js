@@ -65,6 +65,7 @@ module.exports = gql`
             pic: String
             bio: String
         ): User!
+        isDuplicateEmailCheck(email: String!): Boolean!
         followHandler(
             usernameSelf: String!
             usernameFollowed: String!
