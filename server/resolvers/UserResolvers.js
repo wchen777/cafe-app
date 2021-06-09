@@ -23,7 +23,7 @@ module.exports = {
         throw err;
       }
     },
-    getUserByEmail: async (parent, { email }, { tokenValid }) => {
+    getUserByEmail: async (_, { email }, { tokenValid }) => {
       try {
         // auth check
         if (!tokenValid) {
@@ -38,6 +38,23 @@ module.exports = {
         throw err;
       }
     },
+    isDuplicateEmailCheck: async (_, { email }, __) => {
+        try {
+  
+          const filter = {
+            email,
+          };
+  
+          const dupeUser = await User.findOne(filter);
+          
+          // boolean of whether dupeUser exists or not
+          return !!dupeUser
+  
+        } catch (err) {
+          console.log(err);
+          throw err;
+        }
+      },
   },
   Mutation: {
     registerUser: async (_, data, __) => {
@@ -92,23 +109,6 @@ module.exports = {
         console.log(err, "caught error");
         throw err;
         // TODO: GRAPHQL ERRORS FOR GRACEFUL HANDLING
-      }
-    },
-    isDuplicateEmailCheck: async (_, { email }, __) => {
-      try {
-
-        const filter = {
-          email,
-        };
-
-        const dupeUser = await User.findOne(filter);
-        
-        // boolean of whether dupeUser exists or not
-        return !!dupeUser
-
-      } catch (err) {
-        console.log(err);
-        throw err;
       }
     },
     editUserProfile: async (_, data, { tokenValid }) => {

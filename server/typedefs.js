@@ -38,6 +38,7 @@ module.exports = gql`
             email: String!
         ): User!
         testQuery: Message!
+        isDuplicateEmailCheck(email: String!): Boolean!
     }
     type Mutation{
         sendMessage(
@@ -65,7 +66,6 @@ module.exports = gql`
             pic: String
             bio: String
         ): User!
-        isDuplicateEmailCheck(email: String!): Boolean!
         followHandler(
             usernameSelf: String!
             usernameFollowed: String!
