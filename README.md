@@ -7,7 +7,17 @@
 
 ### Goals
 
+#### Technical
 - Transition Firebase code to GraphQL backend, including communicating auth
-- Polish UI, redesign overhaul
-- Efficiency and performance
 - Revamp "explore" to inspire networking
+- Blob storage with AWS S3
+- Real-time notifications
+- Email verification + communication with users
+- Vetting system
+
+#### Design
+- Polish UI, redesign overhaul
+
+#### Dev Process
+- Efficiency and performance
+- Organization for scalability and productivity
