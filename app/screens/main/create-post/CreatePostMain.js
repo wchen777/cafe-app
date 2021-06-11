@@ -56,7 +56,7 @@ export default function CreatePostMain({ navigation }) {
     }, [])
 
     useEffect(() => {
-        getUserInfo();
+        // getUserInfo();
         setContent({})
     }, [userData])
 
