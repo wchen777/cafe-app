@@ -26,6 +26,7 @@ import * as Linking from "expo-linking";
 import * as firebase from "firebase";
 import "firebase/firestore";
 
+import { orange } from "../styles/Colors";
 import ImageCard from "../components/cards/ImageCard";
 import AudioCard from "../components/cards/AudioCard";
 import TextCard from "../components/cards/TextCard";
@@ -39,7 +40,6 @@ const wait = (timeout) => {
 };
 
 export default function MyProfileView({ navigation }) {
-  const orange = "#FFB36C";
   const lightOrange = "#ffdfc2";
   const [userPosts, setUserPosts] = useState();
   const [refreshing, setRefreshing] = React.useState(false);
@@ -131,7 +131,7 @@ export default function MyProfileView({ navigation }) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <View style={{backgroundColor: '#ffffff', marginHorizontal: 20}}>
+        <View style={{ backgroundColor: "#ffffff", marginHorizontal: 20 }}>
           <View style={{ ...styles.centering, marginTop: 20 }}>
             {userData.pic === "" ? (
               <Avatar
@@ -174,6 +174,18 @@ export default function MyProfileView({ navigation }) {
                 <Text text70> Followers </Text>
               </Text>
             </TouchableOpacity>
+          </View>
+
+          <View center marginT-10 marginB-20>
+            <Button
+              backgroundColor={orange}
+              borderRadius={10}
+              labelStyle={{ fontWeight: "600", fontSize: 17 }}
+              style={{ width: 200 }}
+              label="Edit Profile"
+              enableShadow
+              onPress={() => navigation.navigate("EditProfile")}
+            />
           </View>
         </View>
 
