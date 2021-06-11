@@ -32,34 +32,31 @@ module.exports = {
 
         const user = await User.findOne({ email }).exec();
 
-        console.log("email query", user)
+        console.log("email query", user);
 
         return user;
-
       } catch (err) {
         console.log(err);
         throw err;
       }
     },
-    isDuplicateEmailCheck: async (_, { email }, __) => {
-        try {
-  
-          const filter = {
-            email,
-          };
-  
-          const dupeUser = await User.findOne(filter);
-          
-          // boolean of whether dupeUser exists or not
-          return !!dupeUser
-  
-        } catch (err) {
-          console.log(err);
-          throw err;
-        }
-      },
   },
   Mutation: {
+    isDuplicateEmailCheck: async (_, { email }, __) => {
+      try {
+        const filter = {
+          email,
+        };
+
+        const dupeUser = await User.findOne(filter);
+
+        // boolean of whether dupeUser exists or not
+        return !!dupeUser;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
     registerUser: async (_, data, __) => {
       try {
         console.log(data.username, "username");
