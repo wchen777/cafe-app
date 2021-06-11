@@ -32,7 +32,10 @@ module.exports = {
 
         const user = await User.findOne({ email }).exec();
 
+        console.log("email query", user)
+
         return user;
+
       } catch (err) {
         console.log(err);
         throw err;

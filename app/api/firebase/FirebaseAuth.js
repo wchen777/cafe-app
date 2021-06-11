@@ -111,9 +111,12 @@ export async function signIn({ email, password }) {
     try {
         await firebase.auth().signInWithEmailAndPassword(email, password);
         const currentUser = firebase.auth().currentUser;
-        if (!currentUser.emailVerified) {
-            Alert.alert("Please verify your email.");
-        }
+
+        // if (!currentUser.emailVerified) {
+        //     Alert.alert("Please verify your email.");
+        // }
+
+
     } catch (err) {
         Alert.alert("Error in account sign in.", err.message);
     }

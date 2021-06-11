@@ -47,7 +47,8 @@ export default function SignUpInitial({ navigation }) {
             tempErrors.confirmPasswordMessage = "Passwords Must Match";
         }
 
-        if (!tempErrors) {
+        // check empty temp errors object
+        if (Object.keys(tempErrors).length === 0) {
             navigation.navigate("MediaLinks", initialAuth);
         } 
         else {

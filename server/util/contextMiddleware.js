@@ -8,6 +8,7 @@ module.exports = async (context) => {
   let tokenValid = false;
   
   if (token) {
+    console.log("server received authtoken:", token)
     tokenValid = await admin.auth().verifyIdToken(token);
   }
   
