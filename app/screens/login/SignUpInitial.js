@@ -2,22 +2,45 @@ import React, { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback, TextInput, Alert, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { View, Image, Text, TextField, TextArea, Button, Colors } from 'react-native-ui-lib';
+import { gql, useMutation } from '@apollo/client'
+
+
+const DUPEEMAIL = gql`
+mutation isDuplicateEmailCheck(
+        $email: String!){
+    isDuplicateEmailCheck(             
+            email: $email
+        )
+}
+`
 
 
 export default function SignUpInitial({ navigation }) {
 
     const orange = '#f79a43'
-
     // move all the errors into its own json object
     // ALSO, try and get rid of extra empty space between label and text input when errors are not present
     // right now, i removed the empty space but the errors need to have a line break
-
     const [errors, setErrors] = useState({});
     const [initialAuth, setInitialAuth] = useState({});
+
+    const [checkDupeEmailResolver, { data }] = useMutation(DUPEEMAIL,
+        {
+            onError(err) {
+                console.log(err)
+            },
+            onCompleted(data) {
+                console.log(data, "completed");
+            }
+        },
+    );
 
     const initialValidation = () => {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         let tempErrors = {};
+        console.log("here 1");
+        const isDupeEmail = checkDupeEmailResolver({ email: initialAuth.email });
+        console.log("here 2");
         if (!initialAuth.first) {
             tempErrors.firstMessage = "Please Enter A First Name";
         }
@@ -31,6 +54,9 @@ export default function SignUpInitial({ navigation }) {
         }
         else if (!re.test(initialAuth.email)) {
             tempErrors.emailMessage = "Please Enter a VALID Email";
+        } 
+        else if (isDupeEmail) {
+            tempErrors.emailMessage = "This email is already taken."
         }
 
         if (!initialAuth.password) {

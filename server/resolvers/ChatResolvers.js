@@ -24,7 +24,7 @@ module.exports = {
                 }
                 const projection = { "_id": 0 };
 
-                let messages
+                let messages;
 
                 const collection = db.collection("messages");
 
