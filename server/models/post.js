@@ -7,7 +7,6 @@ const PostSchema = new Schema({
     likes: { type: Number },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     creation: {type: Schema.Types.ObjectId, ref: 'Creation'},
-    id: {type: String, required: true}
 });
 
 // Compile model from schema

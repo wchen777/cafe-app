@@ -86,11 +86,10 @@ module.exports = gql`
       creationId: String!
     ): Post!
     editPost(
-      posterName: String!
+      id: String!
       likes: String
       # comments: [Comment]
       creation: String
-      id: String!
     ): Post!
     createCreation(
       type: String!
