@@ -14,9 +14,10 @@ import { setContext } from '@apollo/client/link/context';
 
 let httpLink = new HttpLink({
   // desi
-//   uri: 'http://192.168.1.13:8000/'
+  uri: 'http://192.168.1.13:8080/'
   // will
-  uri: 'http://192.168.0.114:8080/'
+  // uri: 'http://192.168.0.114:8080/'
+
 });
 
 // const wsLink = new WebSocketLink({

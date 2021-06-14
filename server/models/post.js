@@ -6,6 +6,8 @@ const PostSchema = new Schema({
     poster: { type: Schema.Types.ObjectId, ref: 'User' },
     likes: { type: Number },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    creation: {type: Schema.Types.ObjectId, ref: 'Creation'},
+    id: {type: String, required: true}
 });
 
 // Compile model from schema

@@ -10,7 +10,6 @@ const CreationSchema = new Schema({
     text: { type: String },
     audioUrl: { type: String },
     description: { type: String },
-
 });
 
 // Compile model from schema

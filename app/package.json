@@ -64,8 +64,7 @@
     "react-native-web": "^0.15.6",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
-    "subscriptions-transport-ws": "^0.9.18",
-    "uuid": "^8.3.2"
+    "subscriptions-transport-ws": "^0.9.18"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

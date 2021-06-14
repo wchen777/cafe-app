@@ -26,11 +26,30 @@ module.exports = gql`
     createdAt: String!
     _id: ID
   }
+  type Creation {
+    type: String!
+    category: String!
+    author: User!
+    imageUrl: String
+    text: String
+    audioUrl: String
+    description: String
+  }
+  type Post {
+    poster: User!
+    id: String!
+    creation: Creation!
+    likes: String
+    # comments: [Comment]
+  }
   type Query {
     getMessages(to: String!, from: String!): [Message]!
     getUserByUsername(username: String!): User!
     getUserByEmail(email: String!): User!
     testQuery: Message!
+    getPosts(user: String!): [Post]!
+    getPostById(id: String!): Post!
+    getCreationById(id: String!): Creation!
   }
   type Mutation {
     isDuplicateEmailCheck(email: String!): Boolean!
@@ -60,6 +79,36 @@ module.exports = gql`
       usernameFollowed: String!
       isFollow: Boolean!
     ): User!
+    createPost(
+      posterName: String!
+      likes: String
+      # comments: [Comment]
+      creationId: String!
+    ): Post!
+    editPost(
+      posterName: String!
+      likes: String
+      # comments: [Comment]
+      creation: String
+      id: String!
+    ): Post!
+    createCreation(
+      type: String!
+      category: String!
+      authorName: String!
+      imageUrl: String
+      audioUrl: String
+      description: String
+    ): Creation!
+    editCreation(
+      id: String!
+      type: String
+      category: String
+      authorName: String
+      imageUrl: String
+      audioUrl: String
+      description: String
+    ): Creation!
   }
   type Subscription {
     newMessage(username: String!): Message!

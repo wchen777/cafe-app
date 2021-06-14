@@ -47,9 +47,8 @@ module.exports = {
         const filter = {
           email,
         };
-
         const dupeUser = await User.findOne(filter);
-
+        console.log(dupeUser);
         // boolean of whether dupeUser exists or not
         return !!dupeUser;
       } catch (err) {
@@ -61,7 +60,7 @@ module.exports = {
       try {
         console.log(data.username, "username");
         const filter = {
-          $or: [{ username: data.username }, { email: data.email }],
+          $or: [{ username: data.username }],
         };
         // look for the username first
         const dupeUser = await User.findOne(filter);
