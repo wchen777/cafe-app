@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState, useContext } from 'react';
-import Routes from './navigation/Routes'
+import Routes from './navigation/Routes';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { split, HttpLink } from '@apollo/client';
@@ -13,11 +12,10 @@ import { setContext } from '@apollo/client/link/context';
 // });
 
 let httpLink = new HttpLink({
-  // desi
-  uri: 'http://192.168.1.13:8080/'
-  // will
-  // uri: 'http://192.168.0.114:8080/'
-
+    // desi
+    //   uri: 'http://192.168.1.13:8080/'
+    // will
+    uri: 'http://192.168.0.114:8080/',
 });
 
 // const wsLink = new WebSocketLink({
@@ -28,16 +26,14 @@ let httpLink = new HttpLink({
 // });
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://73.149.220.205:8080/graphql',
-  options: {
-    reconnect: true
-  }
+    uri: 'ws://73.149.220.205:8080/graphql',
+    options: {
+        reconnect: true,
+    },
 });
 
-
-
 export default function ApolloWrapper() {
-    // let authLink; 
+    // let authLink;
     // firebase.auth().currentUser.getIdToken(true)
     // .then((token) => {
     //   authLink = setContext((_, { headers }) => {
@@ -51,30 +47,30 @@ export default function ApolloWrapper() {
     //   httpLink = authLink.concat(httpLink)
     // })
     // The split function takes three parameters:
-//
-// * A function that's called for each operation to execute
-// * The Link to use for an operation if the function returns a "truthy" value
-// * The Link to use for an operation if the function returns a "falsy" value
-const splitLink = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
+    //
+    // * A function that's called for each operation to execute
+    // * The Link to use for an operation if the function returns a "truthy" value
+    // * The Link to use for an operation if the function returns a "falsy" value
+    const splitLink = split(
+        ({ query }) => {
+            const definition = getMainDefinition(query);
+            return (
+                definition.kind === 'OperationDefinition' &&
+                definition.operation === 'subscription'
+            );
+        },
+        wsLink,
+        httpLink
     );
-  },
-  wsLink,
-  httpLink,
-);
     // Initialize Apollo Client
     const client = new ApolloClient({
-      link: splitLink,
-      cache: new InMemoryCache()
-  });
+        link: splitLink,
+        cache: new InMemoryCache(),
+    });
 
     return (
         <ApolloProvider client={client}>
-                <Routes />
+            <Routes />
         </ApolloProvider>
     );
 }
