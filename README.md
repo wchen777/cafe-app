@@ -17,6 +17,7 @@
 
 #### Design
 - Polish UI, redesign overhaul
+- Revamp create post system and design like FB's
 
 #### Dev Process
 - Efficiency and performance
